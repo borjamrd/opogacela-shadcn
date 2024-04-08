@@ -12,6 +12,7 @@ import { Newsletter } from "@/components/Newsletter";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import Cart from "@/components/Cart";
 
 export default function Home() {
   return (
@@ -29,7 +30,13 @@ export default function Home() {
       <Newsletter />
       <FAQ />
       <Footer />
+
+      <div className="lg:hidden fixed bottom-4 right-4" >
+        <Cart />
+      </div>
+
       <ScrollToTop />
+
     </div>
   )
 }

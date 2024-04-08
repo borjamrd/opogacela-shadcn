@@ -129,7 +129,7 @@ export const Navbar = () => {
             <a
               href="https://github.com/leoMirandaa/shadcn-landing-page.git"
               target="_blank"
-              className={`border ${buttonVariants({ variant: "secondary" })}`}
+              className={`${buttonVariants({ variant: "secondary" })}`}
             >
               <DiscordLogoIcon className="mr-2 w-5 h-5" />
               Únete a nuestro canal
