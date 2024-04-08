@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
+import { Stripe } from 'stripe'
 
 export async function GET() {
-    return NextResponse.json({ message: 'Hello' }, { status: 200 })
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+    const prices = await stripe.prices.list()
+
+
+    return NextResponse.json(prices.data, { status: 200 })
 }

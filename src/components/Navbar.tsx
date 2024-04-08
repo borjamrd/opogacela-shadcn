@@ -15,10 +15,11 @@ import {
 } from "@/components/ui/sheet";
 
 import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
-import { buttonVariants } from "./ui/button";
-import { Menu } from "lucide-react";
+import { Button, buttonVariants } from "./ui/button";
+import { Menu, ShoppingCart } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
 import { LogoIcon } from "./Icons";
+import Cart from "./Cart";
 
 interface RouteProps {
   href: string;
@@ -55,7 +56,7 @@ export const Navbar = () => {
               href="/"
               className="ml-2 font-bold text-xl flex"
             >
-             
+
               ShadcnUI/React
             </a>
           </NavigationMenuItem>
@@ -73,7 +74,7 @@ export const Navbar = () => {
                   className="flex md:hidden h-5 w-5"
                   onClick={() => setIsOpen(true)}
                 >
-                  
+
                 </Menu>
               </SheetTrigger>
 
@@ -133,6 +134,7 @@ export const Navbar = () => {
               <DiscordLogoIcon className="mr-2 w-5 h-5" />
               Únete a nuestro canal
             </a>
+            <Cart />
 
             <ModeToggle />
           </div>
