@@ -37,7 +37,7 @@ export default function Cart() {
         <AlertDialogTrigger asChild>
             <Button className={`border relative ${buttonVariants({ variant: "secondary" })}`} >
                 {prices.length > 0 && <Badge className="absolute -top-2 -right-2 z-10 ">{prices.length}</Badge>}
-
+                <span className="lg:hidden mr-2">Carrito de compra</span>
                 <ShoppingCart className="w-5 h-5" />
             </Button>
         </AlertDialogTrigger>

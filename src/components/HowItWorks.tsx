@@ -1,36 +1,40 @@
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "../components/Icons";
+import checkout from '../../public/svg/checkout.svg'
+import messages from '../../public/svg/messages.svg'
+import studying from '../../public/svg/studying.svg'
+import collaboration from '../../public/svg/collaboration.svg'
 
 interface FeatureProps {
-  icon: JSX.Element;
+  image: any;
   title: string;
   description: string;
 }
 
 const features: FeatureProps[] = [
   {
-    icon: <MedalIcon />,
-    title: "Accesibility",
+    image: checkout,
+    title: "Realiza la compra",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Más abajo tienes todos los apuntes disponbibles, realiza tu compra con calma.",
   },
   {
-    icon: <MapIcon />,
-    title: "Community",
+    image: messages,
+    title: "Revisa tu correo",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Una vez finalizada la compra te llegará un correo con los detalles de la transacción.",
   },
   {
-    icon: <PlaneIcon />,
-    title: "Scalability",
+    image: studying,
+    title: "Espera el pedido",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "En 24/48 horas te llegará el pedido, mientras puedes estudiar con nuestro grupo de Telegram",
   },
   {
-    icon: <GiftIcon />,
-    title: "Gamification",
+    image: collaboration,
+    title: "Comparte tu opinión",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "¿Te gustan los apuntes? Comparte tu opinión para poder ayudar a otra persona",
   },
 ];
 
@@ -41,11 +45,11 @@ export const HowItWorks = () => {
       className="container text-center py-24 sm:py-32"
     >
       <h2 className="text-3xl md:text-4xl font-bold ">
-        How It{" "}
+        ¿Cómo funciona la entrega de{" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Works{" "}
+          esquemas y apuntes{" "}
         </span>
-        Step-by-Step Guide
+        ?
       </h2>
       <p className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
@@ -53,14 +57,18 @@ export const HowItWorks = () => {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {features.map(({ icon, title, description }: FeatureProps) => (
+        {features.map(({ image, title, description }: FeatureProps) => (
           <Card
             key={title}
             className="bg-muted/50"
           >
             <CardHeader>
               <CardTitle className="grid gap-4 place-items-center">
-                {icon}
+                <Image
+                  src={image}
+                  alt=""
+                  className="w-[100px] object-contain rounded-lg"
+                />
                 {title}
               </CardTitle>
             </CardHeader>

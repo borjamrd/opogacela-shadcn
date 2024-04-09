@@ -13,14 +13,14 @@ interface FAQProps {
 
 const FAQList: FAQProps[] = [
     {
-        question: "Is this template free?",
-        answer: "Yes. It is a free ChadcnUI template.",
+        question: "¿Cómo es el proceso de compra?",
+        answer: "Una vez que escojas tus apuntes te llegará un correo de confirmación y la información ",
         value: "item-1",
     },
     {
-        question: "Lorem ipsum dolor sit amet consectetur adipisicing elit?",
+        question: "¿Puedo pedirlos en formato PDF?",
         answer:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam? Consectetur sapiente iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+            "No, por cuestiones de logística se envían exclusivamente a domicilio, los costes de envío están incluidos en el precio final",
         value: "item-2",
     },
     {
@@ -78,12 +78,13 @@ export const FAQ = () => {
             </Accordion>
 
             <h3 className="font-medium mt-4">
-                Still have questions?{" "}
+                ¿Sigues con dudas?{" "}
                 <a
-                    href="#"
+                    href="mailto:instaopogacela@gmail.com?Subject=Quiero%20más%20información"
+                    target="_blank"
                     className="text-primary transition-all border-primary hover:border-b-2"
                 >
-                    Contact us
+                    Contacta conmigo
                 </a>
             </h3>
         </section>

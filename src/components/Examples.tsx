@@ -1,4 +1,3 @@
-import { Badge } from "./ui/badge";
 import {
   Card,
   CardContent,
@@ -6,35 +5,43 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import image from "../../public/images/growth.png";
-import image3 from "../../public/images/reflecting.png";
-import image4 from "../../public/images/looking-ahead.png";
-import Image, { StaticImageData } from "next/image";
+import { Download } from "lucide-react";
+
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+import DownloadButton from "./DownloadButton";
 
 interface FeatureProps {
   title: string;
   description: string;
-  image: StaticImageData;
+  file: any,
 }
 
 const features: FeatureProps[] = [
   {
-    title: "Responsive Design",
+    title: "Administrativo AGE TL - Bloque I",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    image: image4,
+      "Contiene los 11 temas del bloque de Organización del Estado y la Administración Pública",
+    file: 'admin_bloque_1.pdf'
+
   },
   {
-    title: "Intuitive user interface",
+    title: "Administrativo AGE TL - Bloque III",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    image: image3,
+      "Contiene los 7 temas del bloque de Derecho Administrativo General",
+    file: 'admin_bloque_3.pdf'
   },
   {
-    title: "AI-Powered insights",
+    title: "Administrativo AGE TL - Bloque IV",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    image: image,
+      "Contiene los 9 temas del bloque de Gestión del Personal",
+    file: 'admin_bloque_4.pdf'
+  },
+  {
+    title: "Administrativo AGE TL - Bloque V",
+    description:
+      "Contiene los 6 temas del bloque de Gestión Financiera",
+    file: 'admin_bloque_5.pdf'
   },
 ];
 
@@ -50,16 +57,19 @@ const featureList: string[] = [
   "Minimalist",
 ];
 
-export const Features = () => {
+export const Examples = () => {
+
+
+
   return (
     <section
-      id="features"
+      id="examples"
       className="container py-24 sm:py-32 space-y-8"
     >
       <h2 className="text-3xl lg:text-4xl font-bold md:text-center">
-        Many{" "}
+        Aqui tienes {" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Great Features
+          algunos ejemplos
         </span>
       </h2>
 
@@ -77,20 +87,16 @@ export const Features = () => {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {features.map(({ title, description, image }: FeatureProps) => (
+        {features.map(({ title, description, file }: FeatureProps) => (
           <Card key={title}>
             <CardHeader>
               <CardTitle>{title}</CardTitle>
             </CardHeader>
 
-            <CardContent>{description}</CardContent>
-
+            <CardContent>{description}
+            </CardContent>
             <CardFooter>
-              <Image
-                src={image}
-                alt="About feature"
-                className="w-[200px] lg:w-[300px] mx-auto"
-              />
+              <DownloadButton file={file} />
             </CardFooter>
           </Card>
         ))}

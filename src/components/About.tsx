@@ -1,5 +1,5 @@
 import { Statistics } from "./Statistics";
-import pilot from "../../public/images/pilot.png";
+import pilot from "../../public/svg/study.svg";
 import Image from "next/image";
 
 export const About = () => {
@@ -18,18 +18,14 @@ export const About = () => {
           <div className="bg-green-0 flex flex-col justify-between">
             <div className="pb-6">
               <h2 className="text-3xl md:text-4xl font-bold">
-              
+
                 Sobre{" "}
                 <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
                   Opogacela
                 </span>
               </h2>
               <p className="text-xl text-muted-foreground mt-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit.
+                Estudié Administración y Dirección de Empresas en la Universidad de Navarra (UNAV) y al terminar estuve trabajando en empresa privada durante 6 años, tanto en investigación como en FMCG. Decidí dar el salto a la función pública para contribuir a la <strong>mejora de los servicios públicos de nuestro país.</strong> Tras año y medio de estudio, estos son los datos:
               </p>
             </div>
 

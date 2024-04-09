@@ -2,7 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { About } from "@/components/About";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
-import { Features } from "@/components/Features";
+import { Examples } from "@/components/Examples";
 import { Services } from "@/components/Services";
 import { Cta } from "@/components/Cta";
 import { Testimonials } from "@/components/Testimonials";
@@ -20,14 +20,13 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
-      <HowItWorks />
-      <Features />
       <Services />
+      <HowItWorks />
+      <Examples />
       <Cta />
       <Testimonials />
       <Team />
       <Esquemas />
-      {/* <Newsletter /> */}
       <FAQ />
       <Footer />
 

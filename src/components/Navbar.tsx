@@ -26,21 +26,22 @@ interface RouteProps {
 }
 
 const routeList: RouteProps[] = [
-  {
-    href: "#features",
-    label: "Features",
-  },
+
   {
     href: "#sobremi",
     label: "Sobre mi",
   },
   {
-    href: "#testimonials",
-    label: "Testimonials",
+    href: "#examples",
+    label: "Ejemplos",
   },
   {
     href: "#esquemas",
     label: "Esquemas",
+  },
+  {
+    href: "#testimonials",
+    label: "Opiniones",
   },
   {
     href: "#faq",
@@ -84,7 +85,13 @@ export const Navbar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
-                    Shadcn/React
+                    <a
+                      href="/"
+                      className="mx-auto font-bold text-xl flex text-primary"
+                    >
+
+                      Opo<span className="text-[#b985ab]">gacela</span>
+                    </a>
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">
@@ -99,14 +106,15 @@ export const Navbar = () => {
                     </a>
                   ))}
                   <a
-                    href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-                    target="_blank"
-                    className={`w-[110px] border ${buttonVariants({
-                      variant: "secondary",
-                    })}`}
+                    href="https://cal.com/opogacela" target="_blank"
+
+                    className={`${buttonVariants({ variant: "secondary" })}`}
                   >
-                    <GitHubLogoIcon className="mr-2 w-5 h-5" />
-                    Github
+
+
+                    <CalendarCheck className="h-5 w-5 mr-2" />
+                    <span>Agenda una reunión</span>
+
                   </a>
                 </nav>
               </SheetContent>
