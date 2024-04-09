@@ -30,11 +30,10 @@ export const Hero = () => {
         </p>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4">
-          <Button className="w-full md:w-1/3">
-            <CalendarCheck className="h-5 w-5 mr-2" />
-            <a href="https://cal.com/opogacela" target="_blank">Agenda una reunión</a>
 
-          </Button>
+          <a className={buttonVariants()} href="https://cal.com/opogacela" target="_blank"
+          > <CalendarCheck className="h-5 w-5 mr-2" />Agenda una reunión</a>
+
 
           <a
             href="https://github.com/leoMirandaa/shadcn-landing-page.git"

@@ -1,5 +1,6 @@
 import { DiscordLogoIcon } from "@radix-ui/react-icons";
-import { Button, buttonVariants } from "./ui/button";
+import { CalendarCheck } from "lucide-react";
+import { buttonVariants } from "./ui/button";
 
 export const Cta = () => {
   return (
@@ -23,7 +24,8 @@ export const Cta = () => {
         </div>
 
         <div className="space-y-4 lg:col-start-2">
-          <Button className="w-full md:mr-4 md:w-auto">Agenda una reunión GRATIS</Button>
+        <a className={buttonVariants()} href="https://cal.com/opogacela" target="_blank"
+          > <CalendarCheck className="h-5 w-5 mr-2" />Agenda una reunión GRATIS</a>
           <a
             href="https://github.com/leoMirandaa/shadcn-landing-page.git"
             target="_blank"
