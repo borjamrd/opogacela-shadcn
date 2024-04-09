@@ -1,9 +1,7 @@
-import { Button } from "./ui/button";
-import { buttonVariants } from "./ui/button";
-import { HeroCards } from "./HeroCards";
-import { FaWhatsapp } from "react-icons/fa";
-import Link from "next/link";
 import { CalendarCheck } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { HeroCards } from "./HeroCards";
+import { buttonVariants } from "./ui/button";
 
 export const Hero = () => {
   return (
@@ -11,17 +9,18 @@ export const Hero = () => {
       <div className="text-center lg:text-start space-y-6">
         <main className="text-5xl md:text-6xl font-bold">
           <h1 className="inline">
+            Hola <span className="wave ">👋</span>{" "},
+            <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text">
+              opositores
+            </span>{" "}
+            bienvenidos a{" "}
             <span className="inline bg-gradient-to-r from-[#b985ab]  to-[#ab6498] text-transparent bg-clip-text">
               Opogacela
             </span>{" "}
-            es tu comunidad
+
           </h1>{" "}
-          de{" "}
-          <h2 className="inline">
-            <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text">
-              opositores
-            </span>{" "}<span className="wave ">👋</span>{" "}
-          </h2>
+
+
         </main>
 
 

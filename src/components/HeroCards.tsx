@@ -35,15 +35,14 @@ export const HeroCards = () => {
                         className="absolute -top-12 rounded-full w-24 h-24 aspect-square object-cover"
                     />
                     <CardTitle className="text-center">@opogace_la</CardTitle>
-                    <CardDescription className="font-normal text-primary">
-                        C1 | CSACE - Esquemas A1 y A2
-                    </CardDescription>
+
                 </CardHeader>
 
                 <CardContent className="text-center pb-2">
                     <p>
                         Mnemotecnias y apuntes para que puedas estudiar mejor
                     </p>
+
                 </CardContent>
 
                 <CardFooter>
@@ -59,8 +58,8 @@ export const HeroCards = () => {
                             <span className="sr-only">Github icon</span>
                             <InstagramLogoIcon className="w-5 h-5" />
                         </a>
-                       
-                      
+
+
                         <a
                             href="mailto:instaopogacela@gmail.com?Subject=Quiero%20más%20información"
                             target="_blank"
