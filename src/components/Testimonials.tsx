@@ -66,17 +66,16 @@ export const Testimonials = () => {
             className="container py-24 sm:py-32"
         >
             <h2 className="text-3xl md:text-4xl font-bold">
-                Discover Why
+                Descubre por qué
                 <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
                     {" "}
-                    People Love{" "}
+                    la gente{" "}
                 </span>
-                This Landing Page
+                me recomienda
             </h2>
 
             <p className="text-xl text-muted-foreground pt-4 pb-8">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non unde error
-                facere hic reiciendis illo
+               No te lo digo yo, te lo dicen ell@s. Tras muchas horas de estudio he podido sintetizar la información más importante de la oposición para que la tengas más rápidamente.
             </p>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 sm:block columns-2  lg:columns-3 lg:gap-6 mx-auto space-y-4 lg:space-y-6">

@@ -10,9 +10,7 @@ export async function POST(request: NextRequest) {
         payment_method_types: ['card', 'paypal'],
         line_items: prices,
         success_url: `${process.env.BASE_URL}/thank-you`,
-        cancel_url: `${process.env.BASE_URL}/#pricing`
-
-
+        cancel_url: `${process.env.BASE_URL}/#esquemas`
     })
     return NextResponse.json({ url: session.url })
 }

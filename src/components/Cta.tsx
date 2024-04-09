@@ -1,4 +1,5 @@
-import { Button } from "./ui/button";
+import { DiscordLogoIcon } from "@radix-ui/react-icons";
+import { Button, buttonVariants } from "./ui/button";
 
 export const Cta = () => {
   return (
@@ -9,28 +10,34 @@ export const Cta = () => {
       <div className="container lg:grid lg:grid-cols-2 place-items-center">
         <div className="lg:col-start-1">
           <h2 className="text-3xl md:text-4xl font-bold ">
-            All Your
+            ¿Atascad@ con el
             <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
               {" "}
-              Ideas & Concepts{" "}
+              temario?{" "}
             </span>
-            In One Interface
+
           </h2>
           <p className="text-muted-foreground text-xl mt-4 mb-8 lg:mb-0">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque,
-            beatae. Ipsa tempore ipsum iste quibusdam illum ducimus eos. Quasi,
-            sed!
+            No te preocupes. Respira, tomate la tila, corre tus 5k o haz tu rato de meditación y contacta conmigo para que te eche una mano. 😄
           </p>
         </div>
 
         <div className="space-y-4 lg:col-start-2">
-          <Button className="w-full md:mr-4 md:w-auto">Request a Demo</Button>
-          <Button
-            variant="outline"
-            className="w-full md:w-auto"
+          <Button className="w-full md:mr-4 md:w-auto">Agenda una reunión GRATIS</Button>
+          <a
+            href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+            target="_blank"
+            className={`${buttonVariants({ variant: "secondary" })}`}
           >
-            View all features
-          </Button>
+
+
+            <DiscordLogoIcon
+              className="mr-2 w-5 h-5" />
+            Únete a nuestro canal
+
+          </a>
+
+
         </div>
       </div>
     </section>

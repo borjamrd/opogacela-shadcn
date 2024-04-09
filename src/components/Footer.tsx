@@ -139,13 +139,13 @@ export const Footer = () => {
 
             <section className="container pb-14 text-center">
                 <h3>
-                    &copy; 2024 Landing page made by{" "}
+                    &copy; 2024 Página web creada por{" "}
                     <a
                         target="_blank"
-                        href="https://github.com/leoMirandaa"
+                        href="https://github.com/borjamrd"
                         className="text-primary transition-all border-primary hover:border-b-2"
                     >
-                        Leo Miranda
+                        Borja Muñoz
                     </a>
                 </h3>
             </section>

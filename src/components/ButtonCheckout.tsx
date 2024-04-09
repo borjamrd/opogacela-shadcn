@@ -15,7 +15,6 @@ export default function ButtonCheckout({ priceId }: { priceId: string }) {
 
         const { url } = await res.json()
         window.location.href = url
-        console.log(url)
 
     }} className="w-full">Comprar ya</Button>
 }

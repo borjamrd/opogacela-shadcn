@@ -7,7 +7,7 @@ import { Services } from "@/components/Services";
 import { Cta } from "@/components/Cta";
 import { Testimonials } from "@/components/Testimonials";
 import { Team } from "@/components/Team";
-import { Pricing } from "@/components/Pricing";
+import { Esquemas } from "@/components/Esquemas";
 import { Newsletter } from "@/components/Newsletter";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
@@ -26,8 +26,8 @@ export default function Home() {
       <Cta />
       <Testimonials />
       <Team />
-      <Pricing />
-      <Newsletter />
+      <Esquemas />
+      {/* <Newsletter /> */}
       <FAQ />
       <Footer />
 

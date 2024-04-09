@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -13,13 +12,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useState } from "react";
 
 import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
-import { Button, buttonVariants } from "./ui/button";
-import { Menu, ShoppingCart } from "lucide-react";
-import { ModeToggle } from "./ModeToggle";
-import { LogoIcon } from "./Icons";
+import { CalendarCheck, Menu } from "lucide-react";
 import Cart from "./Cart";
+import { ModeToggle } from "./ModeToggle";
+import { buttonVariants } from "./ui/button";
 
 interface RouteProps {
   href: string;
@@ -32,12 +31,16 @@ const routeList: RouteProps[] = [
     label: "Features",
   },
   {
+    href: "#sobremi",
+    label: "Sobre mi",
+  },
+  {
     href: "#testimonials",
     label: "Testimonials",
   },
   {
-    href: "#pricing",
-    label: "Pricing",
+    href: "#esquemas",
+    label: "Esquemas",
   },
   {
     href: "#faq",
@@ -54,10 +57,10 @@ export const Navbar = () => {
           <NavigationMenuItem className="font-bold flex">
             <a
               href="/"
-              className="ml-2 font-bold text-xl flex"
+              className="ml-2 font-bold text-xl flex text-primary"
             >
 
-              ShadcnUI/React
+              Opo<span className="text-[#b985ab]">gacela</span>
             </a>
           </NavigationMenuItem>
 
@@ -127,12 +130,15 @@ export const Navbar = () => {
 
           <div className="hidden md:flex gap-2">
             <a
-              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-              target="_blank"
+              href="https://cal.com/opogacela" target="_blank"
+
               className={`${buttonVariants({ variant: "secondary" })}`}
             >
-              <DiscordLogoIcon className="mr-2 w-5 h-5" />
-              Únete a nuestro canal
+
+
+              <CalendarCheck className="h-5 w-5 mr-2" />
+              <span>Agenda una reunión</span>
+
             </a>
             <Cart />
 

@@ -5,7 +5,7 @@ import Image from "next/image";
 export const About = () => {
   return (
     <section
-      id="about"
+      id="sobremi"
       className="container py-24 sm:py-32"
     >
       <div className="bg-muted/50 border rounded-lg py-12">
