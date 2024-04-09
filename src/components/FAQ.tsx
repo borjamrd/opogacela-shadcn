@@ -25,21 +25,21 @@ const FAQList: FAQProps[] = [
     },
     {
         question:
-            "Lorem ipsum dolor sit amet  Consectetur natus dolores minus quibusdam?",
+            "¿Puedo pagar los apuntes de otra manera?",
         answer:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore qui nostrum reiciendis veritatis necessitatibus maxime quis ipsa vitae cumque quo?",
+            "Sí, por defecto es con tarjeta bancaria pero puedes hacer transferencia, bizum, o incluso efectivo si estas en Madrid 😅",
         value: "item-3",
     },
     {
-        question: "Lorem ipsum dolor sit amet, consectetur adipisicing elit?",
-        answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+        question: "¿Las clases online a través de qué plataforma se realizan?",
+        answer: "Por lo general a través de Discord, pero si hay problemas de conexión podemos usar Google Meet",
         value: "item-4",
     },
     {
         question:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur natus?",
+            "¿Puedo contactar contigo si tengo alguna duda sobre los apuntes o esquemas?",
         answer:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam? Consectetur sapiente iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+            "¡Claro! Por lo general estoy atenta a Whatsapp, puedes dejarme tu pregunta y te contensto cuando tenga un hueco o si necesitas profundizar podemos tener videollamada",
         value: "item-5",
     },
 ];

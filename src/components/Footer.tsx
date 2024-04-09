@@ -1,4 +1,3 @@
-import { LogoIcon } from "./Icons";
 
 export const Footer = () => {
     return (
@@ -9,60 +8,32 @@ export const Footer = () => {
                 <div className="col-span-full xl:col-span-2">
                     <a
                         href="/"
-                        className="font-bold text-xl flex"
+                        className="ml-2 font-bold text-xl flex text-primary"
                     >
-                        <LogoIcon />
-                        ShadcnUI/React
+
+                        Opo<span className="text-[#b985ab]">gacela</span>
                     </a>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                    <h3 className="font-bold text-lg">Follow US</h3>
-                    <div>
-                        <a
-                            href="#"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Github
-                        </a>
-                    </div>
 
-                    <div>
-                        <a
-                            href="#"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Twitter
-                        </a>
-                    </div>
-
-                    <div>
-                        <a
-                            href="#"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Dribbble
-                        </a>
-                    </div>
-                </div>
 
                 <div className="flex flex-col gap-2">
-                    <h3 className="font-bold text-lg">Platforms</h3>
+                    <h3 className="font-bold text-lg">Opogacela</h3>
                     <div>
                         <a
-                            href="#"
+                            href="#sobremi"
                             className="opacity-60 hover:opacity-100"
                         >
-                            Web
+                            Sobre mi
                         </a>
                     </div>
 
                     <div>
                         <a
-                            href="#"
+                            href="#testimonials"
                             className="opacity-60 hover:opacity-100"
                         >
-                            Mobile
+                            Opiniones
                         </a>
                     </div>
 
@@ -77,28 +48,28 @@ export const Footer = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <h3 className="font-bold text-lg">About</h3>
+                    <h3 className="font-bold text-lg">Contenido</h3>
                     <div>
                         <a
-                            href="#"
+                            href="#howitworks"
                             className="opacity-60 hover:opacity-100"
                         >
-                            Features
+                            ¿Cómo funciona?
                         </a>
                     </div>
 
                     <div>
                         <a
-                            href="#"
+                            href="#esquemas"
                             className="opacity-60 hover:opacity-100"
                         >
-                            Pricing
+                            Esquemas
                         </a>
                     </div>
 
                     <div>
                         <a
-                            href="#"
+                            href="#faq"
                             className="opacity-60 hover:opacity-100"
                         >
                             FAQ
@@ -107,15 +78,8 @@ export const Footer = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <h3 className="font-bold text-lg">Community</h3>
-                    <div>
-                        <a
-                            href="#"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Youtube
-                        </a>
-                    </div>
+                    <h3 className="font-bold text-lg">Comunidad</h3>
+
 
                     <div>
                         <a
@@ -125,13 +89,22 @@ export const Footer = () => {
                             Discord
                         </a>
                     </div>
-
                     <div>
                         <a
                             href="#"
                             className="opacity-60 hover:opacity-100"
                         >
-                            Twitch
+                            Telegram
+                        </a>
+                    </div>
+
+                    <div>
+                        <a
+                            href="https://www.instagram.com/opogace_la/"
+                            target="_blank"
+                            className="opacity-60 hover:opacity-100"
+                        >
+                            Instagram
                         </a>
                     </div>
                 </div>
