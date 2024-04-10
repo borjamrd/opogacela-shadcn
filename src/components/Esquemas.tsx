@@ -15,16 +15,16 @@ async function loadPrices() {
     const prices = await stripe.prices.list({
         expand: ["data.product"],
         active: true,
-
     })
 
     const gacePrices = prices.data.filter((price: any) => price.product?.metadata?.type == 'gace')
-    gacePrices.sort((a: any, b: any) => a.product.metadata?.order - b.product.metadata.order)
-
     const adminPrices = prices.data.filter((price: any) => price.product?.metadata?.type == 'admin')
+    const lawPrices = prices.data.filter((price: any) => price.product?.metadata?.type == 'law')
+
+    gacePrices.sort((a: any, b: any) => a.product.metadata?.order - b.product.metadata.order)
     adminPrices.sort((a: any, b: any) => a.product.metadata?.order - b.product.metadata.order)
 
-    const lawPrices = prices.data.filter((price: any) => price.product?.metadata?.type == 'law')
+
     return { gacePrices, adminPrices, lawPrices }
 }
 
