@@ -47,10 +47,10 @@ export default function Cart() {
 
                 {!prices.length && <div className="flex h-20 w-full"><p className="m-auto">No tienes items en el carrito</p></div>}
                 <div className="flex flex-col text-start gap-2 max-h-[50vh] overflow-auto">
-                    {prices.map((pricing) =>
+                    {prices.map((pricing: any) =>
 
                         <div key={pricing.id} className='flex relative flex-col lg:flex-row lg:gap-2 gap-8 p-3 rounded-lg border bg-card text-card-foreground shadow-sm'>
-                            <TypeBadge pricing={pricing} />
+                            <TypeBadge type={pricing.product?.metadata?.type} />
                             <div className='lg:w-3/4 mt-10 flex flex-col'>
                                 <span className='lg:text-2xl text-lg font-semibold leading-none tracking-tight'> {pricing.nickname}</span>
                                 <span className="lg:text-3xl text-base font-bold">{pricing.unit_amount && pricing.unit_amount / 100} €</span>
