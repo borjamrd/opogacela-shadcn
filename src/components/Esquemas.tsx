@@ -14,7 +14,8 @@ async function loadPrices() {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
     const prices = await stripe.prices.list({
         expand: ["data.product"],
-        active: true
+        active: true,
+        limit: 50,
     })
     const gacePrices = prices.data.filter((price: any) => price.metadata?.type === 'gace')
     const adminPrices = prices.data.filter((price: any) => price.metadata?.type === 'admin')
@@ -23,13 +24,11 @@ async function loadPrices() {
     gacePrices.sort((a: any, b: any) => a.metadata?.order - b.metadata.order)
     adminPrices.sort((a: any, b: any) => a.metadata?.order - b.metadata.order)
 
-
     return { gacePrices, adminPrices, lawPrices }
 }
 
 export const Esquemas = async () => {
     const { gacePrices, adminPrices, lawPrices } = await loadPrices()
-    console.log(gacePrices)
     return (
         <div>
 
