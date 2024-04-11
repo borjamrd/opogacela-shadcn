@@ -7,10 +7,15 @@ export async function POST(request: NextRequest) {
 
     const session = await stripe.checkout.sessions.create({
         mode: 'payment',
-        payment_method_types: ['card', 'paypal'],
+        // payment_method_types: ['card', 'paypal'],
         line_items: prices,
+        allow_promotion_codes: true,
+        shipping_address_collection: {
+            allowed_countries: ['ES']
+        },
         success_url: `${process.env.BASE_URL}/thank-you`,
         cancel_url: `${process.env.BASE_URL}/#esquemas`
     })
+
     return NextResponse.json({ url: session.url })
 }
