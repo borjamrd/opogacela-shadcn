@@ -50,7 +50,7 @@ export default function Cart() {
                     {prices.map((pricing: any) =>
 
                         <div key={pricing.id} className='flex relative flex-col lg:flex-row lg:gap-2 gap-8 p-3 rounded-lg border bg-card text-card-foreground shadow-sm'>
-                            <TypeBadge type={pricing.product?.metadata?.type} />
+                            <TypeBadge type={pricing?.metadata?.type} />
                             <div className='lg:w-3/4 mt-10 flex flex-col'>
                                 <span className='lg:text-2xl text-lg font-semibold leading-none tracking-tight'> {pricing.nickname}</span>
                                 <span className="lg:text-3xl text-base font-bold">{pricing.unit_amount && pricing.unit_amount / 100} €</span>
