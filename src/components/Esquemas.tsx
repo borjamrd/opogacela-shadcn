@@ -14,15 +14,14 @@ async function loadPrices() {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
     const prices = await stripe.prices.list({
         expand: ["data.product"],
-        active: true,
+        active: true
     })
+    const gacePrices = prices.data.filter((price: any) => price.metadata?.type === 'gace')
+    const adminPrices = prices.data.filter((price: any) => price.metadata?.type === 'admin')
+    const lawPrices = prices.data.filter((price: any) => price.metadata?.type === 'law')
 
-    const gacePrices = prices.data.filter((price: any) => price.product?.metadata?.type == 'gace')
-    const adminPrices = prices.data.filter((price: any) => price.product?.metadata?.type == 'admin')
-    const lawPrices = prices.data.filter((price: any) => price.product?.metadata?.type == 'law')
-
-    gacePrices.sort((a: any, b: any) => a.product.metadata?.order - b.product.metadata.order)
-    adminPrices.sort((a: any, b: any) => a.product.metadata?.order - b.product.metadata.order)
+    gacePrices.sort((a: any, b: any) => a.metadata?.order - b.metadata.order)
+    adminPrices.sort((a: any, b: any) => a.metadata?.order - b.metadata.order)
 
 
     return { gacePrices, adminPrices, lawPrices }
@@ -30,6 +29,7 @@ async function loadPrices() {
 
 export const Esquemas = async () => {
     const { gacePrices, adminPrices, lawPrices } = await loadPrices()
+    console.log(gacePrices)
     return (
         <div>
 
@@ -60,7 +60,7 @@ export const Esquemas = async () => {
                             {gacePrices.map((pricing: any) =>
 
                                 <div key={pricing.id} className='flex relative flex-col lg:gap-1  gap-8 lg:flex-row p-3 rounded-lg border bg-card text-card-foreground shadow-sm'>
-                                    <TypeBadge type={pricing.product?.metadata?.type} />
+                                    <TypeBadge type={pricing?.metadata?.type} />
                                     <div className='mt-10 lg:w-3/4'>
                                         <h3 className='lg:text-2xl text-lg font-semibold leading-none tracking-tight'> {pricing.nickname}</h3>
 
@@ -80,7 +80,7 @@ export const Esquemas = async () => {
                             {adminPrices.map((pricing: any) =>
 
                                 <div key={pricing.id} className='flex relative flex-col lg:gap-1  gap-8 lg:flex-row p-3 rounded-lg border bg-card text-card-foreground shadow-sm'>
-                                    <TypeBadge type={pricing.product?.metadata?.type} />  <div className='mt-10 lg:w-3/4'>
+                                    <TypeBadge type={pricing?.metadata?.type} />  <div className='mt-10 lg:w-3/4'>
                                         <h3 className='lg:text-2xl text-lg font-semibold leading-none tracking-tight'> {pricing.nickname}</h3>
 
                                         <span className="lg:text-3xl text-base font-bold">{pricing.unit_amount && pricing.unit_amount / 100} €</span>
@@ -99,7 +99,7 @@ export const Esquemas = async () => {
                             {lawPrices.map((pricing: any) =>
 
                                 <div key={pricing.id} className='flex relative flex-col lg:gap-1  gap-8 lg:flex-row p-3 rounded-lg border bg-card text-card-foreground shadow-sm'>
-                                    <TypeBadge type={pricing.product?.metadata?.type} />
+                                    <TypeBadge type={pricing?.metadata?.type} />
                                     <div className='mt-10 lg:w-3/4'>
                                         <h3 className='lg:text-2xl text-lg font-semibold leading-none tracking-tight'> {pricing.nickname}</h3>
 
