@@ -96,8 +96,8 @@ export const Examples = () => {
       <h2 className="text-3xl lg:text-4xl font-bold md:text-center">
         Aqui tienes {" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          algunos ejemplos
-        </span>
+          ejemplos {" "}
+        </span> de cada bloque
       </h2>
 
 

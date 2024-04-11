@@ -1,8 +1,16 @@
+"use client"
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
+import { useOpogaceStore } from "@/lib/store";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function ThankYou() {
+
+    const { removeAllPrices } = useOpogaceStore()
+    useEffect(() => {
+        removeAllPrices()
+    }, [])
     return <div>
         <Navbar />
         <section className="w-full h-[80vh] flex  items-center justify-center">

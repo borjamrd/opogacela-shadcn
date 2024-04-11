@@ -1,4 +1,4 @@
-import { CalendarCheck } from "lucide-react";
+import { CalendarCheck, NotebookPen } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { HeroCards } from "./HeroCards";
 import { buttonVariants } from "./ui/button";
@@ -25,13 +25,13 @@ export const Hero = () => {
 
 
         <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
-          Consigue aprobar tu oposición con estos apuntes, esquemas y mnemotecnias
+          Te facilito el estudio con esquemas
         </p>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4">
 
-          <a className={buttonVariants()} href="https://cal.com/opogacela" target="_blank"
-          > <CalendarCheck className="h-5 w-5 mr-2" />Agenda una reunión</a>
+          <a className={buttonVariants()} href="#esquemas"
+          > <NotebookPen className="h-5 w-5 mr-2" />Consigue tus esquemas</a>
 
 
           <a

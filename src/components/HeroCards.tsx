@@ -40,7 +40,7 @@ export const HeroCards = () => {
 
                 <CardContent className="text-center pb-2">
                     <p>
-                        Mnemotecnias y apuntes para que puedas estudiar mejor
+                        Mnemotecnias y esquemas para que puedas estudiar mejor
                     </p>
 
                 </CardContent>

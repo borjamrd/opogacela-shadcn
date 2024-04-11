@@ -16,7 +16,7 @@ const features: FeatureProps[] = [
     image: checkout,
     title: "Realiza la compra",
     description:
-      "Más abajo tienes todos los apuntes disponbibles, realiza tu compra con calma.",
+      "Más abajo tienes todos los esquemas disponbibles, realiza tu compra con calma.",
   },
   {
     image: messages,
@@ -28,13 +28,13 @@ const features: FeatureProps[] = [
     image: studying,
     title: "Espera el pedido",
     description:
-      "En 24/48 horas te llegará el pedido, mientras puedes estudiar con nuestro grupo de Telegram",
+      "En 24/48 horas te llegará el pedido, los gastos de envío están incluidos en el precio 😇",
   },
   {
     image: collaboration,
     title: "Comparte tu opinión",
     description:
-      "¿Te gustan los apuntes? Comparte tu opinión para poder ayudar a otra persona",
+      "¿Te gustan los esquemas? Comparte tu opinión para poder ayudar a otra persona 😄",
   },
 ];
 
@@ -47,13 +47,12 @@ export const HowItWorks = () => {
       <h2 className="text-3xl md:text-4xl font-bold ">
         ¿Cómo funciona la entrega de{" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          esquemas y apuntes{" "}
+          esquemas{" "}
         </span>
         ?
       </h2>
       <p className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-        dolor pariatur sit!
+        Si después de ver los <a className="underline" href="#examples">ejemplos disponibles</a> te interesa comprarlos este es el proceso que has de seguir para tenerlos en casa. 
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

@@ -17,23 +17,23 @@ interface ServiceProps {
 
 const serviceList: ServiceProps[] = [
     {
-        title: "Apuntes y esquemas",
+        title: "Esquemas por bloques",
         description:
-            "Tanto para A2 como para Administrativo, están divididos por bloques y resumidos con lo esencial para poder memorizar más rápido.",
+            "Tanto para Gestión del Estado (A2) como para Administrativo del Estado (C1). Impresos y encuadernados.",
         icon: <ChartIcon />,
         image: notes,
     },
+    // {
+    //     title: "Clases particulares",
+    //     description:
+    //         "Trucos de conciliación, técnicas de estudios, métodos de memorización... Actualmente he ayudado a varios opositores a organizarse mejor.",
+    //     icon: <MagnifierIcon />,
+    //     image: learning,
+    // },
     {
-        title: "Clases particulares",
+        title: "Esquemas independientes",
         description:
-            "Trucos de conciliación, técnicas de estudios, métodos de memorización... Actualmente he ayudado a varios opositores a organizarse mejor.",
-        icon: <MagnifierIcon />,
-        image: learning,
-    },
-    {
-        title: "Leyes individuales",
-        description:
-            "Soluciones específicas para problemas concretos. ¿Se te atasca una ley? Seguramente la tenga explicada.",
+            "Si no te interesa un bloque entero, tienes la opción de adquirir las leyes más importantes esquematizadas de estas oposiciones.",
         icon: <WalletIcon />,
         image: law,
     },

@@ -37,14 +37,7 @@ export const Footer = () => {
                         </a>
                     </div>
 
-                    <div>
-                        <a
-                            href="#"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Desktop
-                        </a>
-                    </div>
+
                 </div>
 
                 <div className="flex flex-col gap-2">

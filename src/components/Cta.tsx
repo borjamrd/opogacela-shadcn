@@ -1,5 +1,5 @@
 import { DiscordLogoIcon } from "@radix-ui/react-icons";
-import { CalendarCheck } from "lucide-react";
+import { CalendarCheck, NotebookPen } from "lucide-react";
 import { buttonVariants } from "./ui/button";
 
 export const Cta = () => {
@@ -23,13 +23,13 @@ export const Cta = () => {
           </p>
         </div>
 
-        <div className="space-y-4 lg:col-start-2">
-        <a className={buttonVariants()} href="https://cal.com/opogacela" target="_blank"
+        <div className="space-y-4 flex flex-col">
+          <a className={buttonVariants()} href="https://cal.com/opogacela" target="_blank"
           > <CalendarCheck className="h-5 w-5 mr-2" />Agenda una reunión GRATIS</a>
           <a
             href="https://github.com/leoMirandaa/shadcn-landing-page.git"
             target="_blank"
-            className={`${buttonVariants({ variant: "secondary" })}`}
+            className={`border ${buttonVariants({ variant: "secondary" })}`}
           >
 
 

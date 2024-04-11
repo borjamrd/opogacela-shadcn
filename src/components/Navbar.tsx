@@ -30,6 +30,11 @@ const routeList: RouteProps[] = [
   {
     href: "#sobremi",
     label: "Sobre mi",
+    
+  },
+  {
+    href: "#howitworks",
+    label: "¿Cómo funciona?",
   },
   {
     href: "#examples",
@@ -39,10 +44,10 @@ const routeList: RouteProps[] = [
     href: "#esquemas",
     label: "Esquemas",
   },
-  {
-    href: "#opiniones",
-    label: "Opiniones",
-  },
+  // {
+  //   href: "#opiniones",
+  //   label: "Opiniones",
+  // },
   {
     href: "#faq",
     label: "FAQ",

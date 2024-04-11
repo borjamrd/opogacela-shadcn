@@ -13,8 +13,13 @@ interface FAQProps {
 
 const FAQList: FAQProps[] = [
     {
+        question: "¿Cómo es el formato de los apuntes?",
+        answer: "Todos los apuntes se envían físicamente impresos, sin excepción. Están impresos a doble cara con letra 12 para que ocupen lo menos posible. ",
+        value: "item-1",
+    },
+    {
         question: "¿Cómo es el proceso de compra?",
-        answer: "Una vez que escojas tus apuntes te llegará un correo de confirmación y la información ",
+        answer: "Una vez que escojas tus esquemas te llegará un correo de confirmación y la información ",
         value: "item-1",
     },
     {
@@ -25,7 +30,7 @@ const FAQList: FAQProps[] = [
     },
     {
         question:
-            "¿Puedo pagar los apuntes de otra manera?",
+            "¿Puedo pagar los esquemas de otra manera?",
         answer:
             "Sí, por defecto es con tarjeta bancaria pero puedes hacer transferencia, bizum, o incluso efectivo si estas en Madrid 😅",
         value: "item-3",
@@ -37,7 +42,7 @@ const FAQList: FAQProps[] = [
     },
     {
         question:
-            "¿Puedo contactar contigo si tengo alguna duda sobre los apuntes o esquemas?",
+            "¿Puedo contactar contigo si tengo alguna duda sobre los esquemas?",
         answer:
             "¡Claro! Por lo general estoy atenta a Whatsapp, puedes dejarme tu pregunta y te contensto cuando tenga un hueco o si necesitas profundizar podemos tener videollamada",
         value: "item-5",

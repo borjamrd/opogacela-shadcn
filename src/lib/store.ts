@@ -7,12 +7,14 @@ interface OpogaceState {
     prices: Stripe.Price[]
     addPrices: (product: Stripe.Price) => void;
     removePrices: (productId: string) => void;
+    removeAllPrices: () => void;
 }
 
 export const useOpogaceStore = create<OpogaceState>()(
     persist(
         (set) => ({
             prices: [],
+            removeAllPrices: ()=>set({prices: []}),
             addPrices: (price) => set((state) => ({
                 prices: [...state.prices, price],
             })),

@@ -12,7 +12,7 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: "Opogacela",
-  description: "Apuntes y recursos para opositores",
+  description: "esquemas y recursos para opositores",
 };
 
 export default function RootLayout({

@@ -1,16 +1,16 @@
 "use client"
 
-import { ShoppingCart } from "lucide-react"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog"
-import { Button, buttonVariants } from "./ui/button"
 import { useOpogaceStore } from "@/lib/store"
-import { Badge } from "./ui/badge"
+import { ShoppingCart } from "lucide-react"
 import AddToCart from "./AddToCart"
 import TypeBadge from "./TypeBadge"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog"
+import { Badge } from "./ui/badge"
+import { Button, buttonVariants } from "./ui/button"
 
 export default function Cart() {
 
-    const { prices } = useOpogaceStore()
+    const { prices, removeAllPrices } = useOpogaceStore()
 
     const checkout = async () => {
 
@@ -65,7 +65,8 @@ export default function Cart() {
 
             </AlertDialogHeader>
             <AlertDialogFooter>
-                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                {prices.length > 0 && <AlertDialogCancel onClick={() => removeAllPrices()}>Vaciar carrito</AlertDialogCancel>}
                 {prices.length > 0 && <AlertDialogAction onClick={checkout}>Continuar (no pagarás aún)</AlertDialogAction>}
 
             </AlertDialogFooter>

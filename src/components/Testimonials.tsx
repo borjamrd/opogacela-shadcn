@@ -75,7 +75,7 @@ export const Testimonials = () => {
             </h2>
 
             <p className="text-xl text-muted-foreground pt-4 pb-8">
-               No te lo digo yo, te lo dicen ell@s. Tras muchas horas de estudio he podido sintetizar la información más importante de la oposición para que la tengas más rápidamente.
+               No te lo digo yo, te lo dicen ell@s. Tras muchas horas de estudio he podido sintetizar la información más importante de la oposición.
             </p>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 sm:block columns-2  lg:columns-3 lg:gap-6 mx-auto space-y-4 lg:space-y-6">
