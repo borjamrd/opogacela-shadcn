@@ -57,7 +57,7 @@ export default function InfoCarousel() {
 
     ];
     return <Carousel opts={{
-        align: "center",
+        align: 'start'
     }}
         plugins={[
             Autoplay({
@@ -65,7 +65,7 @@ export default function InfoCarousel() {
 
             }),
         ]}
-        className="max-w-xs lg:max-w-full">
+        className="lg:max-w-full max-w-full">
         <CarouselContent >
             {features.map(({ image, title, description, list }: FeatureProps) => (
 
@@ -74,7 +74,7 @@ export default function InfoCarousel() {
                     className="bg-muted/50 flex gap-4"
                 >
 
-                    <div className="w-4/5 flex flex-col gap-2">
+                    <div className="flex flex-col gap-2">
                         <CardHeader className="pb-2">
                             <CardTitle>
                                 {title}
