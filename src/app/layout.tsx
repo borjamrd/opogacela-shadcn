@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google"
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
+import Favicon from '/public/favicon.ico';
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -13,6 +14,8 @@ const fontSans = FontSans({
 export const metadata: Metadata = {
   title: "Opogacela",
   description: "esquemas y recursos para opositores",
+  icons: [{ rel: 'icon', url: Favicon.src }],
+
 };
 
 export default function RootLayout({
@@ -23,7 +26,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-
       <body
         className={cn(
           "lg:min-h-screen h-full bg-background font-sans antialiased",
