@@ -74,10 +74,9 @@ export const Services = () => {
                                         <CardTitle>{item.title}</CardTitle>
                                         <CardDescription className="text-md mt-2">
                                             {item.description}
-                                            {item.list && <ul className="list-disc list-inside">
-                                                {item.list.map(i => <li key={i}>{i}</li>)}</ul>}
-
                                         </CardDescription>
+                                        {item.list && <ul className="list-disc list-inside">
+                                            {item.list.map(i => <li key={i}>{i}</li>)}</ul>}
                                         {item.button && item.button}
                                     </div>
                                 </CardHeader>

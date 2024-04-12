@@ -15,7 +15,7 @@ const FAQList: FAQProps[] = [
     {
         question: "¿Cómo es el formato de los apuntes?",
         answer: "Todos los apuntes se envían físicamente impresos, sin excepción. Están impresos a doble cara con letra 12 para que ocupen lo menos posible. ",
-        value: "item-1",
+        value: "item-0",
     },
     {
         question: "¿Cómo es el proceso de compra?",
@@ -36,15 +36,17 @@ const FAQList: FAQProps[] = [
         value: "item-3",
     },
     {
-        question: "¿Las clases online a través de qué plataforma se realizan?",
-        answer: "Por lo general a través de Discord, pero si hay problemas de conexión podemos usar Google Meet",
-        value: "item-4",
-    },
-    {
         question:
             "¿Puedo contactar contigo si tengo alguna duda sobre los esquemas?",
         answer:
             "¡Claro! Por lo general estoy atenta a Whatsapp, puedes dejarme tu pregunta y te contensto cuando tenga un hueco o si necesitas profundizar podemos tener videollamada",
+        value: "item-4",
+    },
+    {
+        question:
+            "Soy un opopobre (todos lo somos) y los apuntes son muy caros. ¿Piedad?",
+        answer:
+            "No te preocupes,  tienes la opción de aplazar tus compras, te aparecerá como opción de pago a la hora de realizar la compra.",
         value: "item-5",
     },
 ];
