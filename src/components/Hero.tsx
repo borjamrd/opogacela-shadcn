@@ -25,7 +25,7 @@ export const Hero = () => {
 
 
         <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
-          Te facilito el estudio con esquemas
+          Aquí podréis encontrar varios recursos para la oposición de Gestión Civil del Estado (A2) y Administrativo del Estado (C1).
         </p>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4">

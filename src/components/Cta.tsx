@@ -27,7 +27,7 @@ export const Cta = () => {
           <a className={buttonVariants()} href="https://cal.com/opogacela" target="_blank"
           > <CalendarCheck className="h-5 w-5 mr-2" />Agenda una reunión GRATIS</a>
           <a
-            href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+            href=""
             target="_blank"
             className={`border ${buttonVariants({ variant: "secondary" })}`}
           >

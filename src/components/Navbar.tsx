@@ -29,7 +29,7 @@ const routeList: RouteProps[] = [
 
   {
     href: "#sobremi",
-    label: "Sobre mi",
+    label: "Sobre mí",
     
   },
   {
