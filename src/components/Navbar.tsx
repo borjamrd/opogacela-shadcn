@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/sheet";
 import { useState } from "react";
 
-import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import { CalendarCheck, Menu } from "lucide-react";
 import Cart from "./Cart";
 import { ModeToggle } from "./ModeToggle";
@@ -28,28 +27,25 @@ interface RouteProps {
 const routeList: RouteProps[] = [
 
   {
-    href: "#sobremi",
+    href: "/#sobremi",
     label: "Sobre mí",
-    
+
   },
   {
-    href: "#howitworks",
+    href: "/#howitworks",
     label: "¿Cómo funciona?",
   },
   {
-    href: "#examples",
+    href: "/#examples",
     label: "Ejemplos",
   },
   {
-    href: "#esquemas",
+    href: "/#esquemas",
     label: "Esquemas",
   },
-  // {
-  //   href: "#opiniones",
-  //   label: "Opiniones",
-  // },
+
   {
-    href: "#faq",
+    href: "/#faq",
     label: "FAQ",
   },
 ];
