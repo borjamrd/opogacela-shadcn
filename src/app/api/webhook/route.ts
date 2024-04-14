@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Stripe } from 'stripe';
 import { Resend } from 'resend';
 import { ShippingDetails } from "@/components/email/shippingDetails";
+import { ShippingAdminDetails } from "@/components/email/shippingAdmin";
 
 
 export async function POST(request: NextRequest) {
@@ -37,6 +38,13 @@ export async function POST(request: NextRequest) {
                     to: [customerEmail],
                     subject: "Compra realizada con éxito",
                     react: ShippingDetails({ name: customerName, email: customerEmail, address: customerAddress }) as React.ReactElement,
+                });
+
+                await resend.emails.send({
+                    from: 'compras@opogacela.es',
+                    to: ['pilar.soldado@gmail.com '],
+                    subject: "Nueva compra en OPOGACELA",
+                    react: ShippingAdminDetails({ name: customerName, email: customerEmail, address: customerAddress }) as React.ReactElement,
                 });
             } catch (error) {
                 return Response.json({ error });

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface ShippingDetailsProps {
+interface ShippingAdminDetailsProps {
     name?: string;
     email?: string;
     address: {
@@ -13,13 +13,14 @@ interface ShippingDetailsProps {
     } | any;
 }
 
-export const ShippingDetails: React.FC<Readonly<ShippingDetailsProps>> = ({
+export const ShippingAdminDetails: React.FC<Readonly<ShippingAdminDetailsProps>> = ({
     name, email, address
 }) => (
     <div className='w-full h-96 flex flex-col gap-2'>
-        <h1>¡Gracias por realizar tu compra, {name}!</h1>
+        <h1>Nueva compra a nombre de: {name}!</h1>
 
-        <p className='mb-3'>Según la información que nos has proporcionado durante la compra, te enviaremos los apuntes a esta dirección:</p>
+        <p className='mb-3'>Prepara el pedido para enviar a la siguiente dirección: </p>
+        <p>Correo eletrónico de contacto: {email}</p>
         <ul>
             <li>Dirección (línea 1): {address?.line1}</li>
             <li>Dirección (línea 2): {address?.line2}</li>
@@ -28,7 +29,6 @@ export const ShippingDetails: React.FC<Readonly<ShippingDetailsProps>> = ({
 
         </ul>
 
-        <p className=''>El pedido llegará en las próximas 24/48 horas. Puedes contactar conmigo por <a href={`https://wa.me/658785288?text=Tengo%20dudas%20sobre%20los%20apuntes`}>{" "}Whatsapp{" "}</a> en caso de cualquier duda.</p>
 
 
 
