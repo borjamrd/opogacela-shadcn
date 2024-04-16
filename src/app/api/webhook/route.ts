@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
 
                 await resend.emails.send({
                     from: 'compras@opogacela.es',
-                    to: ['pilar.soldado@gmail.com '],
+                    to: ['pilar.soldado@gmail.com', 'borjamrd1@gmail.com'],
                     subject: "Nueva compra en OPOGACELA",
                     react: ShippingAdminDetails({ name: customerName, email: customerEmail, address: customerAddress }) as React.ReactElement,
                 });
