@@ -35,21 +35,21 @@ export async function POST(request: NextRequest) {
         checkoutSessionCompleted.customer_details?.name || "not found";
       const resend = new Resend(process.env.RESEND_API_KEY);
 
-      saveDataToGoogleSheets(
-        new Date(event.created * 1000),
-        customerName,
-        customerName,
-        customerAddress?.line1,
-        customerAddress?.line2,
-        customerAddress.postal_code,
-        customerAddress.state,
-        customerEmail,
-        event.id
-      );
+      // saveDataToGoogleSheets(
+      //   new Date(event.created * 1000),
+      //   customerName,
+      //   customerName,
+      //   customerAddress?.line1,
+      //   customerAddress?.line2,
+      //   customerAddress.postal_code,
+      //   customerAddress.state,
+      //   customerEmail,
+      //   event.id
+      // );
 
       try {
         await resend.emails.send({
-          from: "compras@opogacela.es",
+          from: "Acme <onboarding@resend.dev>",
           to: [customerEmail],
           subject: "Compra realizada con éxito",
           react: ShippingDetails({
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
         });
 
         await resend.emails.send({
-          from: "compras@opogacela.es",
+          from: "Acme <onboarding@resend.dev>",
           to: [
             // "pilar.soldado@gmail.com",
             "borjamrd1@gmail.com",
