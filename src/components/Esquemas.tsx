@@ -42,12 +42,12 @@ export const Esquemas = async () => {
                         {" "}
                         esquemas{" "}
                     </span>
-                    en un sólo lugar
+                    en un solo lugar
 
                 </h2>
                 <h3 className="text-xl text-center text-muted-foreground pt-4 pb-8">
                     Puedes escoger uno o varios bloques, recuerda que la compra se realizará en otra pestaña del navegador.<br/>
-                    Recuerda que los esquemas <strong>están impresos</strong>. Más información sobre el formato <a className="underline" href="#faq">aquí</a>.
+                    Recuerda que los esquemas <strong>se envían impresos (no en formato PDF) </strong>. Más información sobre el formato <a className="underline" href="#faq">aquí</a>.
                 </h3>
                 <Tabs defaultValue="gace" >
                     <TabsList className="grid w-full lg:grid-cols-3 grid-cols-1 lg:h-auto h-36">

@@ -17,33 +17,19 @@ export const Hero = () => {
             <span className="inline bg-gradient-to-r from-[#b985ab]  to-[#ab6498] text-transparent bg-clip-text">
               Opogacela
             </span>{" "}
-
           </h1>{" "}
-
-
         </main>
 
-
         <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
-          Aquí podréis encontrar varios recursos para la oposición de Gestión Civil del Estado (A2) y Administrativo del Estado (C1).
+          Aquí podréis encontrar varios recursos para la oposición de Gestión
+          Civil del Estado (A2) y Administrativo del Estado (C1).
         </p>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4">
-
-          <a className={buttonVariants()} href="#esquemas"
-          > <NotebookPen className="h-5 w-5 mr-2" />Consigue tus esquemas</a>
-
-
-          <a
-            href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-            target="_blank"
-            className={`w-full md:w-1/3 ${buttonVariants({
-              variant: "outline",
-            })}`}
-          >
-            <FaWhatsapp className="mr-2 w-5 h-5" />
-            Quiero más información
-
+          <a className={buttonVariants()} href="#esquemas">
+            {" "}
+            <NotebookPen className="h-5 w-5 mr-2" />
+            Consigue tus esquemas
           </a>
         </div>
       </div>

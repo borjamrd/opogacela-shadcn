@@ -9,11 +9,9 @@ export const Statistics = () => {
       quantity: "Administrativo del Estado (C1)",
       description: "Aprobado OEP 21/22",
     },
-
-
     {
       quantity: "Gestión Civil del Estado (A2)",
-      description: "Aprobado OEP 20/21/22",
+      description: "Aprobado (Top 40) OEP 20/21/22 ",
     },
     {
       quantity: "Cuerpo Superior de Administradores (A1)",
@@ -30,7 +28,7 @@ export const Statistics = () => {
             className="space-y-2 text-center"
           >
             <h2 className="text-2xl sm:text-2xl font-bold ">{stat.quantity}</h2>
-            <p className="text-xl text-muted-foreground">{stat.description}</p>
+            <p  className="text-xl text-muted-foreground">{stat.description}</p>
           </div>
         ))}
       </div>

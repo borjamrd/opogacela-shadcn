@@ -24,7 +24,7 @@ export const Footer = () => {
                             href="#sobremi"
                             className="opacity-60 hover:opacity-100"
                         >
-                            Sobre mi
+                            Sobre mí
                         </a>
                     </div>
 

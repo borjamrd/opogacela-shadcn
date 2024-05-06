@@ -17,7 +17,7 @@ export const HowItWorks = () => {
 
       </h2>
       <p className="md:w-3/4 mt-4 mb-8 text-xl text-muted-foreground">
-        Los esquemas de Opogacela son una ayuda al estudio del temario de la oposición. Es decir, NO sustituyen las leyes ni los manuales de estudio, ya que por si solos no explican el temario.
+        Los esquemas de Opogacela son una ayuda al estudio del temario de la oposición. Es decir, NO sustituyen las leyes ni los manuales de estudio, ya que por sí solos no explican el temario.
       </p>
       <InfoCarousel />
 

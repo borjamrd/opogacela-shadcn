@@ -51,7 +51,7 @@ export default function InfoCarousel() {
       image: collaboration,
       title: "Formato",
       description:
-        "Los esquemas se entregan impresos a doble cara, a color y encuadernados, letra Calibri tamaño 7. Se puede adquirir un pack completo del temario o bloques individuales. También hay esquemas independientes de leyes concretas. No se altera el formato ni se venden temas sueltos. Puedes descargar un ejemplo aquí",
+        "Los esquemas se entregan impresos a doble cara, a color y encuadernados, letra Calibri tamaño 7. Se puede adquirir un pack completo del temario o bloques individuales. También hay esquemas independientes de leyes concretas. No se altera el formato ni se venden temas sueltos.",
     },
   ];
   return (
@@ -62,7 +62,7 @@ export default function InfoCarousel() {
         }}
         plugins={[
           Autoplay({
-            delay: 15000,
+            delay: 30000,
           }),
         ]}
         className="lg:max-w-full max-w-full"

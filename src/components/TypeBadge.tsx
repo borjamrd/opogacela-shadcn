@@ -3,11 +3,11 @@ export default function TypeBadge({ type }: { type: any }) {
     const typeText = (): string => {
         switch (type) {
             case 'admin':
-                return 'Administrativo'
+                return 'Administrativo AGE TL'
             case 'law':
                 return 'Ley suelta'
             case 'gace':
-                return 'GACE'
+                return 'GACE TL'
             default:
                 return ''
         }
