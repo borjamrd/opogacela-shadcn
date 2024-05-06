@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
 
       try {
         await resend.emails.send({
-          from: "Acme <onboarding@resend.dev>",
+          from: "Acme <compras@opogacela.es>",
           to: [customerEmail],
           subject: "Compra realizada con éxito",
           react: ShippingDetails({
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
         });
 
         await resend.emails.send({
-          from: "Acme <onboarding@resend.dev>",
+          from: "Acme <compras@opogacela.es>",
           to: [
             // "pilar.soldado@gmail.com",
             "borjamrd1@gmail.com",
