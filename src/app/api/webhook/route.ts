@@ -35,21 +35,25 @@ export async function POST(request: NextRequest) {
         checkoutSessionCompleted.customer_details?.name || "not found";
       const resend = new Resend(process.env.RESEND_API_KEY);
 
-      // saveDataToGoogleSheets(
-      //   new Date(event.created * 1000),
-      //   customerName,
-      //   customerName,
-      //   customerAddress?.line1,
-      //   customerAddress?.line2,
-      //   customerAddress.postal_code,
-      //   customerAddress.state,
-      //   customerEmail,
-      //   event.id
-      // );
+      try {
+        await saveDataToGoogleSheets(
+          new Date(event.created * 1000),
+          customerName,
+          customerName,
+          customerAddress?.line1,
+          customerAddress?.line2,
+          customerAddress.postal_code,
+          customerAddress.state,
+          customerEmail,
+          event.id
+        );
+      } catch (error) {
+        console.error("Problemas al guardar los datos en Google Sheets", error);
+      }
 
       try {
         await resend.emails.send({
-          from: "Acme <compras@opogacela.es>",
+          from: "Compras Opogacela <compras@opogacela.es>",
           to: [customerEmail],
           subject: "Compra realizada con éxito",
           react: ShippingDetails({
@@ -60,7 +64,7 @@ export async function POST(request: NextRequest) {
         });
 
         await resend.emails.send({
-          from: "Acme <compras@opogacela.es>",
+          from: "Compras Opogacela <compras@opogacela.es>",
           to: [
             // "pilar.soldado@gmail.com",
             "borjamrd1@gmail.com",
@@ -99,7 +103,9 @@ export async function POST(request: NextRequest) {
         type: "service_account",
         project_id: "opogacela",
         private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
-        private_key: process.env.GOOGLE_PRIVATE_KEY,
+        private_key: process.env.GOOGLE_PRIVATE_KEY.split(String.raw`\n`).join(
+          "\n"
+        ),
         client_email: process.env.CLIENT_GOOGLE_EMAIL,
         client_id: "115968510702393221802",
 
