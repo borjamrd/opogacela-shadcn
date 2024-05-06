@@ -13,13 +13,19 @@ export async function POST(request: NextRequest) {
   const sig: string = headersList.get("stripe-signature") || "";
 
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
-
+  let eventId;
   let event;
   try {
     event = stripe.webhooks.constructEvent(body, sig, WEBHOOK_SECRET);
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: error }, { status: 400 });
+  }
+
+  if (event.id === eventId) {
+    return NextResponse.json({ msg: "Evento ya creado" }, { status: 400 });
+  } else {
+    eventId = event.id;
   }
   switch (event.type) {
     case "checkout.session.completed":
