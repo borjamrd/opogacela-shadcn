@@ -26,7 +26,7 @@ const serviceList: ServiceProps[] = [
     icon: <ChartIcon />,
     list: [
       "Gestión A2: todos los bloques",
-      "Administrativo (C1): Todos los bloques salvo Bloque II y IV",
+      "Administrativo (C1): Todos los bloques salvo Bloque II e Informática",
     ],
     image: notes,
   },
