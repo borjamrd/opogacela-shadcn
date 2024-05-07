@@ -1,19 +1,17 @@
-import { Navbar } from "@/components/Navbar";
 import { About } from "@/components/About";
-import { Hero } from "@/components/Hero";
-import { HowItWorks } from "@/components/HowItWorks";
-import { Examples } from "@/components/Examples";
-import { Services } from "@/components/Services";
+import Cart from "@/components/Cart";
 import { Cta } from "@/components/Cta";
-import { Testimonials } from "@/components/Testimonials";
-import { Team } from "@/components/Team";
+import { Delivery } from "@/components/Delivery";
 import { Esquemas } from "@/components/Esquemas";
-import { Newsletter } from "@/components/Newsletter";
+import { Examples } from "@/components/Examples";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
+import { Hero } from "@/components/Hero";
+import { HowItWorks } from "@/components/HowItWorks";
+import { Navbar } from "@/components/Navbar";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import Cart from "@/components/Cart";
-import { Delivery } from "@/components/Delivery";
+import { Services } from "@/components/Services";
+import { Testimonials } from "@/components/Testimonials";
 
 export default function Home() {
   return (
