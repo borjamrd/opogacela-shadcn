@@ -7,12 +7,26 @@ export async function POST(request: NextRequest) {
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
-    // payment_method_types: ["card", "klarna", "revolut_pay", "paypal"],
     line_items: prices,
     allow_promotion_codes: true,
     shipping_address_collection: {
       allowed_countries: ["ES"],
     },
+    custom_fields: [
+      {
+        key: "phone",
+        label: {
+          type: "custom",
+          custom: "Teléfono de contacto",
+        },
+        type: "text",
+        text: {
+          maximum_length: 9,
+          minimum_length: 9,
+        },
+        optional: false,
+      },
+    ],
     success_url: `${process.env.BASE_URL}/thank-you`,
     cancel_url: `${process.env.BASE_URL}/#esquemas`,
   });

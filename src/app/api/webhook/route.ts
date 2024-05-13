@@ -39,6 +39,20 @@ export async function POST(request: NextRequest) {
         "not found";
       const customerName =
         checkoutSessionCompleted.customer_details?.name || "not found";
+      const customerPhone =
+        checkoutSessionCompleted.custom_fields?.find(
+          (field) => field.key === "phone"
+        )?.text?.value || "not found";
+      const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+        event.data.object.id,
+        {
+          expand: ["line_items"],
+        }
+      );
+      const lineItems = sessionWithLineItems.line_items;
+      const totalPrice = checkoutSessionCompleted?.amount_total
+        ? checkoutSessionCompleted?.amount_total / 100
+        : null;
       const resend = new Resend(process.env.RESEND_API_KEY);
 
       try {
@@ -51,6 +65,8 @@ export async function POST(request: NextRequest) {
           customerAddress.postal_code,
           customerAddress.state,
           customerEmail,
+          customerPhone,
+          totalPrice,
           event.id
         );
       } catch (error) {
@@ -71,15 +87,14 @@ export async function POST(request: NextRequest) {
 
         await resend.emails.send({
           from: "Compras Opogacela <compras@opogacela.es>",
-          to: [
-            "instaopogacela@gmail.com",
-            "borjamrd1@gmail.com",
-          ],
+          to: ["instaopogacela@gmail.com", "borjamrd1@gmail.com"],
           subject: "Nueva compra en OPOGACELA",
           react: ShippingAdminDetails({
             name: customerName,
             email: customerEmail,
             address: customerAddress,
+            phone: customerPhone,
+            items: lineItems?.data,
           }) as React.ReactElement,
         });
       } catch (error) {
@@ -102,6 +117,8 @@ export async function POST(request: NextRequest) {
     cp: any,
     state: any,
     email: string,
+    phone: any,
+    totalPrice: any,
     idProduct: any
   ) {
     const auth = new google.auth.GoogleAuth({
@@ -114,7 +131,6 @@ export async function POST(request: NextRequest) {
         ),
         client_email: process.env.CLIENT_GOOGLE_EMAIL,
         client_id: "115968510702393221802",
-
         universe_domain: "googleapis.com",
       },
       scopes: "https://www.googleapis.com/auth/spreadsheets",
@@ -144,7 +160,19 @@ export async function POST(request: NextRequest) {
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [
-          [date, name, surname, line1, line2, cp, state, email, idProduct],
+          [
+            date,
+            name,
+            surname,
+            line1,
+            line2,
+            cp,
+            state,
+            email,
+            phone,
+            totalPrice,
+            idProduct,
+          ],
         ],
       },
     });
