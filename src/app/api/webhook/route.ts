@@ -54,7 +54,6 @@ export async function POST(request: NextRequest) {
         ? checkoutSessionCompleted?.amount_total / 100
         : null;
       const resend = new Resend(process.env.RESEND_API_KEY);
-
       try {
         await saveDataToGoogleSheets(
           new Date(event.created * 1000),
@@ -67,7 +66,7 @@ export async function POST(request: NextRequest) {
           customerEmail,
           customerPhone,
           totalPrice,
-          event.id
+          event.data.object.payment_intent
         );
       } catch (error) {
         console.error("Problemas al guardar los datos en Google Sheets", error);
@@ -104,7 +103,7 @@ export async function POST(request: NextRequest) {
       break;
 
     default:
-      console.log(`Evento no manejado: ${event.type}`);
+      console.error(`Evento no manejado: ${event.type}`);
       break;
   }
 

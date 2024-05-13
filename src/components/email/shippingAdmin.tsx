@@ -29,7 +29,7 @@ export const ShippingAdminDetails: React.FC<
         !items?.length ? "el pedido " : "los pedidos "
       }para la siguiente dirección:`}
     </p>
-    <p>Correo eletrónico: {email}</p>
+    <p>Correo electrónico: {email}</p>
     <p>Teléfono: {phone}</p>
     <ul>
       <li>Dirección (línea 1): {address?.line1}</li>
