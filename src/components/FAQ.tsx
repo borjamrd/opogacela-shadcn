@@ -14,7 +14,7 @@ interface FAQProps {
 const FAQList: FAQProps[] = [
     {
         question: "¿Cómo es el formato de los apuntes?",
-        answer: "Todos los apuntes se envían físicamente impresos, sin excepción. Están impresos a doble cara con letra 12 para que ocupen lo menos posible. ",
+        answer: "Todos los apuntes se envían físicamente impresos, sin excepción. Están impresos a doble cara con letra cabibri tamaño 7 para que ocupen lo menos posible. Te aconsejo que te imprimas en casa un ejemplo de los esquemas para ver si se adapta a lo que necesitas antes de realizar la compra.",
         value: "item-0",
     },
     {
