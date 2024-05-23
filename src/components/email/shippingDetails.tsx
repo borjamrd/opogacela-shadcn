@@ -28,7 +28,7 @@ export const ShippingDetails: React.FC<Readonly<ShippingDetailsProps>> = ({
 
         </ul>
 
-        <p className=''>El pedido llegará en las próximas 24/48 horas. Puedes contactar conmigo por <a href={`https://wa.me/658785288?text=Tengo%20dudas%20sobre%20los%20apuntes`}>{" "}Whatsapp{" "}</a> en caso de cualquier duda.</p>
+        <p className=''>El pedido llegará en las próximas 48/72 horas. Puedes contactar conmigo por <a href={`https://wa.me/658785288?text=Tengo%20dudas%20sobre%20los%20apuntes`}>{" "}Whatsapp{" "}</a> en caso de cualquier duda.</p>
 
 
 
