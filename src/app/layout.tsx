@@ -24,6 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
+      <meta
+        name="trustpilot-one-time-domain-verification-id"
+        content="2068c8b5-05a4-4a1c-8fe2-7c1a3c88913a"
+      />
       <body
         className={cn(
           "lg:min-h-screen h-full bg-background font-sans antialiased",
