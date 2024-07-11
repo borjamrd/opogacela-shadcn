@@ -68,7 +68,7 @@ export const Esquemas = async () => {
                                     </div>
                                     <div className='lg:w-1/4 flex gap-2'>
                                         <AddToCart price={pricing} />
-                                        <ButtonCheckout priceId={pricing.id} />
+                                        {/* <ButtonCheckout priceId={pricing.id} /> */}
                                     </div>
                                 </div>
 
@@ -87,7 +87,7 @@ export const Esquemas = async () => {
                                     </div>
                                     <div className='lg:w-1/4 flex gap-2'>
                                         <AddToCart price={pricing} />
-                                        <ButtonCheckout priceId={pricing.id} />
+                                        {/* <ButtonCheckout priceId={pricing.id} /> */}
                                     </div>
                                 </div>
 
@@ -107,7 +107,7 @@ export const Esquemas = async () => {
                                     </div>
                                     <div className='lg:w-1/4 flex gap-2'>
                                         <AddToCart price={pricing} />
-                                        <ButtonCheckout priceId={pricing.id} />
+                                        {/* <ButtonCheckout priceId={pricing.id} /> */}
                                     </div>
                                 </div>
 
