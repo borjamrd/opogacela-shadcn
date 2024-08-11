@@ -8,9 +8,10 @@ import {
 import { Stripe } from 'stripe';
 import AddToCart from './AddToCart';
 import ButtonCheckout from './ButtonCheckout';
-import TypeBadge from './TypeBadge';
-import React from "react";
 import { SchemeDescription } from "./SchemeDescription";
+import TypeBadge from './TypeBadge';
+
+
 
 async function loadPrices() {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)

@@ -43,6 +43,10 @@ const routeList: RouteProps[] = [
     href: "/#esquemas",
     label: "Esquemas",
   },
+  {
+    href: "/temas",
+    label: "Temas por bloque",
+  },
 
   {
     href: "/#faq",
