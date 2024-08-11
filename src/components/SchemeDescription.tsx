@@ -28,10 +28,8 @@ export const SchemeDescription = (({ description, features }: { description: any
             {showMore && <ul>{features?.map((feature: any, i: number) => { return <li className="list-disc list-inside" key={i}>{feature.name}</li> })}</ul>}
             {showMore && < div className="mt-3">
                 <Drawer >
-                    <DrawerTrigger>
-                        <Button variant={'link'} className="p-0">
-                            Contenido de todos los temas
-                        </Button>
+                    <DrawerTrigger className="p-0 text-primary underline-offset-4 hover:underline">
+                        Contenido de todos los temas
                     </DrawerTrigger>
                     <DrawerContent>
                         <DrawerHeader>
@@ -46,7 +44,7 @@ export const SchemeDescription = (({ description, features }: { description: any
                         <DrawerFooter>
 
                             <DrawerClose>
-                                <Button variant="outline">Cerrar</Button>
+                                Cerrar
                             </DrawerClose>
                         </DrawerFooter>
                     </DrawerContent>
