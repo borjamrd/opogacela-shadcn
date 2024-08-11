@@ -9,6 +9,8 @@ import { Stripe } from 'stripe';
 import AddToCart from './AddToCart';
 import ButtonCheckout from './ButtonCheckout';
 import TypeBadge from './TypeBadge';
+import React from "react";
+import { SchemeDescription } from "./SchemeDescription";
 
 async function loadPrices() {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -27,8 +29,27 @@ async function loadPrices() {
     return { gacePrices, adminPrices, lawPrices }
 }
 
+
+export const EsquemaContainer = ({ pricing }: { pricing: any }) => (
+    <div className='flex relative flex-col lg:gap-1 gap-8 p-3 lg:p-5 rounded-lg border bg-card text-card-foreground shadow-sm'>
+        <TypeBadge type={pricing?.metadata?.type} />
+        <div>
+            <h3 className='lg:text-2xl text-lg font-semibold leading-none tracking-tight w-4/5'> {pricing.nickname}</h3>
+            <span className="lg:text-3xl text-xl font-bold">{pricing.unit_amount && pricing.unit_amount / 100} €</span>
+        </div>
+
+        <SchemeDescription description={pricing?.product.description} features={pricing?.product.features} />
+        <div className='flex gap-2 justify-end'>
+            <AddToCart price={pricing} />
+            <ButtonCheckout priceId={pricing.id} />
+        </div>
+    </div>
+)
+
 export const Esquemas = async () => {
+
     const { gacePrices, adminPrices, lawPrices } = await loadPrices()
+
     return (
         <div>
 
@@ -46,7 +67,7 @@ export const Esquemas = async () => {
 
                 </h2>
                 <h3 className="text-xl text-center text-muted-foreground pt-4 pb-8">
-                    Puedes escoger uno o varios bloques, recuerda que la compra se realizará en otra pestaña del navegador.<br/>
+                    Puedes escoger uno o varios bloques, recuerda que la compra se realizará en otra pestaña del navegador.<br />
                     Recuerda que los esquemas <strong>se envían impresos (no en formato PDF) </strong>. Más información sobre el formato <a className="underline" href="#faq">aquí</a>.
                 </h3>
                 <Tabs defaultValue="gace" >
@@ -56,61 +77,24 @@ export const Esquemas = async () => {
                         <TabsTrigger value="laws">Leyes individuales</TabsTrigger>
                     </TabsList>
                     <TabsContent value="gace">
-                        <div className="flex gap-8 flex-col">
+                        <div className="grid lg:grid-cols-2 gap-8">
                             {gacePrices.map((pricing: any) =>
-
-                                <div key={pricing.id} className='flex relative flex-col lg:gap-1  gap-8 lg:flex-row p-3 rounded-lg border bg-card text-card-foreground shadow-sm'>
-                                    <TypeBadge type={pricing?.metadata?.type} />
-                                    <div className='mt-10 lg:w-3/4'>
-                                        <h3 className='lg:text-2xl text-lg font-semibold leading-none tracking-tight'> {pricing.nickname}</h3>
-
-                                        <span className="lg:text-3xl text-base font-bold">{pricing.unit_amount && pricing.unit_amount / 100} €</span>
-                                    </div>
-                                    <div className='lg:w-1/4 flex gap-2'>
-                                        <AddToCart price={pricing} />
-                                        {/* <ButtonCheckout priceId={pricing.id} /> */}
-                                    </div>
-                                </div>
-
+                                <EsquemaContainer key={pricing.id} pricing={pricing} />
                             )}
                         </div>
                     </TabsContent>
                     <TabsContent value="admin">
-                        <div className="flex gap-8 flex-col">
+                        <div className="grid lg:grid-cols-2 gap-8">
                             {adminPrices.map((pricing: any) =>
-
-                                <div key={pricing.id} className='flex relative flex-col lg:gap-1  gap-8 lg:flex-row p-3 rounded-lg border bg-card text-card-foreground shadow-sm'>
-                                    <TypeBadge type={pricing?.metadata?.type} />  <div className='mt-10 lg:w-3/4'>
-                                        <h3 className='lg:text-2xl text-lg font-semibold leading-none tracking-tight'> {pricing.nickname}</h3>
-
-                                        <span className="lg:text-3xl text-base font-bold">{pricing.unit_amount && pricing.unit_amount / 100} €</span>
-                                    </div>
-                                    <div className='lg:w-1/4 flex gap-2'>
-                                        <AddToCart price={pricing} />
-                                        {/* <ButtonCheckout priceId={pricing.id} /> */}
-                                    </div>
-                                </div>
+                                <EsquemaContainer key={pricing.id} pricing={pricing} />
 
                             )}
                         </div>
                     </TabsContent>
                     <TabsContent value="laws">
-                        <div className="flex gap-8 flex-col">
+                        <div className="grid lg:grid-cols-2 gap-8">
                             {lawPrices.map((pricing: any) =>
-
-                                <div key={pricing.id} className='flex relative flex-col lg:gap-1  gap-8 lg:flex-row p-3 rounded-lg border bg-card text-card-foreground shadow-sm'>
-                                    <TypeBadge type={pricing?.metadata?.type} />
-                                    <div className='mt-10 lg:w-3/4'>
-                                        <h3 className='lg:text-2xl text-lg font-semibold leading-none tracking-tight'> {pricing.nickname}</h3>
-
-                                        <span className="lg:text-3xl text-base font-bold">{pricing.unit_amount && pricing.unit_amount / 100} €</span>
-                                    </div>
-                                    <div className='lg:w-1/4 flex gap-2'>
-                                        <AddToCart price={pricing} />
-                                        {/* <ButtonCheckout priceId={pricing.id} /> */}
-                                    </div>
-                                </div>
-
+                                <EsquemaContainer key={pricing.id} pricing={pricing} />
                             )}
                         </div>
                     </TabsContent>

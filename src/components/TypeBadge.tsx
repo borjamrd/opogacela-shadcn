@@ -25,6 +25,6 @@ export default function TypeBadge({ type }: { type: any }) {
         }
     }
 
-    return <span className={`absolute top-4 lg:left-4 left-1 px-2 py-0.5 rounded-lg ms-2 ${typeClass()} font-semibold text-sm`}>{typeText()}</span>
+    return <span className={`absolute top-3 lg:right-3 right-3 px-2 py-0.5 rounded-lg ms-2 ${typeClass()} font-semibold text-sm`}>{typeText()}</span>
 
 }
