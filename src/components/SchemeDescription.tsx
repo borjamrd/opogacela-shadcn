@@ -1,6 +1,6 @@
 "use client"
 
-import { Temas } from "@/app/temas/page";
+import { Temas } from "@/components/Temas";
 import {
     Drawer,
     DrawerClose,
@@ -12,7 +12,6 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer";
 import React from "react";
-import { Button } from "./ui/button";
 export const SchemeDescription = (({ description, features }: { description: any, features: any }) => {
     const MAX_LENGTH = 180
 
