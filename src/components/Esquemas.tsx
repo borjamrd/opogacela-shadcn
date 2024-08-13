@@ -42,7 +42,7 @@ export const EsquemaContainer = ({ pricing }: { pricing: any }) => (
         <SchemeDescription description={pricing?.product.description} features={pricing?.product.features} />
         <div className='flex gap-2 justify-end'>
             <AddToCart price={pricing} />
-            <ButtonCheckout priceId={pricing.id} />
+            {/* <ButtonCheckout priceId={pricing.id} /> */}
         </div>
     </div>
 )
