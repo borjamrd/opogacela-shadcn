@@ -9,5 +9,7 @@ namespace NodeJS {
     GOOGLE_PRIVATE_KEY_ID: string;
     CLIENT_GOOGLE_EMAIL: string;
     GOOGLE_PRIVATE_KEY: string;
+    NEXT_PUBLIC_SUPABASE_URL: string;
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: string;
   }
 }
