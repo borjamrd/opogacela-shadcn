@@ -33,13 +33,13 @@ export default function ConfirmTestimonial() {
 
     return <div>
         <section className="flex max-w-3xl justify-center items-center m-auto p-5">
-            <div className="flex flex-col gap-2 w-full">
+            <div className="flex flex-col gap-2 w-full items-center justify-center">
                 <h1 className="text-2xl font-bold mb-4">Validación testimonial</h1>
                 {confirming ?
                     <div>Validando...</div> :
                     <div>
                         {confirmed ?
-                            <div>Se ha validado correctamente el testimonial</div> :
+                            <div>Se ha validado correctamente el testimonial. Puedes cerrar esta página.</div> :
                             <div>No se ha validado</div>}
                     </div>}
             </div>

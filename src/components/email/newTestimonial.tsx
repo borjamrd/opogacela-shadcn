@@ -9,7 +9,6 @@ export const NewTestimonial: React.FC<Readonly<Partial<Testimonial>>> = ({
     <div className='w-full h-96 flex flex-col gap-2'>
         <h1>¡Nuevo testimonio de {name}!</h1>
 
-        <p className='mb-3'>Según la información que nos has proporcionado durante la compra, te enviaremos los apuntes a esta dirección:</p>
         <ul>
             <li>Nombre: {name}</li>
             <li>Apellidos: {surname}</li>
