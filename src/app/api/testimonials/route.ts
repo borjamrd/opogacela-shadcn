@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await resend.emails.send({
         from: "Web Opogacela <web@opogacela.es>",
-        to: ['borjamrd1@gmail.com'],
+        to: ["instaopogacela@gmail.com", "borjamrd1@gmail.com"],
         subject: 'Nuevo testimonial en Opogacela',
         react: NewTestimonial(newTestimonial) as React.ReactElement,
     });
