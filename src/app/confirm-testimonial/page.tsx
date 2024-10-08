@@ -1,14 +1,13 @@
 'use client'
 import { supabase } from '../../lib/supabase';
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster"
 import { useSearchParams } from "next/navigation";
 
 
 export default function Page() {
-    const searchParams = useSearchParams()
-
-    const id = searchParams.get('id')
+    let params = new URLSearchParams(document.location.search);
+    let id = params.get("id"); // is the string "Jonathan"
 
     const [confirming, setConfirming] = useState<boolean>(true)
     const [confirmed, setConfirmed] = useState<boolean>(false)
@@ -48,4 +47,6 @@ export default function Page() {
         <Toaster />
 
     </div>
+
+
 }
