@@ -92,19 +92,19 @@ export default function Cart() {
           </div>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <div className="p-2 rounded-sm bg-red-200 text-red-700 font-bold text-balance">
+          {/* <div className="p-2 rounded-sm bg-red-200 text-red-700 font-bold text-balance">
             Provisionalmente la forma de pago será exclusivamente mediante Bizum
             al número 658 78 52 88. Una vez realizado escribeme al mismo número para proceder con el envío.
              En breve reactivaremos de nuevo las demás
             formas de pago con tarjeta.
-          </div>
+          </div> */}
           <AlertDialogCancel>Cerrar</AlertDialogCancel>
           {prices.length > 0 && (
             <AlertDialogCancel onClick={() => removeAllPrices()}>
               Vaciar carrito
             </AlertDialogCancel>
           )}
-          {/* {prices.length > 0 && <AlertDialogAction onClick={checkout}>Continuar (no pagarás aún)</AlertDialogAction>} */}
+          {prices.length > 0 && <AlertDialogAction onClick={checkout}>Continuar (no pagarás aún)</AlertDialogAction>}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
