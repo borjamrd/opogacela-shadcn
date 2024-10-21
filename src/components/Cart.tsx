@@ -93,7 +93,7 @@ export default function Cart() {
           </div>
 
         </AlertDialogHeader>
-        <div className="rounded bg-red-50 text-red-400 text-xs font-thin p-3 flex flex-col gap-2">
+        <div className="rounded bg-red-50 text-red-900 text-xs p-3 flex flex-col gap-2">
           <span>¡Atención! La letra de este material es pequeña: Calibri tamaño 7. Te recomendamos la impresión previa de uno de nuestros ejemplos para comprobar que estás cómodo con su lectura. No se hacen devoluciones de material salvo error en impresión o encuadernación.
           </span>
           <div className="flex gap-2">
