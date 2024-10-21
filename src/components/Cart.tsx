@@ -16,10 +16,11 @@ import {
 } from "./ui/alert-dialog";
 import { Badge } from "./ui/badge";
 import { Button, buttonVariants } from "./ui/button";
+import { useState } from "react";
 
 export default function Cart() {
   const { prices, removeAllPrices } = useOpogaceStore();
-
+  const [accepted, setAccepted] = useState(false);
   const checkout = async () => {
     let pricesToSend: {
       price: string;
@@ -90,8 +91,20 @@ export default function Cart() {
               </div>
             ))}
           </div>
+
         </AlertDialogHeader>
+        <div className="rounded bg-red-50 text-red-400 text-xs font-thin p-3 flex flex-col gap-2">
+          <span>¡Atención! La letra de este material es pequeña: Calibri tamaño 7. Te recomendamos la impresión previa de uno de nuestros ejemplos para comprobar que estás cómodo con su lectura. No se hacen devoluciones de material salvo error en impresión o encuadernación.
+          </span>
+          <div className="flex gap-2">
+            <input id="terms" type="checkbox" checked={accepted} onChange={() => setAccepted(!accepted)} />
+            <label htmlFor="terms">Estoy conforme con el formato del material</label>
+          </div>
+
+
+        </div>
         <AlertDialogFooter>
+
           {/* <div className="p-2 rounded-sm bg-red-200 text-red-700 font-bold text-balance">
             Provisionalmente la forma de pago será exclusivamente mediante Bizum
             al número 658 78 52 88. Una vez realizado escribeme al mismo número para proceder con el envío.
@@ -104,7 +117,7 @@ export default function Cart() {
               Vaciar carrito
             </AlertDialogCancel>
           )}
-          {prices.length > 0 && <AlertDialogAction onClick={checkout}>Continuar (no pagarás aún)</AlertDialogAction>}
+          {prices.length > 0 && <AlertDialogAction disabled={!accepted} onClick={checkout}>Continuar (no pagarás aún)</AlertDialogAction>}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
