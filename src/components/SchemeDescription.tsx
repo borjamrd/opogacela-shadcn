@@ -39,9 +39,7 @@ export const SchemeDescription = (({ description, features }: { description: any
                         <div className="h-[50vh] overflow-auto">
                             <Temas />
                         </div>
-
                         <DrawerFooter>
-
                             <DrawerClose>
                                 Cerrar
                             </DrawerClose>
@@ -49,14 +47,7 @@ export const SchemeDescription = (({ description, features }: { description: any
                     </DrawerContent>
                 </Drawer>
             </div>}
-
-
             <p className="mt-2" onClick={() => toggleShowMore()}>{showMore ? 'Mostrar menos' : 'Mostrar más'}</p>
-
-
-
-
-
         </div >)
     }
 

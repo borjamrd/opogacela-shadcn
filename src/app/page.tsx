@@ -25,7 +25,6 @@ export default function Home() {
       <Examples />
       <Cta />
       <Testimonials />
-      {/* <Team /> */}
       <Esquemas />
       <FAQ />
       <Footer />

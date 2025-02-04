@@ -1,70 +1,83 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import BuscadorTemas from "./BuscadorTemas";
 
-import DownloadButton from "./DownloadButton";
-import TypeBadge from "./TypeBadge";
-
-interface FeatureProps {
+export interface FeatureProps {
+  id: number;
   title: string;
   type: "gace" | "admin";
   file: any;
+  price_id: string;
 }
 
 const features: FeatureProps[] = [
   {
-    title: "Bloque I: Organización del Estado y la Administración Pública",
-    type: "admin",
-    file: "admin_bloque_1.pdf",
-  },
-  {
-    title: "Bloque III: Derecho Administrativo General",
-    type: "admin",
-    file: "admin_bloque_3.pdf",
-  },
-  {
-    title: "Bloque IV: Gestión del Personal",
-    type: "admin",
-    file: "admin_bloque_4.pdf",
-  },
-  {
-    title: "Bloque V: Gestión Financiera",
-    type: "admin",
-    file: "admin_bloque_5.pdf",
-  },
-  {
+    id: 1,
     title: "Bloque I: Organización del Estado y la Administración Pública",
     type: "gace",
     file: "gace_1.pdf",
+    price_id: "price_1PDZMdFdo9Q1U43InJgkQ8wE",
   },
   {
+    id: 2,
     title: "Bloque II: Unión Europea",
     type: "gace",
     file: "gace_2.pdf",
+    price_id: "price_1PDZMkFdo9Q1U43I3IBak8B1",
   },
   {
+    id: 3,
     title: "Bloque III: Políticas Públicas",
     type: "gace",
     file: "gace_3.pdf",
+    price_id: "price_1PDZMmFdo9Q1U43I2KQ7VXiQ",
   },
   {
+    id: 4,
     title: "Bloque IV: Derecho Administrativo",
     type: "gace",
     file: "gace_4.pdf",
+    price_id: "price_1PDZMoFdo9Q1U43IAAmpf71c",
   },
   {
+    id: 5,
     title: "Bloque V: Recursos Humanos",
     type: "gace",
     file: "gace_5.pdf",
+    price_id: "price_1PDZMtFdo9Q1U43Is4JhzxGs",
   },
   {
+    id: 6,
     title: "Bloque VI: Gestión Financiera",
     type: "gace",
     file: "gace_6.pdf",
+    price_id: "price_1PDZLdFdo9Q1U43IiXhc30kM",
+  },
+  {
+    id: 7,
+    title: "Bloque I: Organización del Estado y la Administración Pública",
+    type: "admin",
+    file: "admin_bloque_1.pdf",
+    price_id: "price_1PDZLZFdo9Q1U43IrPh5gzXH",
+  },
+  {
+    id: 8,
+    title: "Bloque III: Derecho Administrativo General",
+    type: "admin",
+    file: "admin_bloque_3.pdf",
+    price_id: "price_1PDZLNFdo9Q1U43IejjXcxll",
+  },
+  {
+    id: 9,
+    title: "Bloque IV: Gestión del Personal",
+    type: "admin",
+    file: "admin_bloque_4.pdf",
+    price_id: "price_1PDZLSFdo9Q1U43IdCNlax4w",
+  },
+  {
+    id: 10,
+    title: "Bloque V: Gestión Financiera",
+    type: "admin",
+    file: "admin_bloque_5.pdf",
+    price_id: "price_1PDZLQFdo9Q1U43IZFvBP38V",
   },
 ];
 
@@ -78,22 +91,7 @@ export const Examples = () => {
         </span>{" "}
         de cada bloque
       </h2>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {features.map(({ title, file, type }: FeatureProps) => (
-          <Card className="relative pt-10 group" key={title}>
-            <CardHeader>
-              <CardTitle>{title}</CardTitle>
-            </CardHeader>
-
-            <TypeBadge type={type} />
-
-            <CardFooter>
-              <DownloadButton file={file} />
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      <BuscadorTemas features={features} />
     </section>
   );
 };

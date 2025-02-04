@@ -34,7 +34,7 @@ export const Testimonials = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const getData = async () => {
     const { data: testimonials, error } = await supabase.from('testimonials').select('*').eq('reviewed', true);
-    if (error) console.log('Error fetching data:', error);
+    if (error) console.error('Error fetching data:', error);
     else setTestimonials(testimonials)
   };
 

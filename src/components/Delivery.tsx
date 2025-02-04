@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import checkout from "../../public/svg/checkout.svg";
@@ -5,6 +7,8 @@ import messages from "../../public/svg/messages.svg";
 import studying from "../../public/svg/studying.svg";
 import improve from "../../public/svg/improve.svg";
 import collaboration from "../../public/svg/collaboration.svg";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
 
 interface FeatureProps {
   image: any;
@@ -46,8 +50,37 @@ const features: FeatureProps[] = [
 ];
 
 export const Delivery = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, {
+    amount: 0.1,
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
   return (
-    <section id="delivery" className="container text-center py-24 sm:py-32">
+    <motion.section
+      ref={ref}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      variants={containerVariants}
+      id="delivery"
+      className="container text-center py-24 sm:py-32"
+    >
       <h2 className="text-3xl md:text-4xl font-bold ">
         ¿Cómo adquirir los
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
@@ -67,21 +100,23 @@ export const Delivery = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
         {features.map(({ image, title, description }: FeatureProps) => (
-          <Card key={title} className="bg-muted/50">
-            <CardHeader>
-              <CardTitle className="grid gap-4 place-items-center">
-                <Image
-                  src={image}
-                  alt=""
-                  className="w-[100px] object-contain rounded-lg"
-                />
-                {title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>{description}</CardContent>
-          </Card>
+          <motion.div key={title} variants={itemVariants}>
+            <Card key={title} className="bg-muted/50">
+              <CardHeader>
+                <CardTitle className="grid gap-4 place-items-center">
+                  <Image
+                    src={image}
+                    alt=""
+                    className="w-[100px] object-contain rounded-lg"
+                  />
+                  {title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>{description}</CardContent>
+            </Card>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 };

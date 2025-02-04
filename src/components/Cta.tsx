@@ -22,25 +22,6 @@ export const Cta = () => {
             No te preocupes. Respira, tomate la tila, corre tus 5k o haz tu rato de meditación y contacta conmigo para que te eche una mano. 😄
           </p>
         </div>
-
-        <div className="space-y-4 flex flex-col">
-          <a className={buttonVariants()} href="https://cal.com/opogacela" target="_blank"
-          > <CalendarCheck className="h-5 w-5 mr-2" />Agenda una reunión GRATIS</a>
-          <a
-            href=""
-            target="_blank"
-            className={`border ${buttonVariants({ variant: "secondary" })}`}
-          >
-
-
-            <DiscordLogoIcon
-              className="mr-2 w-5 h-5" />
-            Únete a nuestro canal
-
-          </a>
-
-
-        </div>
       </div>
     </section>
   );

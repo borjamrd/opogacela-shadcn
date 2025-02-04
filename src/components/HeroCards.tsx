@@ -91,7 +91,7 @@ export const HeroCards = () => {
                     <div>
                         <CardTitle>Comunidad de opositores</CardTitle>
                         <CardDescription className="text-md mt-2">
-                            Únete a los canales en Telegram y Discord para estar al tanto de las últimas noticias
+                            Únete al canal en Telegram para estar al tanto de las últimas noticias
                         </CardDescription>
 
                     </div>

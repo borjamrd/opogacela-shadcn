@@ -4,7 +4,6 @@ import { Resend } from "resend";
 export async function POST(request: NextRequest) {
     const { newTestimonial } = await request.json();
     const resend = new Resend(process.env.RESEND_API_KEY);
-    console.log(newTestimonial)
 
     const { data, error } = await resend.emails.send({
         from: "Web Opogacela <web@opogacela.es>",

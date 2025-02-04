@@ -36,12 +36,12 @@ const routeList: RouteProps[] = [
     label: "¿Cómo funciona?",
   },
   {
-    href: "/#examples",
-    label: "Ejemplos",
-  },
-  {
     href: "/#esquemas",
     label: "Esquemas",
+  },
+  {
+    href: "/#examples",
+    label: "Ejemplos",
   },
   {
     href: "/temas",
@@ -110,17 +110,7 @@ export const Navbar = () => {
                       {label}
                     </a>
                   ))}
-                  <a
-                    href="https://cal.com/opogacela" target="_blank"
-
-                    className={`${buttonVariants({ variant: "secondary" })}`}
-                  >
-
-
-                    <CalendarCheck className="h-5 w-5 mr-2" />
-                    <span>Agenda una reunión</span>
-
-                  </a>
+                 
                 </nav>
               </SheetContent>
             </Sheet>
@@ -142,19 +132,7 @@ export const Navbar = () => {
           </nav>
 
           <div className="hidden md:flex gap-2">
-            <a
-              href="https://cal.com/opogacela" target="_blank"
-
-              className={`${buttonVariants({ variant: "secondary" })}`}
-            >
-
-
-              <CalendarCheck className="h-5 w-5 mr-2" />
-              <span>Agenda una reunión</span>
-
-            </a>
             <Cart />
-
             <ModeToggle />
           </div>
         </NavigationMenuList>

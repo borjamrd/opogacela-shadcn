@@ -4,8 +4,6 @@ import { Button } from "./ui/button";
 
 export default function ButtonCheckout({ priceId }: { priceId: string }) {
 
-
-
     return <Button onClick={async () => {
         const res = await fetch('api/checkout', {
             method: 'POST',
