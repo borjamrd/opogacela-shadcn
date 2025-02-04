@@ -9,7 +9,6 @@ import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Navbar } from "@/components/Navbar";
-import { ScrollToTop } from "@/components/ScrollToTop";
 import { Services } from "@/components/Services";
 import { Testimonials } from "@/components/Testimonials";
 
@@ -29,12 +28,9 @@ export default function Home() {
       <FAQ />
       <Footer />
 
-      <div className="lg:hidden fixed bottom-4 right-4" >
+      <div className="lg:hidden fixed bottom-4 right-10" >
         <Cart />
       </div>
-
-      <ScrollToTop />
-
     </div>
   )
 }
