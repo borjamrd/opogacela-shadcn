@@ -5,6 +5,7 @@ import { Resend } from "resend";
 import { ShippingDetails } from "@/components/email/shippingDetails";
 import { ShippingAdminDetails } from "@/components/email/shippingAdmin";
 import { google } from "googleapis";
+import { TestimonialRequestEmail } from "@/components/email/TestimonialRequestEmail";
 
 export async function POST(request: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -54,6 +55,7 @@ export async function POST(request: NextRequest) {
         ? checkoutSessionCompleted?.amount_total / 100
         : null;
       const resend = new Resend(process.env.RESEND_API_KEY);
+      const purchaseDate = new Date(event.created * 1000);
       try {
         await saveDataToGoogleSheets(
           new Date(event.created * 1000),
@@ -84,10 +86,21 @@ export async function POST(request: NextRequest) {
           }) as React.ReactElement,
         });
 
+        let adminRecipients: string[];
+        const environment = process.env.ENV;
+        if (environment === "development") {
+          adminRecipients = ["borjamrd1@gmail.com"];
+        } else {
+          adminRecipients = ["instaopogacela@gmail.com", "borjamrd1@gmail.com"];
+        }
+
         await resend.emails.send({
           from: "Compras Opogacela <compras@opogacela.es>",
-          to: ["instaopogacela@gmail.com", "borjamrd1@gmail.com"],
-          subject: "Nueva compra en OPOGACELA",
+          to: adminRecipients,
+          subject: `Nueva compra en OPOGACELA ${
+            environment === "development" ? "[DEV]" : ""
+          }`,
+
           react: ShippingAdminDetails({
             name: customerName,
             email: customerEmail,
@@ -98,6 +111,43 @@ export async function POST(request: NextRequest) {
         });
       } catch (error) {
         return Response.json({ error });
+      }
+
+      try {
+        const environment = process.env.ENV;
+        let scheduledDateTime: Date;
+        const baseDate = new Date(purchaseDate);
+        if (environment === "development") {
+          scheduledDateTime = new Date(baseDate.getTime() + 1 * 60 * 1000);
+        } else {
+          scheduledDateTime = new Date(
+            baseDate.setDate(baseDate.getDate() + 25)
+          );
+          scheduledDateTime.setHours(10, 0, 0, 0);
+        }
+
+        const { error: scheduledEmailError } = await resend.emails.send({
+          from: "Opogacela Testimonios <testimonios@opogacela.es>",
+          to: [customerEmail],
+          subject: `¿Nos das tu opinión sobre tu compra en Opogacela, ${customerName}?`,
+          react: TestimonialRequestEmail({
+            customerName: customerName,
+            testimonialLink: `https://opogacela.es/add-testimonial`, 
+          }) as React.ReactElement,
+          scheduledAt: scheduledDateTime.toISOString(),
+        });
+
+        if (scheduledEmailError) {
+          console.error(
+            "Error al programar el email de testimonio:",
+            scheduledEmailError
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Excepción al intentar programar el email de testimonio:",
+          error
+        );
       }
 
       break;
