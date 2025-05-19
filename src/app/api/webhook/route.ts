@@ -134,6 +134,7 @@ export async function POST(request: NextRequest) {
             customerName: customerName,
             testimonialLink: `https://opogacela.es/add-testimonial`, 
           }) as React.ReactElement,
+           // @ts-ignore
           scheduledAt: scheduledDateTime.toISOString(),
         });
 
