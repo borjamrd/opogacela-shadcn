@@ -13,7 +13,7 @@ export default function InfografiasContent() {
   const [open, setOpen] = useState(false);
   const [infografia, setInfografia] = useState<null | Infografia>(null);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div>Cargando...</div>;
   if (error) return <div>Error: {error}</div>;
 
   const handleOpen = (infografia: Infografia) => {
