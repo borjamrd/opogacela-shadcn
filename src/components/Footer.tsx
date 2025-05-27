@@ -23,6 +23,16 @@ export const Footer = () => {
               Opiniones
             </a>
           </div>
+          <div>
+            <a href="/politica-privacidad" className="opacity-60 hover:opacity-100">
+              Política de privacidad
+            </a>
+          </div>
+            <div>
+            <a href="/politica-privacidad" className="opacity-60 hover:opacity-100">
+              Condiciones generales y de uso
+            </a>
+          </div>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -69,13 +79,13 @@ export const Footer = () => {
 
       <section className="container pb-14 text-center">
         <h3>
-          &copy; 2024 Página web creada por{" "}
+          {new Date().getFullYear()} created by{" "}
           <a
             target="_blank"
             href="https://github.com/borjamrd"
             className="text-primary transition-all border-primary hover:border-b-2"
           >
-            Borja Muñoz
+            Borja Muñoz 🤟
           </a>
         </h3>
       </section>

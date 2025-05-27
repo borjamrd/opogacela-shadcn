@@ -21,6 +21,9 @@ import { useState } from "react";
 export default function Cart() {
   const { prices, removeAllPrices } = useOpogaceStore();
   const [accepted, setAccepted] = useState(false);
+  const [acceptedGeneralConditions, setAcceptedGeneralConditions] =
+    useState(false);
+    
   const checkout = async () => {
     let pricesToSend: {
       price: string;
@@ -110,6 +113,26 @@ export default function Cart() {
               Estoy conforme con el formato del material
             </label>
           </div>
+          <div className="flex gap-2">
+            <input
+              id="terms"
+              type="checkbox"
+              checked={acceptedGeneralConditions}
+              onChange={() =>
+                setAcceptedGeneralConditions(!acceptedGeneralConditions)
+              }
+            />
+            <label htmlFor="terms">
+              Acepto las{" "}
+              <a href="/condiciones-generales" className="underline">
+                condiciones generales y de uso
+              </a>{" "}
+              y la{" "}
+              <a href="/politica-privacidad" className="underline">
+                política de privacidad
+              </a>
+            </label>
+          </div>
         </div>
         <AlertDialogFooter>
           {/* <div className="p-2 rounded-sm bg-red-200 text-red-700 font-bold text-balance">
@@ -125,7 +148,10 @@ export default function Cart() {
             </AlertDialogCancel>
           )}
           {prices.length > 0 && (
-            <AlertDialogAction disabled={!accepted} onClick={checkout}>
+            <AlertDialogAction
+              disabled={!accepted || !acceptedGeneralConditions}
+              onClick={checkout}
+            >
               Continuar (no pagarás aún)
             </AlertDialogAction>
           )}

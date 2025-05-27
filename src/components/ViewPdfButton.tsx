@@ -41,7 +41,6 @@ export default function ViewPdfButton({
 
   return (
     <>
-      {/* Si es móvil, se descarga el PDF. Si es escritorio, abre el modal */}
       {isMobile ? (
         <Button className="mt-2" variant="secondary" onClick={handleDownload}>
           <Eye className="h-4 w-4 mr-2" />
@@ -56,9 +55,7 @@ export default function ViewPdfButton({
             </Button>
           </DialogTrigger>
 
-          {/* Contenido del modal */}
           <DialogContent className="max-w-6xl h-[85vh] flex flex-col">
-            {/* Contenedor del PDF */}
             <div className="flex-grow relative overflow-hidden">
               <iframe
                 src={pdfUrl}

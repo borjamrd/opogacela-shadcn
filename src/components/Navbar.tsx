@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   NavigationMenu,
@@ -25,11 +25,9 @@ interface RouteProps {
 }
 
 const routeList: RouteProps[] = [
-
   {
     href: "/#sobremi",
     label: "Sobre mí",
-
   },
   {
     href: "/#howitworks",
@@ -47,6 +45,10 @@ const routeList: RouteProps[] = [
     href: "/temas",
     label: "Temas por bloque",
   },
+  {
+    href: "/infografias",
+    label: "Infografías",
+  },
 
   {
     href: "/#faq",
@@ -61,11 +63,7 @@ export const Navbar = () => {
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
           <NavigationMenuItem className="font-bold flex">
-            <a
-              href="/"
-              className="ml-2 font-bold text-xl flex text-primary"
-            >
-
+            <a href="/" className="ml-2 font-bold text-xl flex text-primary">
               Opo<span className="text-[#b985ab]">gacela</span>
             </a>
           </NavigationMenuItem>
@@ -74,17 +72,12 @@ export const Navbar = () => {
           <div className="flex md:hidden">
             <ModeToggle />
 
-            <Sheet
-              open={isOpen}
-              onOpenChange={setIsOpen}
-            >
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger className="px-2">
                 <Menu
                   className="flex md:hidden h-5 w-5"
                   onClick={() => setIsOpen(true)}
-                >
-
-                </Menu>
+                ></Menu>
               </SheetTrigger>
 
               <SheetContent side={"left"}>
@@ -94,7 +87,6 @@ export const Navbar = () => {
                       href="/"
                       className="mx-auto font-bold text-xl flex text-primary"
                     >
-
                       Opo<span className="text-[#b985ab]">gacela</span>
                     </a>
                   </SheetTitle>
@@ -110,7 +102,6 @@ export const Navbar = () => {
                       {label}
                     </a>
                   ))}
-                 
                 </nav>
               </SheetContent>
             </Sheet>
