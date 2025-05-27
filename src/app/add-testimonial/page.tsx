@@ -1,12 +1,10 @@
 'use client'
-import { Navbar } from "@/components/Navbar";
-import { supabase } from '../../lib/supabase';
-import { useState } from "react";
 import { Testimonial } from "@/components/Testimonials";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+import { supabase } from '../../lib/supabase';
 
-import { Resend } from "resend";
 
 
 export default function Page() {
@@ -86,7 +84,6 @@ export default function Page() {
 
 
     return <div>
-        <Navbar />
         <section className="flex max-w-3xl justify-center items-center m-auto p-5">
             <div className="flex flex-col gap-2 w-full">
                 <h1 className="text-2xl font-bold mb-4">Agregar testimonial</h1>

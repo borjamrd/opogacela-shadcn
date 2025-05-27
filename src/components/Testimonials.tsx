@@ -27,7 +27,7 @@ export interface Testimonial {
 export const Testimonials = () => {
 
   useEffect(() => {
-    getData()
+    getData();
   }, [])
 
 
