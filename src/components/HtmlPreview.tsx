@@ -14,7 +14,7 @@ export default function HtmlPreview({ htmlContent }: HtmlPreviewProps) {
   useEffect(() => {
     const handler = setTimeout(() => {
       setCurrentContent(htmlContent);
-    }, 300); 
+    }, 300);
 
     return () => {
       clearTimeout(handler);
@@ -22,10 +22,7 @@ export default function HtmlPreview({ htmlContent }: HtmlPreviewProps) {
   }, [htmlContent]);
 
   return (
-    <div className="flex flex-col h-full">
-      <Label className="mb-2 text-sm font-medium text-foreground">
-        Live Preview
-      </Label>
+    <div className="flex flex-col h-full w-full">
       <iframe
         srcDoc={currentContent}
         title="HTML Preview"
