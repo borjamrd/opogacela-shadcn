@@ -10,6 +10,7 @@
     "supabase:generate": "npx supabase gen types typescript --project-id \"yzeawmqsvqdgcztjdmod\" --schema public > ./src/lib/database.types.ts"
   },
   "dependencies": {
+    "@mux/mux-player-react": "^3.5.3",
     "@mux/mux-uploader-react": "^1.2.0",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
