@@ -1,6 +1,6 @@
 // /app/courses/[courseId]/[lessonId]/page.tsx
 "use client";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 import MuxPlayer from "@mux/mux-player-react";
 import { useEffect, useState } from "react";
 
@@ -10,7 +10,7 @@ export default function LessonPage({
   params: { lessonId: string };
 }) {
   const [playbackId, setPlaybackId] = useState("");
-
+  const supabase = createClient();
   useEffect(() => {
     const fetchLesson = async () => {
       const { data, error } = await supabase
