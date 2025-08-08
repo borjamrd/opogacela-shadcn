@@ -1,0 +1,42 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+
+export async function login(formData: FormData) {
+  const supabase = await createClient();
+
+  const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
+  const { error } = await supabase.auth.signInWithPassword(data);
+
+  if (error) {
+    console.error("Error logging in:", error.message);
+    redirect("/error"); // Puedes crear una página de error genérica
+  }
+
+  // En lugar de redirigir directamente, vamos a la página de bienvenida
+  // para que gestione la redirección por rol.
+  revalidatePath("/", "layout");
+  redirect("/welcome");
+}
+
+export async function signup(formData: FormData) {
+  const supabase = await createClient();
+  // type-casting here for convenience
+  // in practice, you should validate your inputs
+  const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+  const { error } = await supabase.auth.signUp(data);
+  if (error) {
+    redirect("/error");
+  }
+  revalidatePath("/", "layout");
+  redirect("/");
+}

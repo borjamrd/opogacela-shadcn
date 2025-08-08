@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "supabase:generate": "npx supabase gen types typescript --project-id \"yzeawmqsvqdgcztjdmod\" --schema public > ./src/lib/database.types.ts"
+    "supabase:generate": "npx supabase gen types typescript --project-id \"yzeawmqsvqdgcztjdmod\" --schema public > ./src/lib/supabase/database.types.ts"
   },
   "dependencies": {
     "@mux/mux-player-react": "^3.5.3",

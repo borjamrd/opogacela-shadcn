@@ -6,12 +6,12 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 import { MdContactPage } from "react-icons/md";
+import { createClient } from "@/lib/supabase/client";
 export interface Testimonial {
   id: number;
   name: string;
@@ -26,6 +26,7 @@ export interface Testimonial {
 
 export const Testimonials = () => {
 
+  const supabase = createClient();
   useEffect(() => {
     getData();
   }, [])
