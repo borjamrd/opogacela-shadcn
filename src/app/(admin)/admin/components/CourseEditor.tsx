@@ -79,9 +79,9 @@ export default function CourseEditor({
     setUploadTarget(target);
     setPendingAction(`prepare-${target.type}-${target.id}`);
     try {
-      const response = await fetch("/api/create-mux-upload", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/create-mux-upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ target }),
       });
       if (!response.ok) throw new Error("Failed to get upload URL");
@@ -105,7 +105,7 @@ export default function CourseEditor({
         </CardHeader>
         <CardContent>
           {course.trailer_playback_id ? (
-            <MuxPlayer playbackId={course.trailer_playback_id} />
+            <MuxPlayer className="h-48 w-auto" playbackId={course.trailer_playback_id} />
           ) : (
             <Button
               variant="outline"
