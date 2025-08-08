@@ -1,41 +1,51 @@
 // @ts-nocheck
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-import Mux from "npm:@mux/mux-node";
+import { createClient } from "npm:@supabase/supabase-js@2";
+import Mux from "npm:@mux/mux-node@8";
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+
+const mux = new Mux({
+  webhookSecret: Deno.env.get("MUX_WEBHOOK_SECRET"),
+});
 
 const supabaseAdmin = createClient(
   Deno.env.get("SUPABASE_URL") ?? "",
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
 );
 
-Deno.serve(async (req) => {
-  const signature = req.headers.get("Mux-Signature")!;
+serve(async (req) => {
   const body = await req.text();
 
   try {
-    Mux.webhooks.verifySignature(body, signature, Deno.env.get("MUX_WEBHOOK_SECRET")!);
-    
-    const { type, data } = JSON.parse(body);
+    const event = mux.webhooks.unwrap(body, req.headers);
 
-    if (type === "video.asset.ready") {
-      const lessonId = data.passthrough;
-      const playbackId = data.playback_ids?.[0]?.id;
+    if (event.type === "video.asset.ready") {
+      const { passthrough: lessonId, playback_ids } = event.data;
+      const playbackId = playback_ids?.[0]?.id;
 
       if (!lessonId || !playbackId) {
-        throw new Error("Missing lessonId or playbackId in webhook payload");
+        console.error(
+          "Missing lessonId or playbackId in webhook payload:",
+          event.data
+        );
+        throw new Error("Missing lessonId or playbackId");
       }
+
 
       const { error } = await supabaseAdmin
         .from("lessons")
         .update({ mux_playback_id: playbackId })
         .eq("id", parseInt(lessonId, 10));
-        
-      if (error) throw error;
+
+      if (error) {
+        console.error("Error updating lesson in Supabase:", error);
+        throw error;
+      }
+
     }
 
-    return new Response("Webhook received successfully.", { status: 200 });
-  } catch (error) {
-    console.error("Error handling Mux webhook:", error.message);
-    return new Response(`Webhook Error: ${error.message}`, { status: 400 });
+    return new Response("Webhook processed successfully", { status: 200 });
+  } catch (err) {
+    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
   }
 });
