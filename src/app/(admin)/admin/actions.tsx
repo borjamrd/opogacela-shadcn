@@ -2,8 +2,11 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { Course, Lesson } from "@/lib/types";
 
-export async function createCourse(formData: FormData) {
+export async function createCourse(
+  formData: FormData
+): Promise<{ data?: Course; error?: string }> {
   const supabase = await createClient();
   const title = formData.get("title") as string;
   const description = formData.get("description") as string;
@@ -12,20 +15,24 @@ export async function createCourse(formData: FormData) {
     return { error: "El título es obligatorio." };
   }
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("courses")
-    .insert({ title, description });
+    .insert({ title, description })
+    .select()
+    .single();
 
   if (error) {
     console.error("Error creating course:", error);
     return { error: "No se pudo crear el curso." };
   }
 
-  revalidatePath("/admin"); // Actualiza la UI para mostrar el nuevo curso
-  return { success: true };
+  revalidatePath("/admin");
+  return { data };
 }
 
-export async function createLesson(formData: FormData) {
+export async function createLesson(
+  formData: FormData
+): Promise<{ data?: Lesson; error?: string }> {
   const supabase = await createClient();
   const title = formData.get("title") as string;
   const courseId = formData.get("courseId") as string;
@@ -34,15 +41,17 @@ export async function createLesson(formData: FormData) {
     return { error: "Faltan datos para crear la lección." };
   }
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("lessons")
-    .insert({ title, course_id: parseInt(courseId) });
+    .insert({ title, course_id: parseInt(courseId) })
+    .select()
+    .single();
 
   if (error) {
     console.error("Error creating lesson:", error);
     return { error: "No se pudo crear la lección." };
   }
 
-  revalidatePath("/admin"); // Actualiza la UI para mostrar la nueva lección
-  return { success: true };
+  revalidatePath("/admin");
+  return { data };
 }

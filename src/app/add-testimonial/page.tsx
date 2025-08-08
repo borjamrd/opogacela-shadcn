@@ -2,13 +2,14 @@
 import { Testimonial } from "@/components/Testimonials";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
+import { createClient } from "@/lib/supabase/client";
 import { useState } from "react";
-import { supabase } from '../../lib/supabase';
 
 
 
 export default function Page() {
-    const { toast } = useToast()
+    const { toast } = useToast();
+    const supabase = createClient();
 
     const [formData, setFormData] = useState<Partial<Testimonial>>({
         name: '',
