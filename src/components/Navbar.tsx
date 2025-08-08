@@ -25,35 +25,14 @@ interface RouteProps {
 }
 
 const routeList: RouteProps[] = [
-  {
-    href: "/#sobremi",
-    label: "Sobre mí",
-  },
-  {
-    href: "/#howitworks",
-    label: "¿Cómo funciona?",
-  },
-  {
-    href: "/#esquemas",
-    label: "Esquemas",
-  },
-  {
-    href: "/#examples",
-    label: "Ejemplos",
-  },
-  {
-    href: "/temas",
-    label: "Temas por bloque",
-  },
-  {
-    href: "/infografias",
-    label: "Infografías",
-  },
-
-  {
-    href: "/#faq",
-    label: "FAQ",
-  },
+  { href: "/#sobremi", label: "Sobre mí" },
+  { href: "/#howitworks", label: "¿Cómo funciona?" },
+  { href: "/#esquemas", label: "Esquemas" },
+  { href: "/#examples", label: "Ejemplos" },
+  { href: "/courses", label: "Cursos" },
+  { href: "/temas", label: "Temas por bloque" },
+  // { href: "/infografias", label: "Infografías" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 export const Navbar = () => {

@@ -694,6 +694,21 @@ export type Database = {
           },
         ]
       }
+      profiles: {
+        Row: {
+          id: string
+          role: string
+        }
+        Insert: {
+          id: string
+          role?: string
+        }
+        Update: {
+          id?: string
+          role?: string
+        }
+        Relationships: []
+      }
       project: {
         Row: {
           createdAt: string

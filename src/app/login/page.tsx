@@ -1,11 +1,21 @@
-/* /app/login/page.tsx */
-// Combina la UI de Supabase para OAuth y un formulario para Server Actions.
 "use client";
 
 import { login, signup } from "./actions";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { createClient } from "@/lib/supabase/client";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export default function LoginPage() {
   const supabase = createClient();
@@ -21,28 +31,42 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      {/* Formulario para Email/Contraseña con Server Actions */}
-      <form>
-        <label htmlFor="email">Email:</label>
-        <input id="email" name="email" type="email" required />
-        <label htmlFor="password">Password:</label>
-        <input id="password" name="password" type="password" required />
-        <button formAction={login}>Log in</button>
-        <button formAction={signup}>Sign up</button>
-      </form>
-
-      {/* Divisor */}
-      <div style={{ margin: "2rem 0", textAlign: "center" }}>o</div>
-
-      {/* UI para proveedores OAuth (Google) */}
-      <Auth
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-        providers={["google"]}
-        redirectTo={getURL()}
-        onlyThirdPartyProviders
-      />
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Authentication</CardTitle>
+        <CardDescription>Log in or sign up to continue.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form className="space-y-4">
+          <div className="grid w-full gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" name="email" type="email" required />
+          </div>
+          <div className="grid w-full gap-2">
+            <Label htmlFor="password">Password</Label>
+            <Input id="password" name="password" type="password" required />
+          </div>
+          <div className="grid w-full gap-2">
+            <Button formAction={login}>Log in</Button>
+            <Button formAction={signup} variant="secondary">
+              Sign up
+            </Button>
+          </div>
+        </form>
+      </CardContent>
+      <CardFooter>
+        <Separator className="my-4" />
+        <div className="text-center text-sm text-muted-foreground">
+          Or continue with
+        </div>
+        <Auth
+          supabaseClient={supabase}
+          appearance={{ theme: ThemeSupa }}
+          providers={["google"]}
+          redirectTo={getURL()}
+          onlyThirdPartyProviders
+        />
+      </CardFooter>
+    </Card>
   );
 }
