@@ -114,22 +114,31 @@ export type Database = {
           created_at: string
           description: string | null
           id: number
+          price: number | null
           stripe_price_id: string | null
           title: string
+          total_hours: number | null
+          trailer_playback_id: string | null
         }
         Insert: {
           created_at?: string
           description?: string | null
           id?: never
+          price?: number | null
           stripe_price_id?: string | null
           title: string
+          total_hours?: number | null
+          trailer_playback_id?: string | null
         }
         Update: {
           created_at?: string
           description?: string | null
           id?: never
+          price?: number | null
           stripe_price_id?: string | null
           title?: string
+          total_hours?: number | null
+          trailer_playback_id?: string | null
         }
         Relationships: []
       }
@@ -611,27 +620,36 @@ export type Database = {
           course_id: number
           created_at: string
           description: string | null
+          duration_in_seconds: number | null
           id: number
           mux_asset_id: string | null
           mux_playback_id: string | null
+          order: number
+          section_id: number | null
           title: string
         }
         Insert: {
           course_id: number
           created_at?: string
           description?: string | null
+          duration_in_seconds?: number | null
           id?: never
           mux_asset_id?: string | null
           mux_playback_id?: string | null
+          order: number
+          section_id?: number | null
           title: string
         }
         Update: {
           course_id?: number
           created_at?: string
           description?: string | null
+          duration_in_seconds?: number | null
           id?: never
           mux_asset_id?: string | null
           mux_playback_id?: string | null
+          order?: number
+          section_id?: number | null
           title?: string
         }
         Relationships: [
@@ -640,6 +658,13 @@ export type Database = {
             columns: ["course_id"]
             isOneToOne: false
             referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lessons_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "sections"
             referencedColumns: ["id"]
           },
         ]
@@ -774,6 +799,38 @@ export type Database = {
             columns: ["projectId"]
             isOneToOne: false
             referencedRelation: "project"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sections: {
+        Row: {
+          course_id: number
+          created_at: string
+          id: number
+          order: number
+          title: string
+        }
+        Insert: {
+          course_id: number
+          created_at?: string
+          id?: never
+          order: number
+          title: string
+        }
+        Update: {
+          course_id?: number
+          created_at?: string
+          id?: never
+          order?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sections_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
             referencedColumns: ["id"]
           },
         ]
@@ -1349,7 +1406,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_my_role: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
