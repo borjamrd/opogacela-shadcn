@@ -48,9 +48,9 @@ export default function LoginPage() {
               <Input id="password" name="password" type="password" required />
             </div>
             <div className="grid w-full gap-2">
-              <Button formAction={login}>Log in</Button>
+              <Button formAction={login}>Iniciar sesión</Button>
               <Button formAction={signup} variant="secondary">
-                Sign up
+                Crear cuenta
               </Button>
             </div>
           </form>
@@ -58,7 +58,7 @@ export default function LoginPage() {
         <CardFooter className="flex flex-col items-center">
           <Separator className="my-4" />
           <div className="text-center text-sm text-muted-foreground">
-            Or continue with
+            O continúa con
           </div>
           <Auth
             supabaseClient={supabase}
