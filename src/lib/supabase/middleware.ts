@@ -36,7 +36,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const protectedRoutes = ["/admin", "/my-courses"];
+  const protectedRoutes = ["/admin", "/courses"];
 
   if (
     !user &&
@@ -54,7 +54,7 @@ export async function updateSession(request: NextRequest) {
       .single();
 
     if (profile?.role !== "admin") {
-      return NextResponse.redirect(new URL("/my-courses", request.url));
+      return NextResponse.redirect(new URL("/cursos", request.url));
     }
   }
 

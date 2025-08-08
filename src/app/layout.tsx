@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import Favicon from "/public/favicon.ico";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Navbar } from "@/components/Navbar";
+import UserStatus from "@/components/UserStatus"; 
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -18,7 +20,8 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: Favicon.src }],
 };
 
-export default function RootLayout({
+// Convertimos el layout en un componente async
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -32,7 +35,6 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        {" "}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -40,7 +42,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Analytics />
-           <Navbar />
+          {/* Pasamos el componente de servidor UserStatus como una prop al Navbar */}
+          <Navbar userStatus={<UserStatus />} />
           {children}
         </ThemeProvider>
         <SpeedInsights />

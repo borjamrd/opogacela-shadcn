@@ -31,42 +31,44 @@ export default function LoginPage() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Authentication</CardTitle>
-        <CardDescription>Log in or sign up to continue.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form className="space-y-4">
-          <div className="grid w-full gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" name="email" type="email" required />
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <Card className="w-full max-w-md p-6">
+        <CardHeader>
+          <CardTitle>Inicia sesión</CardTitle>
+          <CardDescription>Accede para ver tus cursos.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form className="space-y-4">
+            <div className="grid w-full gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" name="email" type="email" required />
+            </div>
+            <div className="grid w-full gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" name="password" type="password" required />
+            </div>
+            <div className="grid w-full gap-2">
+              <Button formAction={login}>Log in</Button>
+              <Button formAction={signup} variant="secondary">
+                Sign up
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+        <CardFooter className="flex flex-col items-center">
+          <Separator className="my-4" />
+          <div className="text-center text-sm text-muted-foreground">
+            Or continue with
           </div>
-          <div className="grid w-full gap-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" name="password" type="password" required />
-          </div>
-          <div className="grid w-full gap-2">
-            <Button formAction={login}>Log in</Button>
-            <Button formAction={signup} variant="secondary">
-              Sign up
-            </Button>
-          </div>
-        </form>
-      </CardContent>
-      <CardFooter>
-        <Separator className="my-4" />
-        <div className="text-center text-sm text-muted-foreground">
-          Or continue with
-        </div>
-        <Auth
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          providers={["google"]}
-          redirectTo={getURL()}
-          onlyThirdPartyProviders
-        />
-      </CardFooter>
-    </Card>
+          <Auth
+            supabaseClient={supabase}
+            appearance={{ theme: ThemeSupa }}
+            providers={["google"]}
+            redirectTo={getURL()}
+            onlyThirdPartyProviders
+          />
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

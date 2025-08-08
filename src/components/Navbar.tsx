@@ -35,7 +35,7 @@ const routeList: RouteProps[] = [
   { href: "/#faq", label: "FAQ" },
 ];
 
-export const Navbar = () => {
+export const Navbar = ({ userStatus }: { userStatus: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
@@ -49,6 +49,7 @@ export const Navbar = () => {
 
           {/* mobile with error */}
           <div className="flex md:hidden">
+            {userStatus}
             <ModeToggle />
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -86,9 +87,8 @@ export const Navbar = () => {
             </Sheet>
           </div>
 
-          {/* desktop */}
           <nav className="hidden md:flex gap-2">
-            {routeList.map((route: RouteProps, i) => (
+            {routeList.map((route, i) => (
               <a
                 href={route.href}
                 key={i}
@@ -101,8 +101,9 @@ export const Navbar = () => {
             ))}
           </nav>
 
-          <div className="hidden md:flex gap-2">
+          <div className="hidden md:flex gap-2 items-center">
             <Cart />
+            {userStatus} {/* Y aquí también */}
             <ModeToggle />
           </div>
         </NavigationMenuList>

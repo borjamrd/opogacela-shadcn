@@ -21,6 +21,6 @@ export default async function WelcomePage() {
   if (profile?.role === "admin") {
     redirect("/admin");
   } else {
-    redirect("/my-courses");
+    redirect("/courses");
   }
 }
