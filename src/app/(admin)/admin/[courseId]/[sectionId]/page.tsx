@@ -23,7 +23,7 @@ export default async function SectionPage({
     <main className="container py-10">
       <div className="mb-6">
         <Link
-          href="/admin"
+          href={"/admin/" + section?.course_id}
           className="flex items-center text-sm text-muted-foreground hover:text-foreground"
         >
           <ChevronLeft className="h-4 w-4 mr-1" />
