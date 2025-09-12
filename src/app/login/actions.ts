@@ -19,8 +19,6 @@ export async function login(formData: FormData) {
     redirect("/error"); // Puedes crear una página de error genérica
   }
 
-  // En lugar de redirigir directamente, vamos a la página de bienvenida
-  // para que gestione la redirección por rol.
   revalidatePath("/", "layout");
   redirect("/welcome");
 }
