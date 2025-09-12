@@ -30,7 +30,11 @@ type CourseWithSections = Course & {
   instructor?: Instructor;
 };
 
-export default function CoursePlayer({ course }: { course: CourseWithSections }) {
+export default function CoursePlayer({
+  course,
+}: {
+  course: CourseWithSections;
+}) {
   const allLessons = useMemo(
     () => course.sections.flatMap((section) => section.lessons),
     [course.sections]
@@ -54,6 +58,15 @@ export default function CoursePlayer({ course }: { course: CourseWithSections })
   const handleMarkAsComplete = () => {
     startTransition(async () => {
       await markLessonAsComplete(selectedLesson.id, course.id);
+
+      const currentIndex = allLessons.findIndex(
+        (lesson) => lesson.id === selectedLesson.id
+      );
+      const nextLesson = allLessons[currentIndex + 1];
+
+      if (nextLesson) {
+        setSelectedLesson(nextLesson);
+      }
     });
   };
 
@@ -88,7 +101,10 @@ export default function CoursePlayer({ course }: { course: CourseWithSections })
                     : undefined
                 }
               >
-                <AccordionItem value={`section-${section.id}`} className="border-b-0 mb-2">
+                <AccordionItem
+                  value={`section-${section.id}`}
+                  className="border-b-0 mb-2"
+                >
                   <AccordionTrigger className="hover:no-underline font-medium px-2 py-3 rounded-md hover:bg-muted">
                     {section.title}
                   </AccordionTrigger>
@@ -125,7 +141,7 @@ export default function CoursePlayer({ course }: { course: CourseWithSections })
 
       {/* --- Contenido Principal (Vídeo y Detalles) --- */}
       <main className="flex-1 overflow-y-auto">
-        <div className="max-w-5xl mx-auto p-6 md:p-8 lg:p-12">
+        <div className="max-w-4xl mx-auto p-6 md:p-8 lg:p-12">
           {selectedLesson ? (
             <>
               <div className="w-full aspect-video mb-4 bg-muted rounded-lg overflow-hidden flex-shrink-0">
@@ -147,7 +163,11 @@ export default function CoursePlayer({ course }: { course: CourseWithSections })
                 {selectedLesson.title}
               </h1>
               {!selectedLesson.completed && (
-                <Button onClick={handleMarkAsComplete} disabled={isPending} size="lg">
+                <Button
+                  onClick={handleMarkAsComplete}
+                  disabled={isPending}
+                  size="lg"
+                >
                   {isPending ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : (
