@@ -61,5 +61,11 @@
     "supabase": "^2.33.9",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@vercel/speed-insights",
+      "supabase"
+    ]
   }
 }
