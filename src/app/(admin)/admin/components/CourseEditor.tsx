@@ -2,14 +2,14 @@
 
 import { useState, useRef, useTransition } from "react";
 import { type Course, type Lesson, type Section } from "@/lib/types";
-import { createSection, createLesson } from "../actions";
+import { createSection } from "../actions";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import MuxUploader from "@mux/mux-uploader-react";
 import MuxPlayer from "@mux/mux-player-react";
-import { Loader2, Video, UploadCloud, User, Star, Info } from "lucide-react";
+import { Loader2, UploadCloud, User, Star, Info, Edit } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -17,6 +17,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 type SectionWithLessons = Section & { lessons: Lesson[] };
 type CourseWithSections = Course & { sections: SectionWithLessons[] };
@@ -28,7 +29,7 @@ export default function CourseEditor({
 }) {
   const [course, setCourse] = useState<CourseWithSections>(initialCourse);
   const [uploadTarget, setUploadTarget] = useState<{
-    type: "lesson" | "trailer";
+    type: "trailer";
     id: number;
   } | null>(null);
   const [uploadUrl, setUploadUrl] = useState("");
@@ -60,26 +61,7 @@ export default function CourseEditor({
     }, "create-section");
   };
 
-  const handleCreateLesson = (formData: FormData, sectionId: number) => {
-    handleAction(async () => {
-      formData.append("sectionId", sectionId.toString());
-      const { data } = await createLesson(formData);
-      if (data) {
-        const updatedSections = course.sections.map((s) =>
-          s.id === sectionId
-            ? { ...s, lessons: [...(s.lessons || []), data] }
-            : s
-        );
-        const updatedCourse = { ...course, sections: updatedSections };
-        setCourse(updatedCourse);
-      }
-    }, `create-lesson-${sectionId}`);
-  };
-
-  const prepareUpload = async (target: {
-    id: number;
-    type: "lesson" | "trailer";
-  }) => {
+  const prepareUpload = async (target: { id: number; type: "trailer" }) => {
     if (uploadTarget?.id === target.id && uploadTarget.type === target.type) {
       setUploadTarget(null);
       return;
@@ -240,83 +222,18 @@ export default function CourseEditor({
                               <span className="flex-1 mr-2">
                                 {lesson.title}
                               </span>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() =>
-                                  prepareUpload({
-                                    id: lesson.id,
-                                    type: "lesson",
-                                  })
-                                }
-                                disabled={!!pendingAction}
-                              >
-                                {pendingAction ===
-                                `prepare-lesson-${lesson.id}` ? (
-                                  <Loader2 className="h-4 w-4 animate-spin" />
-                                ) : lesson.mux_playback_id ? (
-                                  <Video className="h-4 w-4" />
-                                ) : (
-                                  <UploadCloud className="h-4 w-4" />
-                                )}
-                              </Button>
                             </li>
                           ))}
                         </ul>
-                        {uploadTarget?.type === "lesson" &&
-                          (section.lessons || []).some(
-                            (l) => l.id === uploadTarget.id
-                          ) && (
-                            <div className="mt-4 pt-4 border-t">
-                              {uploadUrl ? (
-                                <MuxUploader
-                                  endpoint={uploadUrl}
-                                  onSuccess={() => {
-                                    alert(
-                                      "Vídeo subido. La página se recargará para ver los cambios."
-                                    );
-                                    window.location.reload();
-                                  }}
-                                />
-                              ) : (
-                                <MuxPlayer
-                                  playbackId={
-                                    section.lessons.find(
-                                      (l) => l.id === uploadTarget.id
-                                    )?.mux_playback_id || ""
-                                  }
-                                />
-                              )}
-                            </div>
-                          )}
-                        <form
-                          action={(formData) =>
-                            handleCreateLesson(formData, section.id)
-                          }
-                          className="mt-3 pt-3 border-t flex"
+                        <Link
+                          href={`/admin/${course.id}/${section.id}`}
+                          passHref
                         >
-                          <Input
-                            name="title"
-                            placeholder="Título de la nueva lección"
-                            required
-                            className="text-sm"
-                          />
-                          <Button
-                            type="submit"
-                            size="sm"
-                            variant="outline"
-                            className="ml-2"
-                            disabled={
-                              pendingAction === `create-lesson-${section.id}`
-                            }
-                          >
-                            {pendingAction === `create-lesson-${section.id}` ? (
-                              <Loader2 className="h-4 w-4 animate-spin" />
-                            ) : (
-                              <UploadCloud className="h-4 w-4" />
-                            )}
+                          <Button variant="outline" size="sm" className="mt-4">
+                            <Edit className="w-4 h-4 mr-2" />
+                            Editar sección
                           </Button>
-                        </form>
+                        </Link>
                       </AccordionContent>
                     </AccordionItem>
                   ))}
