@@ -66,6 +66,49 @@ export async function createSection(
   return { data };
 }
 
+export async function deleteSection(sectionId: number, courseId: number) {
+  const supabase = await createClient();
+
+  // 1. Encontrar todas las lecciones de la sección que tengan vídeos en Mux
+  const { data: lessons, error: lessonsError } = await supabase
+    .from("lessons")
+    .select("mux_asset_id")
+    .eq("section_id", sectionId)
+    .not("mux_asset_id", "is", null);
+
+  if (lessonsError) {
+    console.error("Error al buscar lecciones para eliminar:", lessonsError);
+    return { error: "No se pudieron encontrar las lecciones de la sección." };
+  }
+
+  if (lessons && lessons.length > 0) {
+    try {
+      const deletePromises = lessons.map((lesson) =>
+        mux.video.assets.delete(lesson.mux_asset_id!)
+      );
+      await Promise.all(deletePromises);
+    } catch (e) {
+      console.error("Error al eliminar assets de Mux:", e);
+    }
+  }
+
+  // 3. Eliminar la sección de la base de datos.
+  // La base de datos debería tener "ON DELETE CASCADE" para que esto elimine
+  // automáticamente todas las lecciones asociadas a la sección.
+  const { error: deleteError } = await supabase
+    .from("sections")
+    .delete()
+    .eq("id", sectionId);
+
+  if (deleteError) {
+    console.error("Error al eliminar la sección:", deleteError);
+    return { error: "No se pudo eliminar la sección de la base de datos." };
+  }
+
+  revalidatePath(`/admin/${courseId}`);
+  return { success: true };
+}
+
 // --- Lesson Actions ---
 export async function createLesson(
   formData: FormData
@@ -186,5 +229,26 @@ export async function deleteLessonVideo(
   }
 
   revalidatePath(`/admin/${courseId}/${sectionId}`);
+  return { success: true };
+}
+
+export async function updateCourseDescription(
+  courseId: number,
+  description: string
+) {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("courses")
+    .update({ description })
+    .eq("id", courseId);
+
+  if (error) {
+    console.error("Error updating course description:", error);
+    return { error: "No se pudo actualizar la descripción del curso." };
+  }
+
+  // Revalidamos la ruta para que los cambios se reflejen inmediatamente
+  revalidatePath(`/admin/${courseId}`);
   return { success: true };
 }
