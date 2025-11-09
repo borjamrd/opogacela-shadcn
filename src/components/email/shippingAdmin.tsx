@@ -22,7 +22,13 @@ export const ShippingAdminDetails: React.FC<
   Readonly<ShippingAdminDetailsProps>
 > = ({ name, email, address, phone, items }) => (
   <div className="w-full h-96 flex flex-col gap-2">
-    <h1>Nueva compra a nombre de: {name}!</h1>
+    <h1>
+      Nueva compra por{" "}
+      {(
+        (items ?? []).reduce((sum, it) => sum + (it.amount_total ?? 0), 0) / 100
+      ).toFixed(2)}{" "}
+      € a nombre de: {name}!
+    </h1>
 
     <p className="mb-3">
       {`Prepara ${
@@ -44,7 +50,7 @@ export const ShippingAdminDetails: React.FC<
           <ul key={index}>
             <li>Descripción: {item.description}</li>
             <li>Cantidad: {item.quantity}</li>
-            <li>Precio: {item.amount_total / 100} €</li>
+            <li>Precio: {(item.amount_total ?? 0) / 100} €</li>
           </ul>
         ))}
       </div>
