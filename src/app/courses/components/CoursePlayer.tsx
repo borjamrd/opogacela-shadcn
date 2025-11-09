@@ -71,12 +71,12 @@ export default function CoursePlayer({
   };
 
   return (
-    <div className="grid md:grid-cols-[350px_1fr] min-h-screen">
+    <div className="flex min-h-screen">
       {/* --- Sidebar de Navegación --- */}
-      <aside className="h-screen sticky top-0 border-r bg-muted/20 hidden md:block">
+      <aside className="h-screen w-3/12 sticky top-0 border-r bg-muted/20 hidden md:block">
         <div className="flex flex-col h-full">
           <div className="p-6 border-b">
-            <h2 className="font-semibold text-lg truncate">{course.title}</h2>
+            <h2 className="font-semibold text-lg">{course.title}</h2>
             <div className="mt-4">
               <div className="text-sm text-muted-foreground mb-2">
                 {progressPercentage}% completado
@@ -105,7 +105,7 @@ export default function CoursePlayer({
                   value={`section-${section.id}`}
                   className="border-b-0 mb-2"
                 >
-                  <AccordionTrigger className="hover:no-underline font-medium px-2 py-3 rounded-md hover:bg-muted">
+                  <AccordionTrigger className="text-left hover:no-underline px-2 py-3 rounded-md hover:bg-muted">
                     {section.title}
                   </AccordionTrigger>
                   <AccordionContent className="pl-4 mt-1">
@@ -140,11 +140,11 @@ export default function CoursePlayer({
       </aside>
 
       {/* --- Contenido Principal (Vídeo y Detalles) --- */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="w-8/12 overflow-y-auto">
         <div className="max-w-4xl mx-auto p-6 md:p-8 lg:p-12">
           {selectedLesson ? (
             <>
-              <div className="w-full aspect-video mb-4 bg-muted rounded-lg overflow-hidden flex-shrink-0">
+              <div className="w-full aspect-video mb-4 bg-muted rounded-3xl overflow-hidden flex-shrink-0">
                 {selectedLesson.mux_playback_id ? (
                   <MuxPlayer
                     playbackId={selectedLesson.mux_playback_id}
