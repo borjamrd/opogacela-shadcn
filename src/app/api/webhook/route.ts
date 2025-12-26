@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { StripeService } from "@/services/stripe.service";
 import { handleCheckoutSessionCompleted } from "@/app/api/webhook/handlers/checkout-completed";
+import { handlePaymentFailed } from "@/app/api/webhook/handlers/payment-failed";
 
 export async function POST(request: NextRequest) {
   const stripeService = new StripeService();
@@ -30,6 +31,11 @@ export async function POST(request: NextRequest) {
     switch (event.type) {
       case "checkout.session.completed":
         await handleCheckoutSessionCompleted(event);
+        break;
+
+      case "checkout.session.async_payment_failed":
+      case "checkout.session.expired":
+        await handlePaymentFailed(event);
         break;
 
       default:

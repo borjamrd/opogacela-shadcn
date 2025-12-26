@@ -2,6 +2,7 @@ import { Resend } from "resend";
 import { ShippingDetails } from "@/components/email/shippingDetails";
 import { ShippingAdminDetails } from "@/components/email/shippingAdmin";
 import { TestimonialRequestEmail } from "@/components/email/TestimonialRequestEmail";
+import { KlarnaReminderEmail } from "@/components/email/KlarnaReminderEmail";
 
 export class EmailService {
   private resend: Resend;
@@ -86,6 +87,24 @@ export class EmailService {
       }) as React.ReactElement,
       // @ts-ignore
       scheduledAt: scheduledDateTime.toISOString(),
+    });
+  }
+
+  async sendKlarnaReminder(
+    email: string,
+    name: string,
+    checkoutUrl?: string | null
+  ) {
+    if (!email) return;
+
+    return this.resend.emails.send({
+      from: "Opogacela <compras@opogacela.es>",
+      to: [email],
+      subject: "Problema con el pago - Prueba Klarna",
+      react: KlarnaReminderEmail({
+        name: name,
+        checkoutUrl: checkoutUrl || undefined,
+      }) as React.ReactElement,
     });
   }
 }
