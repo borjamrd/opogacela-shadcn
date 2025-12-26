@@ -4,7 +4,6 @@ import { EmailService } from "@/services/email.service";
 export async function handlePaymentFailed(
   event: Stripe.PaymentIntentPaymentFailedEvent
 ) {
-  console.log(JSON.stringify(event, null, 2));
   const emailService = new EmailService();
 
   const paymentIntent = event.data.object as any;

@@ -37,7 +37,6 @@ async function loadPrices() {
   );
   const lawPrices = allPrices.filter((price) => price.metadata?.type === "law");
 
-  console.log({ gacePrices, adminPrices, lawPrices });
   gacePrices.sort((a, b) => a.metadata.order - b.metadata.order);
   adminPrices.sort((a, b) => a.metadata.order - b.metadata.order);
 
