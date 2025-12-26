@@ -15,7 +15,7 @@ export default function ViewPdfButton({
 }) {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const pdfUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/ejemplos/${file}`;
+  const pdfUrl = `${process.env.NEXT_PUBLIC_URL}/ejemplos/${file}`;
 
   // Detectar si es móvil al cargar el componente
   useEffect(() => {
