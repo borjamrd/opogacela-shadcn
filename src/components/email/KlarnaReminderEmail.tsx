@@ -18,8 +18,8 @@ export const KlarnaReminderEmail: React.FC<
 
     <p className="mb-3">
       Queríamos recordarte que disponemos de <strong>Klarna</strong> como método
-      de pago, lo que te permite fraccionar tu compra o pagar más tarde de forma
-      sencilla y segura.
+      de pago, lo que te permite financiar tu compra{" "}
+      <strong>sin ningún tipo de interés</strong>.
     </p>
 
     <p className="mb-3">

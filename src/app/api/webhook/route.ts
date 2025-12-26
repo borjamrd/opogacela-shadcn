@@ -33,8 +33,7 @@ export async function POST(request: NextRequest) {
         await handleCheckoutSessionCompleted(event);
         break;
 
-      case "checkout.session.async_payment_failed":
-      case "checkout.session.expired":
+      case "payment_intent.payment_failed":
         await handlePaymentFailed(event);
         break;
 

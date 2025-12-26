@@ -2,32 +2,31 @@ import { Stripe } from "stripe";
 import { EmailService } from "@/services/email.service";
 
 export async function handlePaymentFailed(
-  event:
-    | Stripe.CheckoutSessionAsyncPaymentFailedEvent
-    | Stripe.CheckoutSessionExpiredEvent
+  event: Stripe.PaymentIntentPaymentFailedEvent
 ) {
+  console.log(JSON.stringify(event, null, 2));
   const emailService = new EmailService();
 
-  const session = event.data.object;
-  const customerEmail =
-    session.customer_email || session.customer_details?.email || "";
+  const paymentIntent = event.data.object as any;
 
-  const customerName = session.customer_details?.name || "Cliente";
+  const billingDetails =
+    paymentIntent.last_payment_error?.payment_method?.billing_details;
 
-  // Recover the checkout URL if available to let them retry,
-  // though for a failed session sometimes creating a new one is better,
-  // but Stripe often provides a url in the session object if it's still valid-ish
-  // or we might just want to send them to the main pricing page if not.
-  // checkout.session.url is usually available.
-  const checkoutUrl = session.url;
+  const customerEmail = billingDetails?.email;
+  const customerName = billingDetails?.name;
 
-  if (customerEmail) {
+  const fallbackEmail =
+    paymentIntent["charges"]?.data[0]?.billing_details?.email;
+  const fallbackName = paymentIntent["charges"]?.data[0]?.billing_details?.name;
+
+  const finalEmail = customerEmail || fallbackEmail;
+  const finalName = customerName || fallbackName;
+
+  const checkoutUrl = `${process.env.NEXT_PUBLIC_URL}`;
+
+  if (finalEmail) {
     try {
-      await emailService.sendKlarnaReminder(
-        customerEmail,
-        customerName,
-        checkoutUrl
-      );
+      await emailService.sendKlarnaReminder(finalEmail, finalName, checkoutUrl);
     } catch (error) {
       console.error("Error sending Klarna reminder:", error);
     }
