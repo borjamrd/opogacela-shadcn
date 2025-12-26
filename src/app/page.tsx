@@ -8,29 +8,29 @@ import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
-import { Navbar } from "@/components/Navbar";
+import { Payments } from "@/components/Payments";
 import { Services } from "@/components/Services";
 import { Testimonials } from "@/components/Testimonials";
 
 export default function Home() {
   return (
     <div>
-     
       <Hero />
       <About />
       <Services />
       <HowItWorks />
       <Delivery />
       <Examples />
-      <Cta />
-      <Testimonials />
       <Esquemas />
+      <Testimonials />
+      <Payments />
+      <Cta />
       <FAQ />
       <Footer />
 
-      <div className="lg:hidden fixed bottom-4 right-10" >
+      <div className="lg:hidden fixed bottom-4 right-10">
         <Cart />
       </div>
     </div>
-  )
+  );
 }
