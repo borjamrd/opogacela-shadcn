@@ -3,25 +3,43 @@ import { Stripe } from "stripe";
 import { Aviso } from "./Aviso";
 import { EsquemaContainer } from "./EsquemaContainer";
 
+interface PriceWithMetadata extends Omit<Stripe.Price, "metadata"> {
+  metadata: {
+    type: string;
+    order: number;
+    pages?: string;
+  };
+}
+
 async function loadPrices() {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
   const prices = await stripe.prices.list({
     expand: ["data.product"],
     active: true,
     limit: 50,
   });
-  const gacePrices = prices.data.filter(
-    (price: any) => price.metadata?.type === "gace"
-  );
-  const adminPrices = prices.data.filter(
-    (price: any) => price.metadata?.type === "admin"
-  );
-  const lawPrices = prices.data.filter(
-    (price: any) => price.metadata?.type === "law"
-  );
 
-  gacePrices.sort((a: any, b: any) => a.metadata?.order - b.metadata.order);
-  adminPrices.sort((a: any, b: any) => a.metadata?.order - b.metadata.order);
+  const allPrices = prices.data.map((price) => ({
+    ...price,
+    metadata: {
+      ...price.metadata,
+      order: price.metadata?.order ? parseInt(price.metadata.order) : 0,
+      type: price.metadata?.type || "",
+      pages: price.metadata?.pages,
+    },
+  })) as PriceWithMetadata[];
+
+  const gacePrices = allPrices.filter(
+    (price) => price.metadata?.type === "gace"
+  );
+  const adminPrices = allPrices.filter(
+    (price) => price.metadata?.type === "admin"
+  );
+  const lawPrices = allPrices.filter((price) => price.metadata?.type === "law");
+
+  console.log({ gacePrices, adminPrices, lawPrices });
+  gacePrices.sort((a, b) => a.metadata.order - b.metadata.order);
+  adminPrices.sort((a, b) => a.metadata.order - b.metadata.order);
 
   return { gacePrices, adminPrices, lawPrices };
 }
