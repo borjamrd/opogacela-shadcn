@@ -80,14 +80,7 @@ export const Footer = () => {
       <section className="container pb-14 text-center">
         <h3>
           {new Date().getFullYear()} created by{" "}
-          <a
-            target="_blank"
-            href="https://github.com/borjamrd"
-            className="text-primary transition-all border-primary hover:border-b-2"
-          >
-            Borja Muñoz 🤟
-          </a>
-        </h3>
+             Opogacela</h3>
       </section>
     </footer>
   );
