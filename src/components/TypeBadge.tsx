@@ -1,30 +1,34 @@
 export default function TypeBadge({ type }: { type: any }) {
-
     const typeText = (): string => {
         switch (type) {
             case 'admin':
-                return 'Administrativo AGE TL'
+                return 'Administrativo AGE TL';
             case 'law':
-                return 'Ley suelta'
+                return 'Ley suelta';
             case 'gace':
-                return 'GACE TL'
+                return 'GACE TL';
             default:
-                return ''
+                return '';
         }
-    }
+    };
     const typeClass = (): string => {
         switch (type) {
             case 'admin':
-                return 'bg-[#b985ab]/30 text-[#b985ab]'
+                return 'bg-[#b985ab]/30 text-[#b985ab]';
             case 'law':
-                return 'bg-blue-100 text-blue-800'
+                return 'bg-blue-100 text-blue-800';
             case 'gace':
-                return 'bg-primary/30 text-primary'
+                return 'bg-primary/30 text-primary';
             default:
-                return ''
+                return '';
         }
-    }
+    };
 
-    return <span className={`absolute top-3 lg:right-3 right-3 px-2 py-0.5 rounded-lg ms-2 ${typeClass()} font-semibold text-sm`}>{typeText()}</span>
-
+    return (
+        <span
+            className={`absolute top-3 lg:right-3 right-3 px-2 py-0.5 rounded-lg ms-2 ${typeClass()} font-semibold text-sm`}
+        >
+            {typeText()}
+        </span>
+    );
 }

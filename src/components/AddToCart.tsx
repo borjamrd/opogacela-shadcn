@@ -1,22 +1,23 @@
-"use client"
+'use client';
 
-import { useOpogaceStore } from "@/lib/store";
-import { Button } from "./ui/button";
-import Stripe from "stripe";
-import { useEffect, useState } from "react";
+import { useOpogaceStore } from '@/lib/store';
+import { Button } from './ui/button';
+import Stripe from 'stripe';
+import { useEffect, useState } from 'react';
 
 export default function AddToCart({ price }: { price: Stripe.Price }) {
-
-    const { addPrices, prices, removePrices } = useOpogaceStore()
+    const { addPrices, prices, removePrices } = useOpogaceStore();
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(false);
     }, [prices]);
 
     if (loading) {
-        return <Button disabled variant={'secondary'}>
-            Cargando...
-        </Button>;
+        return (
+            <Button disabled variant={'secondary'}>
+                Cargando...
+            </Button>
+        );
     }
 
     if (loading) {
@@ -38,6 +39,4 @@ export default function AddToCart({ price }: { price: Stripe.Price }) {
             {isProductInCart ? 'Quitar del carrito' : 'Añadir al carrito'}
         </Button>
     );
-
-
 }

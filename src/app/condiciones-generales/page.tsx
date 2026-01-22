@@ -1,5 +1,5 @@
-import CondicionesGeneralesContent from "@/components/CondicionesGeneralesContent";
+import CondicionesGeneralesContent from '@/components/CondicionesGeneralesContent';
 
 export default function CondicionesGenerales() {
-     return <CondicionesGeneralesContent />;
+    return <CondicionesGeneralesContent />;
 }
