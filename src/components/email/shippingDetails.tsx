@@ -35,7 +35,8 @@ export const ShippingDetails: React.FC<Readonly<ShippingDetailsProps>> = ({
         </ul>
 
         <p className="">
-            El pedido tarda en llegar entre 4 y 5 días. Puedes contactar conmigo por{' '}
+            El pedido tarda en llegar entre 4 y 5 días hábiles (envío estándar) o 1 y 2 días hábiles
+            (envío express). Puedes contactar conmigo por{' '}
             <a href={`https://wa.me/658785288?text=Tengo%20dudas%20sobre%20los%20apuntes`}>
                 {' '}
                 Whatsapp{' '}
