@@ -101,7 +101,7 @@ export default function Cart() {
                         onClick={() => setShippingOption('standard')}
                     >
                         <span className="text-lg font-bold">Envío estándar</span>
-                        <span className="text-sm">Entre 4 y 5 días hábiles</span>
+                        <span className="text-sm">Entre 4 y 5 días hábiles (+0€)</span>
                     </Button>
                     <Button
                         variant={shippingOption === 'urgent' ? 'default' : 'outline'}
