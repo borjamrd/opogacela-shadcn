@@ -33,7 +33,7 @@ const features: FeatureProps[] = [
     image: studying,
     title: "Espera el pedido",
     description:
-      "En 48/72 horas te llegará el pedido, los gastos de envío están incluidos en el precio 😇",
+      "El pedido tarda en llegar entre 4 y 5 días, los gastos de envío están incluidos en el precio 😇",
   },
   {
     image: collaboration,
