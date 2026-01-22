@@ -22,6 +22,7 @@ export default function Cart() {
     const { prices, removeAllPrices } = useOpogaceStore();
     const [accepted, setAccepted] = useState(false);
     const [acceptedGeneralConditions, setAcceptedGeneralConditions] = useState(false);
+    const [shippingOption, setShippingOption] = useState<'standard' | 'urgent'>('standard');
 
     const checkout = async () => {
         let pricesToSend: {
@@ -37,7 +38,7 @@ export default function Cart() {
         );
         const res = await fetch('api/checkout', {
             method: 'POST',
-            body: JSON.stringify({ prices: pricesToSend }),
+            body: JSON.stringify({ prices: pricesToSend, shippingOption }),
             headers: { 'Content-Type': 'application/json' },
         });
 
@@ -49,6 +50,7 @@ export default function Cart() {
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <Button
+                    disabled={prices.length === 0}
                     className={`border relative ${buttonVariants({
                         variant: 'secondary',
                     })}`}
@@ -92,6 +94,24 @@ export default function Cart() {
                         ))}
                     </div>
                 </AlertDialogHeader>
+                <div className="flex flex-col lg:flex-row gap-4 my-4">
+                    <Button
+                        variant={shippingOption === 'standard' ? 'default' : 'outline'}
+                        className="flex-1 h-auto py-4 flex flex-col items-center gap-2"
+                        onClick={() => setShippingOption('standard')}
+                    >
+                        <span className="text-lg font-bold">Envío estándar</span>
+                        <span className="text-sm">Entre 4 y 5 días</span>
+                    </Button>
+                    <Button
+                        variant={shippingOption === 'urgent' ? 'default' : 'outline'}
+                        className="flex-1 h-auto py-4 flex flex-col items-center gap-2"
+                        onClick={() => setShippingOption('urgent')}
+                    >
+                        <span className="text-lg font-bold">Envío urgente</span>
+                        <span className="text-sm">Entre 24 / 48 horas</span>
+                    </Button>
+                </div>
                 <div className="rounded bg-red-50 text-red-900 text-xs p-3 flex flex-col gap-2">
                     <span>
                         ¡Atención! La letra de este material es pequeña: Calibri tamaño 7. Te

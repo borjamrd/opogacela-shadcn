@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Stripe } from 'stripe';
 
 export async function POST(request: NextRequest) {
-    const { prices } = await request.json();
+    const { prices, shippingOption } = await request.json();
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
     const session = await stripe.checkout.sessions.create({
@@ -27,6 +27,14 @@ export async function POST(request: NextRequest) {
                 optional: false,
             },
         ],
+        shipping_options:
+            shippingOption === 'urgent'
+                ? [
+                      {
+                          shipping_rate: `${process.env.SHIPPING_RATE}`,
+                      },
+                  ]
+                : [],
         success_url: `${process.env.BASE_URL}/thank-you`,
         cancel_url: `${process.env.BASE_URL}/#esquemas`,
     });
