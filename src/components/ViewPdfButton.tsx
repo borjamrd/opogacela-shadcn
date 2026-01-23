@@ -1,20 +1,19 @@
 'use client';
 
-import { Eye, ShoppingCart } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { Eye } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import ButtonCheckout from './ButtonCheckout';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogTrigger } from './ui/dialog';
-import ButtonCheckout from './ButtonCheckout';
 
 export default function ViewPdfButton({ file, priceId }: { file: string; priceId: string }) {
     const [open, setOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-    const pdfUrl = `${process.env.NEXT_PUBLIC_URL}/ejemplos/${file}`;
+    const pdfUrl = `/ejemplos/${file}`;
 
-    // Detectar si es móvil al cargar el componente
     useEffect(() => {
         const checkIfMobile = () => {
-            setIsMobile(window.innerWidth <= 768); // Cambia a true si el ancho de pantalla es menor a 768px (típico breakpoint móvil)
+            setIsMobile(window.innerWidth <= 768);
         };
 
         checkIfMobile();
@@ -23,7 +22,6 @@ export default function ViewPdfButton({ file, priceId }: { file: string; priceId
         return () => window.removeEventListener('resize', checkIfMobile);
     }, []);
 
-    // Descargar el PDF en móviles
     const handleDownload = () => {
         const link = document.createElement('a');
         link.href = pdfUrl;
