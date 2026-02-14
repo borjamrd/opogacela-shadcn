@@ -19,7 +19,7 @@ import { Button, buttonVariants } from './ui/button';
 import { useState } from 'react';
 
 export default function Cart() {
-    const { prices, removeAllPrices } = useOpogaceStore();
+    const { prices, removeAllPrices, isCartOpen, setCartOpen } = useOpogaceStore();
     const [accepted, setAccepted] = useState(false);
     const [acceptedGeneralConditions, setAcceptedGeneralConditions] = useState(false);
     const [shippingOption, setShippingOption] = useState<'standard' | 'urgent'>('standard');
@@ -47,7 +47,7 @@ export default function Cart() {
     };
 
     return (
-        <AlertDialog>
+        <AlertDialog open={isCartOpen} onOpenChange={setCartOpen}>
             <AlertDialogTrigger asChild>
                 <Button
                     disabled={prices.length === 0}
