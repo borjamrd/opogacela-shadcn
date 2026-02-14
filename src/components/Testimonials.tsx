@@ -1,5 +1,7 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { useEffect, useState } from 'react';
 import {
@@ -53,6 +55,10 @@ export const Testimonials = () => {
                 No te lo digo yo, te lo dicen ell@s. Tras muchas horas de estudio he podido
                 sintetizar la información más importante de la oposición.
             </p>
+
+            <Button className="mb-8" asChild>
+                <Link href="/add-testimonial">Comparte tu opinión</Link>
+            </Button>
 
             <div className="sm:block lg:gap-6 mx-auto space-y-4 lg:space-y-6">
                 <Carousel
