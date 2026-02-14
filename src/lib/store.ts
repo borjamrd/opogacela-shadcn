@@ -21,7 +21,9 @@ export const useOpogaceStore = create<OpogaceState>()(
             setCartOpen: (open: boolean) => set({ isCartOpen: open }),
             addPrices: (price) =>
                 set((state) => ({
-                    prices: [...state.prices, price],
+                    prices: state.prices.some((p) => p.id === price.id)
+                        ? state.prices
+                        : [...state.prices, price],
                 })),
             removePrices: (productId: any) =>
                 set((state) => ({
