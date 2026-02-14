@@ -27,7 +27,7 @@ export default function InfoCarousel() {
             image: checkout,
             title: '¿En qué me pueden ayudar?',
             list: [
-                'Condensan la inforación centrándose en lo más importante (y preguntable).',
+                'Condensan la información centrándose en lo más importante (y preguntable).',
                 'Interrelacionan conceptos, permitiendo un aprendizaje holístico.',
                 'Reorganizan la información para facilizar la memorización.',
             ],

@@ -31,7 +31,10 @@ export const About = () => {
                                 durante 6 años, tanto en investigación como en FMCG. Decidí dar el
                                 salto a la función pública para contribuir a la{' '}
                                 <strong>mejora de los servicios públicos de nuestro país.</strong>{' '}
-                                Tras año y medio de estudio, estos son los datos:
+                                <br />
+                                <br />
+                                Aprobé Gestión Civil del Estado en la OEP 20-21-22, quedando en el
+                                TOP 40.
                             </p>
                         </div>
 
