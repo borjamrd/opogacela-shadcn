@@ -1,7 +1,9 @@
 'use client';
+import { AddTestimonialForm } from '@/components/AddTestimonialForm';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import Link from 'next/link';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Toaster } from '@/components/ui/toaster';
 import { supabase } from '@/lib/supabase';
 import { useEffect, useState } from 'react';
 import {
@@ -26,6 +28,8 @@ export interface Testimonial {
 }
 
 export const Testimonials = () => {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
     useEffect(() => {
         getData();
     }, []);
@@ -56,9 +60,14 @@ export const Testimonials = () => {
                 sintetizar la información más importante de la oposición.
             </p>
 
-            <Button className="mb-8" asChild>
-                <Link href="/add-testimonial">Comparte tu opinión</Link>
-            </Button>
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogTrigger asChild>
+                    <Button className="mb-8">Comparte tu opinión</Button>
+                </DialogTrigger>
+                <DialogContent className="max-h-[90vh] overflow-y-auto">
+                    <AddTestimonialForm onSuccess={() => setIsDialogOpen(false)} />
+                </DialogContent>
+            </Dialog>
 
             <div className="sm:block lg:gap-6 mx-auto space-y-4 lg:space-y-6">
                 <Carousel
@@ -141,6 +150,7 @@ export const Testimonials = () => {
                     <CarouselNext />
                 </Carousel>
             </div>
+            <Toaster />
         </section>
     );
 };
