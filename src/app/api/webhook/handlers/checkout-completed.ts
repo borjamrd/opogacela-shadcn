@@ -52,12 +52,15 @@ export async function handleCheckoutSessionCompleted(event: Stripe.CheckoutSessi
     try {
         await emailService.sendShippingDetails(customerEmail, customerName, customerAddress);
 
+        const isUrgent = (checkoutSessionCompleted.total_details?.amount_shipping || 0) > 0;
+
         await emailService.sendAdminNotification(
             customerName,
             customerEmail,
             customerAddress,
             customerPhone,
-            lineItems?.data
+            lineItems?.data,
+            isUrgent
         );
     } catch (error) {
         console.error('Error sending shipping/admin emails', error);

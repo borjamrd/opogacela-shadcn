@@ -31,7 +31,8 @@ export class EmailService {
         customerEmail: string,
         customerAddress: any,
         customerPhone: string,
-        lineItems: any
+        lineItems: any,
+        isUrgent: boolean
     ) {
         let adminRecipients: string[];
         if (this.environment === 'development') {
@@ -43,13 +44,16 @@ export class EmailService {
         return this.resend.emails.send({
             from: 'Compras Opogacela <compras@opogacela.es>',
             to: adminRecipients,
-            subject: `Nueva compra en OPOGACELA ${this.environment === 'development' ? '[DEV]' : ''}`,
+            subject: `${isUrgent ? '[URGENTE] ' : ''}Nueva compra en OPOGACELA ${
+                this.environment === 'development' ? '[DEV]' : ''
+            }`,
             react: ShippingAdminDetails({
                 name: customerName,
                 email: customerEmail,
                 address: customerAddress,
                 phone: customerPhone,
                 items: lineItems,
+                isUrgent: isUrgent,
             }) as React.ReactElement,
         });
     }

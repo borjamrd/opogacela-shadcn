@@ -16,6 +16,7 @@ interface ShippingAdminDetailsProps {
               state?: string;
           }
         | any;
+    isUrgent?: boolean;
 }
 
 export const ShippingAdminDetails: React.FC<Readonly<ShippingAdminDetailsProps>> = ({
@@ -24,12 +25,18 @@ export const ShippingAdminDetails: React.FC<Readonly<ShippingAdminDetailsProps>>
     address,
     phone,
     items,
+    isUrgent,
 }) => (
     <div className="w-full h-96 flex flex-col gap-2">
         <h1>
             Nueva compra por{' '}
             {((items ?? []).reduce((sum, it) => sum + (it.amount_total ?? 0), 0) / 100).toFixed(2)}{' '}
             € a nombre de: {name}!
+            {isUrgent && (
+                <span style={{ color: 'red', fontWeight: 'bold', marginLeft: '10px' }}>
+                    ⚠️ URGENTE ⚠️
+                </span>
+            )}
         </h1>
 
         <p className="mb-3">
