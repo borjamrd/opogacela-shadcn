@@ -21,7 +21,7 @@ export function Payments() {
                     <OrbitingCircles path={true} radius={40} iconSize={40}>
                         <Icons.klarna />
                     </OrbitingCircles>
-                    <OrbitingCircles path={true} radius={100} iconSize={40}>
+                    <OrbitingCircles path={true} radius={100} reverse iconSize={40}>
                         <Icons.visa />
                     </OrbitingCircles>
                     <OrbitingCircles path={true} radius={120} iconSize={40}>
@@ -30,7 +30,7 @@ export function Payments() {
                     <OrbitingCircles path={false} radius={120} iconSize={40} speed={2}>
                         <Icons.applePay />
                     </OrbitingCircles>
-                    <OrbitingCircles path={true} radius={150} iconSize={40}>
+                    <OrbitingCircles path={true} radius={150} reverse iconSize={40}>
                         <Icons.googlePay />
                     </OrbitingCircles>
                     <OrbitingCircles path={false} radius={180} iconSize={40}>

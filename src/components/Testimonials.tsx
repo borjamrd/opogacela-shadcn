@@ -45,112 +45,118 @@ export const Testimonials = () => {
     };
 
     return (
-        <section id="opiniones" className="container py-24 sm:py-32 lg:px-10">
-            <h2 className="text-3xl md:text-4xl font-bold">
-                Descubre por qué
-                <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-                    {' '}
-                    la gente{' '}
-                </span>
-                me recomienda
-            </h2>
+        <section id="cta" className="bg-primary/20 py-16 my-24 sm:my-32">
+            <div id="opiniones" className="container py-24 sm:py-32 lg:px-10">
+                <h2 className="text-3xl md:text-4xl font-bold">
+                    Descubre por qué
+                    <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
+                        {' '}
+                        la gente{' '}
+                    </span>
+                    me recomienda
+                </h2>
 
-            <p className="text-xl text-muted-foreground pt-4 pb-8">
-                No te lo digo yo, te lo dicen ell@s. Tras muchas horas de estudio he podido
-                sintetizar la información más importante de la oposición.
-            </p>
+                <p className="text-xl text-muted-foreground pt-4 pb-8">
+                    No te lo digo yo, te lo dicen ell@s. Tras muchas horas de estudio he podido
+                    sintetizar la información más importante de la oposición.
+                </p>
 
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogTrigger asChild>
-                    <Button className="mb-8">Comparte tu opinión</Button>
-                </DialogTrigger>
-                <DialogContent className="max-h-[90vh] overflow-y-auto">
-                    <AddTestimonialForm onSuccess={() => setIsDialogOpen(false)} />
-                </DialogContent>
-            </Dialog>
-
-            <div className="sm:block lg:gap-6 mx-auto space-y-4 lg:space-y-6">
-                <Carousel
-                    opts={{
-                        align: 'start',
-                    }}
-                    plugins={[
-                        Autoplay({
-                            delay: 30000,
-                        }),
-                    ]}
-                    className="lg:max-w-full max-w-full"
-                >
-                    <CarouselContent>
-                        {testimonials.map(
-                            ({
-                                id,
-                                name,
-                                surname,
-                                position,
-                                description,
-                                website,
-                                linkedin,
-                                instagram,
-                            }: Testimonial) => (
-                                <CarouselItem key={id} className="lg:basis-1/4">
-                                    <Card
-                                        key={name}
-                                        className="max-w-md md:break-inside-avoid overflow-hidden"
-                                    >
-                                        <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                                            <div className="flex flex-col">
-                                                <CardTitle className="text-lg">
-                                                    {name} {surname}
-                                                </CardTitle>
-                                                <CardDescription>{position}</CardDescription>
-                                            </div>
-                                        </CardHeader>
-
-                                        <CardContent className="flex flex-col gap-2">
-                                            {description}
-                                            {(website || linkedin || instagram) && (
-                                                <div className="flex border-t border-t-slate-200 pt-2">
-                                                    {linkedin && (
-                                                        <a
-                                                            title="Enlace a Linkedin"
-                                                            target="_blank"
-                                                            href={linkedin}
-                                                        >
-                                                            <FaLinkedin className="h-6 w-6" />
-                                                        </a>
-                                                    )}
-                                                    {instagram && (
-                                                        <a
-                                                            title="Enlace a Instagram"
-                                                            target="_blank"
-                                                            href={instagram}
-                                                        >
-                                                            <FaInstagram className="h-6 w-6" />
-                                                        </a>
-                                                    )}
-                                                    {website && (
-                                                        <a
-                                                            title="Enlace a web personal"
-                                                            target="_blank"
-                                                            href={website}
-                                                        >
-                                                            <MdContactPage className="h-6 w-6" />
-                                                        </a>
-                                                    )}
+                <div className="sm:block lg:gap-6 mx-auto space-y-4 lg:space-y-6">
+                    <Carousel
+                        opts={{
+                            align: 'start',
+                        }}
+                        plugins={[
+                            Autoplay({
+                                delay: 30000,
+                            }),
+                        ]}
+                        className="lg:max-w-full max-w-full"
+                    >
+                        <CarouselContent>
+                            {testimonials.map(
+                                ({
+                                    id,
+                                    name,
+                                    surname,
+                                    position,
+                                    description,
+                                    website,
+                                    linkedin,
+                                    instagram,
+                                }: Testimonial) => (
+                                    <CarouselItem key={id} className="lg:basis-1/4">
+                                        <Card
+                                            key={name}
+                                            className="max-w-md md:break-inside-avoid overflow-hidden"
+                                        >
+                                            <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                                                <div className="flex flex-col">
+                                                    <CardTitle className="text-lg">
+                                                        {name} {surname}
+                                                    </CardTitle>
+                                                    <CardDescription>{position}</CardDescription>
                                                 </div>
-                                            )}
-                                        </CardContent>
-                                    </Card>
-                                </CarouselItem>
-                            )
-                        )}
-                    </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                </Carousel>
+                                            </CardHeader>
+
+                                            <CardContent className="flex flex-col gap-2">
+                                                {description}
+                                                {(website || linkedin || instagram) && (
+                                                    <div className="flex border-t border-t-slate-200 pt-2">
+                                                        {linkedin && (
+                                                            <a
+                                                                title="Enlace a Linkedin"
+                                                                target="_blank"
+                                                                href={linkedin}
+                                                            >
+                                                                <FaLinkedin className="h-6 w-6" />
+                                                            </a>
+                                                        )}
+                                                        {instagram && (
+                                                            <a
+                                                                title="Enlace a Instagram"
+                                                                target="_blank"
+                                                                href={instagram}
+                                                            >
+                                                                <FaInstagram className="h-6 w-6" />
+                                                            </a>
+                                                        )}
+                                                        {website && (
+                                                            <a
+                                                                title="Enlace a web personal"
+                                                                target="_blank"
+                                                                href={website}
+                                                            >
+                                                                <MdContactPage className="h-6 w-6" />
+                                                            </a>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </CardContent>
+                                        </Card>
+                                    </CarouselItem>
+                                )
+                            )}
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
+                </div>
+                <div className="flex flex-col items-start gap-2 w-full mt-4">
+                    <p className="text-xl text-muted-foreground pt-4 pb-4">
+                        ¿Ya compraste los esquemas?
+                    </p>
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                        <DialogTrigger asChild>
+                            <Button className="mb-8">Comparte tu opinión</Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-h-[90vh] overflow-y-auto">
+                            <AddTestimonialForm onSuccess={() => setIsDialogOpen(false)} />
+                        </DialogContent>
+                    </Dialog>
+                </div>
+                <Toaster />
             </div>
-            <Toaster />
         </section>
     );
 };
