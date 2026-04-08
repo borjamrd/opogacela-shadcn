@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
-import { CheckCircle2, X, XCircle } from 'lucide-react';
+import { CheckCircle2, SlidersHorizontal, X, XCircle } from 'lucide-react';
 import { temasData } from '@/lib/temas';
 
 export interface Question {
@@ -149,6 +149,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
     const [examenFilter, setExamenFilter] = useState('');
     const [selected, setSelected] = useState<Question | null>(null);
     const [isMobile, setIsMobile] = useState(false);
+    const [filtersOpen, setFiltersOpen] = useState(false);
 
     const parentRef = useRef<HTMLDivElement>(null);
 
@@ -228,18 +229,29 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
             style={{ height: 'calc(100vh - 56px)' }}
         >
             {/* Filtros */}
-            <div className="max-w-3xl mx-auto w-full flex-shrink-0 py-4 space-y-3 pb-10">
-                <div className="flex gap-6 items-center">
+            <div className="max-w-3xl mx-auto w-full flex-shrink-0 py-4 space-y-3 pb-3 md:pb-10">
+                <div className="flex gap-4 items-center">
                     <img
                         src="/giphy.gif"
                         alt="mascota estudiando"
-                        className="h-24 w-24 rounded-xl object-cover flex-shrink-0"
+                        className="h-14 w-14 md:h-24 md:w-24 rounded-xl object-cover flex-shrink-0"
                     />
-                    <div>
-                        <div className="flex items-baseline gap-3">
-                            <h1 className="text-2xl font-bold">Preguntas oficiales</h1>
+                    <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2">
+                            <h1 className="text-xl md:text-2xl font-bold">Preguntas oficiales</h1>
+                            {/* Botón filtros — solo mobile */}
+                            <button
+                                onClick={() => setFiltersOpen((v) => !v)}
+                                className="md:hidden flex-shrink-0 flex items-center gap-1.5 h-8 px-3 rounded-md border border-input text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                            >
+                                <SlidersHorizontal className="h-3.5 w-3.5" />
+                                {filtersOpen ? 'Ocultar' : 'Filtros'}
+                                {hasFilters && (
+                                    <span className="ml-0.5 h-1.5 w-1.5 rounded-full bg-primary" />
+                                )}
+                            </button>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-1 max-w-xl">
+                        <p className="text-muted-foreground mt-1 max-w-xl text-xs md:text-sm">
                             Todas las preguntas de todos los exámenes de GACE completamente gratis en un solo lugar. Si te gusta el contenido sígueme en{' '}
                             <a
                                 href="https://www.instagram.com/opogace_la/"
@@ -253,6 +265,9 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                         </p>
                     </div>
                 </div>
+
+                {/* Filtros — siempre visibles en desktop, toggle en mobile */}
+                <div className={`${filtersOpen || !isMobile ? 'flex flex-col gap-3' : 'hidden md:flex md:flex-col md:gap-3'}`}>
 
                 {/* Fila 1: Buscador */}
                 <div className="relative w-full">
@@ -330,6 +345,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                         </button>
                     )}
                 </div>
+                </div>{/* fin wrapper filtros colapsable */}
             </div>
 
             {/* Lista + Sidebar */}
