@@ -124,9 +124,9 @@ function buildFullHtml(qs: Question[], opts: BuildOpts): string {
     body { font-family: Arial, sans-serif; font-size: 11px; margin: 24px; color: #111; }
     h1 { font-size: 16px; margin-bottom: 4px; }
     .meta { font-size: 10px; color: #666; margin-bottom: 24px; }
-    .question { margin-bottom: 20px; page-break-inside: avoid; }
+    .question { margin-bottom: 40px; page-break-inside: avoid; }
     .question-header { display: flex; gap: 6px; align-items: baseline; margin-bottom: 4px; }
-    .num { font-weight: bold; min-width: 20px; }
+    .num { font-weight: bold; min-width: 15px; }
     .badges { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 4px; }
     .badge { font-size: 9px; background: #eee; border-radius: 4px; padding: 1px 5px; }
     .txt { margin-bottom: 6px; }
@@ -145,11 +145,13 @@ function buildFullHtml(qs: Question[], opts: BuildOpts): string {
       .map(
           (q, i) => `
   <div class="question">
+   ${badgesHtml(q)}
     <div class="question-header">
       <span class="num">${i + 1}.</span>
+      <p class="txt">${q.txt}</p>
     </div>
-    ${badgesHtml(q)}
-    <p class="txt">${q.txt}</p>
+   
+    
     <ul class="answers">
       ${q.ans.map((a, ai) => answerItemHtml(a, ai, q.ok)).join('')}
     </ul>
@@ -307,8 +309,8 @@ export default function GenerarPlantilla({
                                 alt="Espera"
                                 className="h-40 w-40 rounded-xl object-cover flex-shrink-0"
                             />
-                            <p className="text- text-muted-foreground leading-relaxed">
-                                Generando tu plantilla de examen, paciencia po favo 🐢
+                            <p className="text-3xl text-muted-foreground">
+                                Generando tu plantilla de examen, paciencia po favo
                             </p>
                         </div>
                     )}
