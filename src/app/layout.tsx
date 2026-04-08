@@ -7,6 +7,7 @@ import Favicon from '/public/favicon.ico';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Navbar } from '@/components/Navbar';
+import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
 const fontSans = FontSans({
     subsets: ['latin'],
     variable: '--font-sans',
@@ -40,6 +41,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <Analytics />
+                    <ServiceWorkerRegistration />
                     <Navbar />
                     {children}
                 </ThemeProvider>
