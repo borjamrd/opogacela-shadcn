@@ -3,6 +3,7 @@
 import { useState, useRef, useMemo } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactMarkdown from 'react-markdown';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
 import { CheckCircle2, X, XCircle } from 'lucide-react';
@@ -38,7 +39,8 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
 
     const parentRef = useRef<HTMLDivElement>(null);
 
-    const hasFilters = search !== '' || bloqueFilter !== '' || temaFilter !== '' || examenFilter !== '';
+    const hasFilters =
+        search !== '' || bloqueFilter !== '' || temaFilter !== '' || examenFilter !== '';
 
     const resetFilters = () => {
         setSearch('');
@@ -64,7 +66,9 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
         const uniqueTs = Array.from(
             new Set(
                 questions
-                    .filter((q) => q.b === blockIndex && (examenFilter === '' || q.e === examenFilter))
+                    .filter(
+                        (q) => q.b === blockIndex && (examenFilter === '' || q.e === examenFilter)
+                    )
                     .map((q) => q.t)
             )
         ).sort((a, b) => a - b);
@@ -93,21 +97,40 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
     const virtualizer = useVirtualizer({
         count: filtered.length,
         getScrollElement: () => parentRef.current,
-        estimateSize: () => 120,
+        estimateSize: () => 145,
         overscan: 5,
     });
 
     return (
-        <div className="max-w-screen-xl mx-auto px-4 flex flex-col" style={{ height: 'calc(100vh - 56px)' }}>
+        <div
+            className="max-w-screen-xl mx-auto px-4 flex flex-col"
+            style={{ height: 'calc(100vh - 56px)' }}
+        >
             {/* Filtros */}
-            <div className="flex-shrink-0 border-b py-4 space-y-3">
-                <div className="flex items-baseline gap-3">
-                    <h1 className="text-2xl font-bold">Banco de Preguntas</h1>
-                    <span className="text-sm text-muted-foreground">
-                        {filtered.length === questions.length
-                            ? `${questions.length} preguntas`
-                            : `${filtered.length} de ${questions.length}`}
-                    </span>
+            <div className="flex-shrink-0 border-b py-4 space-y-3 pb-10">
+                <div className="flex gap-6 items-center">
+                    <img
+                        src="/giphy.gif"
+                        alt="mascota estudiando"
+                        className="h-24 w-24 rounded-xl object-cover flex-shrink-0"
+                    />
+                    <div>
+                        <div className="flex items-baseline gap-3">
+                            <h1 className="text-2xl font-bold">Preguntas oficiales</h1>
+                        </div>
+                        <p className="text-sm text-muted-foreground mt-1 max-w-xl">
+                            Todas las preguntas de todos los exámenes de GACE completamente gratis en un solo lugar. Si te gusta el contenido sígueme en{' '}
+                            <a
+                                href="https://www.instagram.com/opogace_la/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-primary underline underline-offset-2 hover:opacity-80"
+                            >
+                                Instagram
+                            </a>
+                            .
+                        </p>
+                    </div>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
@@ -196,7 +219,12 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                             No se encontraron preguntas con los filtros aplicados.
                         </div>
                     ) : (
-                        <div style={{ height: `${virtualizer.getTotalSize()}px`, position: 'relative' }}>
+                        <div
+                            style={{
+                                height: `${virtualizer.getTotalSize()}px`,
+                                position: 'relative',
+                            }}
+                        >
                             {virtualizer.getVirtualItems().map((item) => {
                                 const q = filtered[item.index];
                                 const isSelected = selected?.id === q.id;
@@ -221,21 +249,17 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                                                     : 'bg-card hover:bg-accent hover:text-accent-foreground'
                                             }`}
                                         >
-                                            <div className="flex items-start justify-between gap-3">
-                                                <p className="text-sm line-clamp-2 flex-1">{q.txt}</p>
-                                                <span className="text-xs text-muted-foreground flex-shrink-0 tabular-nums">
-                                                    #{item.index + 1}
-                                                </span>
-                                            </div>
-                                            <div className="flex flex-wrap gap-1.5 mt-2">
+                                            <p className="text-sm line-clamp-2">{q.txt}</p>
+                                            <div className="mt-1 flex gap-1 mt-4">
+                                                <Badge
+                                                    variant="outline"
+                                                    className="text-xs text-muted-foreground"
+                                                >
+                                                    {q.e}
+                                                </Badge>
+
                                                 <Badge variant="secondary" className="text-xs">
                                                     {getBloqueLabel(q.b)}
-                                                </Badge>
-                                                <Badge variant="outline" className="text-xs max-w-[280px] truncate">
-                                                    T{q.t + 1}. {topicLabel}
-                                                </Badge>
-                                                <Badge variant="outline" className="text-xs text-muted-foreground">
-                                                    {q.e}
                                                 </Badge>
                                             </div>
                                         </button>
@@ -247,105 +271,120 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                 </div>
 
                 {/* Sidebar */}
-                {selected && (
-                    <div className="w-[460px] flex-shrink-0 border-l flex flex-col min-h-0">
-                        <div className="flex items-start justify-between p-4 border-b flex-shrink-0">
-                            <div className="flex flex-wrap gap-1.5 flex-1 pr-2">
-                                <Badge variant="secondary">{getBloqueLabel(selected.b)}</Badge>
-                                <Badge variant="outline">{selected.e}</Badge>
+                <AnimatePresence>
+                    {selected && (
+                        <motion.div
+                            key="sidebar"
+                            initial={{ width: 0, opacity: 0 }}
+                            animate={{ width: 760, opacity: 1 }}
+                            exit={{ width: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                            className="flex-shrink-0 border-l flex flex-col min-h-0 overflow-hidden"
+                        >
+                            <div className="flex items-start justify-between p-4 border-b flex-shrink-0">
+                                <div className="flex flex-wrap gap-1.5 flex-1 pr-2">
+                                    <Badge variant="secondary">{getBloqueLabel(selected.b)}</Badge>
+                                    <Badge variant="outline">{selected.e}</Badge>
+                                </div>
+                                <button
+                                    onClick={() => setSelected(null)}
+                                    className="flex-shrink-0 text-muted-foreground hover:text-foreground"
+                                >
+                                    <X className="h-4 w-4" />
+                                </button>
                             </div>
-                            <button
-                                onClick={() => setSelected(null)}
-                                className="flex-shrink-0 text-muted-foreground hover:text-foreground"
-                            >
-                                <X className="h-4 w-4" />
-                            </button>
-                        </div>
 
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                            {/* Tema completo */}
-                            <p className="text-xs text-muted-foreground">
-                                <span className="font-medium">Tema {selected.t + 1}:</span>{' '}
-                                {getTopicLabel(selected.b, selected.t)}
-                            </p>
+                            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                                {/* Tema completo */}
+                                <p className="text-xs text-muted-foreground">
+                                    <span className="font-medium">Tema {selected.t + 1}:</span>{' '}
+                                    {getTopicLabel(selected.b, selected.t)}
+                                </p>
 
-                            <p className="text-sm font-medium leading-relaxed">{selected.txt}</p>
+                                <p className="text-sm font-medium leading-relaxed">
+                                    {selected.txt}
+                                </p>
 
-                            <div className="space-y-2">
-                                {selected.ans.map((ans, i) => (
-                                    <div
-                                        key={i}
-                                        className={`flex gap-3 rounded-md p-3 text-sm ${
-                                            i === selected.ok
-                                                ? 'bg-green-50 border border-green-200 dark:bg-green-950/40 dark:border-green-800'
-                                                : 'bg-muted/50 border border-transparent'
-                                        }`}
-                                    >
-                                        <span
-                                            className={`font-bold flex-shrink-0 w-5 ${
+                                <div className="space-y-2">
+                                    {selected.ans.map((ans, i) => (
+                                        <div
+                                            key={i}
+                                            className={`flex gap-3 rounded-md p-3 text-sm ${
                                                 i === selected.ok
-                                                    ? 'text-green-600 dark:text-green-400'
-                                                    : 'text-muted-foreground'
+                                                    ? 'bg-green-50 border border-green-200 dark:bg-green-950/40 dark:border-green-800'
+                                                    : 'bg-muted/50 border border-transparent'
                                             }`}
                                         >
-                                            {ANSWER_LETTERS[i]}.
-                                        </span>
-                                        <span className={`flex-1 ${i === selected.ok ? 'text-green-800 dark:text-green-200' : ''}`}>
-                                            {ans}
-                                        </span>
-                                        {i === selected.ok && (
-                                            <CheckCircle2 className="flex-shrink-0 h-4 w-4 text-green-500" />
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-
-                            {selected.fb && (
-                                <div className="pt-4 border-t">
-                                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
-                                        Explicación
-                                    </p>
-                                    <div className="text-sm text-muted-foreground">
-                                        <ReactMarkdown
-                                            components={{
-                                                p: ({ children }) => (
-                                                    <p className="mb-2 leading-relaxed">{children}</p>
-                                                ),
-                                                strong: ({ children }) => (
-                                                    <strong className="font-semibold text-foreground">
-                                                        {children}
-                                                    </strong>
-                                                ),
-                                                em: ({ children }) => (
-                                                    <em className="italic">{children}</em>
-                                                ),
-                                                a: ({ href, children }) => (
-                                                    <a
-                                                        href={href}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="text-primary underline underline-offset-2 hover:opacity-80"
-                                                    >
-                                                        {children}
-                                                    </a>
-                                                ),
-                                                ul: ({ children }) => (
-                                                    <ul className="list-disc list-inside space-y-1 mb-2">
-                                                        {children}
-                                                    </ul>
-                                                ),
-                                                li: ({ children }) => <li>{children}</li>,
-                                                hr: () => <hr className="my-3 border-border" />,
-                                            }}
-                                        >
-                                            {selected.fb}
-                                        </ReactMarkdown>
-                                    </div>
+                                            <span
+                                                className={`font-bold flex-shrink-0 w-5 ${
+                                                    i === selected.ok
+                                                        ? 'text-green-600 dark:text-green-400'
+                                                        : 'text-muted-foreground'
+                                                }`}
+                                            >
+                                                {ANSWER_LETTERS[i]}.
+                                            </span>
+                                            <span
+                                                className={`flex-1 ${i === selected.ok ? 'text-green-800 dark:text-green-200' : ''}`}
+                                            >
+                                                {ans}
+                                            </span>
+                                            {i === selected.ok && (
+                                                <CheckCircle2 className="flex-shrink-0 h-4 w-4 text-green-500" />
+                                            )}
+                                        </div>
+                                    ))}
                                 </div>
-                            )}
-                        </div>
-                    </div>
-                )}
+
+                                {selected.fb && (
+                                    <div className="pt-4 border-t">
+                                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+                                            Explicación
+                                        </p>
+                                        <div className="text-sm text-muted-foreground">
+                                            <ReactMarkdown
+                                                components={{
+                                                    p: ({ children }) => (
+                                                        <p className="mb-2 leading-relaxed">
+                                                            {children}
+                                                        </p>
+                                                    ),
+                                                    strong: ({ children }) => (
+                                                        <strong className="font-semibold text-foreground">
+                                                            {children}
+                                                        </strong>
+                                                    ),
+                                                    em: ({ children }) => (
+                                                        <em className="italic">{children}</em>
+                                                    ),
+                                                    a: ({ href, children }) => (
+                                                        <a
+                                                            href={href}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="text-primary underline underline-offset-2 hover:opacity-80"
+                                                        >
+                                                            {children}
+                                                        </a>
+                                                    ),
+                                                    ul: ({ children }) => (
+                                                        <ul className="list-disc list-inside space-y-1 mb-2">
+                                                            {children}
+                                                        </ul>
+                                                    ),
+                                                    li: ({ children }) => <li>{children}</li>,
+                                                    hr: () => <hr className="my-3 border-border" />,
+                                                }}
+                                            >
+                                                {selected.fb}
+                                            </ReactMarkdown>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );

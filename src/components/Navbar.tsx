@@ -37,16 +37,12 @@ const routeList: RouteProps[] = [
     },
     {
         href: '/temas',
-        label: 'Temas por bloque',
+        label: 'Temas GACE',
     },
     {
         href: '/preguntas',
-        label: 'Banco de Preguntas',
-    },
-    {
-        href: '/#faq',
-        label: 'FAQ',
-    },
+        label: 'Preguntas examen',
+    }
 ];
 
 export const Navbar = () => {
