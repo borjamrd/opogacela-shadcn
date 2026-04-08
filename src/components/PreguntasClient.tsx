@@ -339,6 +339,11 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                 style={{ maxWidth: selected && !isMobile ? '1280px' : '48rem' }}
             >
                 {/* Lista con scroll virtual */}
+                <div className="relative flex-1 min-h-0 flex flex-col">
+                    {/* Fade top */}
+                    <div className="pointer-events-none absolute top-0 inset-x-0 h-8 z-10 bg-gradient-to-b from-background to-transparent" />
+                    {/* Fade bottom */}
+                    <div className="pointer-events-none absolute bottom-0 inset-x-0 h-16 z-10 bg-gradient-to-t from-background to-transparent" />
                 <div ref={parentRef} className="flex-1 overflow-auto min-h-0 py-2 pr-2">
                     {filtered.length === 0 ? (
                         <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
@@ -394,6 +399,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                             })}
                         </div>
                     )}
+                </div>
                 </div>
 
                 {/* Sidebar (desktop) */}
