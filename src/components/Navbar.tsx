@@ -41,7 +41,7 @@ const routeList: RouteProps[] = [
     },
     {
         href: '/preguntas',
-        label: 'Preguntas examen',
+        label: 'Preguntas oficiales',
     }
 ];
 

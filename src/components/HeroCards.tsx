@@ -79,9 +79,9 @@ export const HeroCards = () => {
                         <LightBulbIcon />
                     </div>
                     <div>
-                        <CardTitle>Comunidad de opositores</CardTitle>
+                        <CardTitle>Exámenes oficiales</CardTitle>
                         <CardDescription className="text-md mt-2">
-                            Únete al canal en Telegram para estar al tanto de las últimas noticias
+                            Más de 1500 preguntas de exámenes oficiales. Gratis.
                         </CardDescription>
                     </div>
                 </CardHeader>

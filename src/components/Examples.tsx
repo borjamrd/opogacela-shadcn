@@ -91,7 +91,9 @@ export const Examples = () => {
                 </span>{' '}
                 de cada bloque
             </h2>
-            <BuscadorTemas features={features} />
+            <div className="max-w-3xl mx-auto">
+                <BuscadorTemas features={features} />
+            </div>
         </section>
     );
 };

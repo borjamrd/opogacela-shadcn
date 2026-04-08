@@ -25,7 +25,7 @@ const BuscadorTemas = ({ features }: { features: FeatureProps[] }) => {
                     className="w-full max-w-md text-lg"
                 />
             </div>
-            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div className="flex flex-col gap-3">
                 {filteredFeatures.length > 0 ? (
                     filteredFeatures.map(({ id, title, file, type, price_id }: FeatureProps) => (
                         <Card className="relative pt-10 group flex flex-col" key={id}>

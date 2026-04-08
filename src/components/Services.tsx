@@ -28,7 +28,7 @@ const serviceList: ServiceProps[] = [
         ],
         image: notes,
         cta: (
-            <Link href="/infografias" className={buttonVariants({ variant: 'default' })}>
+            <Link href="/#esquemas" className={buttonVariants({ variant: 'default' })}>
                 Ver esquemas
             </Link>
         ),
