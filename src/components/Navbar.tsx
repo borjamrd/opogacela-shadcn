@@ -40,6 +40,10 @@ const routeList: RouteProps[] = [
         label: 'Temas por bloque',
     },
     {
+        href: '/preguntas',
+        label: 'Banco de Preguntas',
+    },
+    {
         href: '/#faq',
         label: 'FAQ',
     },
