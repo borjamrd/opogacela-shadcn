@@ -75,7 +75,7 @@ function ServiceCard({ service }: { service: ServiceProps }) {
                 />
             </div>
 
-            <div className="flex flex-col p-6 pt-4">
+            <div className="flex flex-col p-6 pt-4 pb-0">
                 <div className="flex items-center gap-2 mb-2">
                     <div className="bg-primary/20 p-1 rounded-xl">{service.icon}</div>
                     <h3 className="font-semibold text-base">{service.title}</h3>
