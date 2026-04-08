@@ -229,7 +229,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
             style={{ height: 'calc(100vh - 56px)' }}
         >
             {/* Filtros */}
-            <div className="max-w-3xl mx-auto w-full flex-shrink-0 py-4 space-y-3 pb-3 md:pb-10">
+            <div className="max-w-3xl mx-auto w-full flex-shrink-0 py-4 space-y-3 pb-3 md:pb-6">
                 <div className="flex gap-4 items-center">
                     <img
                         src="/giphy.gif"
