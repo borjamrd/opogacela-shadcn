@@ -111,6 +111,21 @@
     }
 }
 
+@keyframes shine-spin {
+    from {
+        --shine-angle: 0deg;
+    }
+    to {
+        --shine-angle: 360deg;
+    }
+}
+
+@property --shine-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
 @theme inline {
     --animate-orbit: orbit calc(var(--duration) * 1s) linear infinite;
 

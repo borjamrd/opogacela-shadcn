@@ -43,7 +43,7 @@ export default function InfoCarousel() {
         },
         {
             image: studying,
-            title: 'Cómo aprovecharlos al máximo',
+            title: 'Cómo aprovechar los esquemas',
             description:
                 'Una vez hayas estudiado un tema, acude a los esquemas y observa qué información es la que se destaca en ellos y cuál es la forma más adecuada para enfocar el estudio. A veces, los epígrafes de un tema no siguen el orden más intuitivo de estudio, algo que los esquemas intentan paliar. Por supuesto, haz tus anotaciones, añade información y realiza todos los cambios que desees para hacer “tuyos” los esquemas. Cada cerebro funciona de una manera, y es imposible que un solo método valga para todo el mundo. Por supuesto, si encuentras una errata o tienes sugerencias de mejora, házmelo saber por email.',
         },
