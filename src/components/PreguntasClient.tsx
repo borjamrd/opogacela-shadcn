@@ -224,11 +224,11 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
 
     return (
         <div
-            className="max-w-screen-xl mx-auto px-4 flex flex-col"
+            className="w-full px-4 flex flex-col"
             style={{ height: 'calc(100vh - 56px)' }}
         >
             {/* Filtros */}
-            <div className="flex-shrink-0 py-4 space-y-3 pb-10">
+            <div className="max-w-3xl mx-auto w-full flex-shrink-0 py-4 space-y-3 pb-10">
                 <div className="flex gap-6 items-center">
                     <img
                         src="/giphy.gif"
@@ -254,31 +254,32 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                     </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
-                    {/* Búsqueda */}
-                    <div className="relative flex-1 min-w-[200px]">
-                        <Input
-                            type="text"
-                            placeholder="Buscar en el enunciado..."
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            className="pr-8"
-                        />
-                        {search && (
-                            <button
-                                onClick={() => setSearch('')}
-                                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                            >
-                                <X className="h-4 w-4" />
-                            </button>
-                        )}
-                    </div>
+                {/* Fila 1: Buscador */}
+                <div className="relative w-full">
+                    <Input
+                        type="text"
+                        placeholder="Buscar en el enunciado..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="pr-8"
+                    />
+                    {search && (
+                        <button
+                            onClick={() => setSearch('')}
+                            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                        >
+                            <X className="h-4 w-4" />
+                        </button>
+                    )}
+                </div>
 
+                {/* Fila 2: Selectores (horizontal en desktop, vertical en mobile) */}
+                <div className="flex flex-col md:flex-row gap-2">
                     {/* Bloque */}
                     <select
                         value={bloqueFilter}
                         onChange={(e) => handleBloqueChange(e.target.value)}
-                        className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                        className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring w-full md:w-auto"
                     >
                         <option value="">Todos los bloques</option>
                         {bloques.map((b) => (
@@ -293,7 +294,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                         <select
                             value={temaFilter}
                             onChange={(e) => setTemaFilter(e.target.value)}
-                            className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring max-w-[300px]"
+                            className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring w-full md:w-auto md:max-w-[300px]"
                         >
                             <option value="">Todos los temas</option>
                             {temasDisponibles.map(({ value, label }) => (
@@ -308,7 +309,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                     <select
                         value={examenFilter}
                         onChange={(e) => setExamenFilter(e.target.value)}
-                        className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring min-w-[190px]"
+                        className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring w-full md:w-auto md:min-w-[190px]"
                     >
                         <option value="">Todos los exámenes</option>
                         {examenes.map((e) => (
@@ -322,7 +323,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                     {hasFilters && (
                         <button
                             onClick={resetFilters}
-                            className="h-9 inline-flex items-center gap-1.5 px-3 rounded-md text-sm text-muted-foreground border border-input hover:bg-accent hover:text-accent-foreground transition-colors flex-shrink-0"
+                            className="h-9 inline-flex items-center gap-1.5 px-3 rounded-md text-sm text-muted-foreground border border-input hover:bg-accent hover:text-accent-foreground transition-colors md:flex-shrink-0"
                         >
                             <XCircle className="h-4 w-4" />
                             Limpiar
@@ -332,7 +333,10 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
             </div>
 
             {/* Lista + Sidebar */}
-            <div className="flex flex-1 min-h-0">
+            <div
+                className="flex flex-1 min-h-0 mx-auto w-full transition-[max-width] duration-300 ease-in-out"
+                style={{ maxWidth: selected && !isMobile ? '1280px' : '48rem' }}
+            >
                 {/* Lista con scroll virtual */}
                 <div ref={parentRef} className="flex-1 overflow-auto min-h-0 py-2 pr-2">
                     {filtered.length === 0 ? (
