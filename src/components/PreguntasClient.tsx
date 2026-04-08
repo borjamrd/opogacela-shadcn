@@ -8,7 +8,8 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
-import { CheckCircle2, Download, FileText, SlidersHorizontal, X, XCircle } from 'lucide-react';
+import { CheckCircle2, Download, SlidersHorizontal, X, XCircle } from 'lucide-react';
+import GenerarPlantilla from './GenerarPlantilla';
 import { temasData } from '@/lib/temas';
 
 export interface Question {
@@ -159,11 +160,6 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
             next.has(id) ? next.delete(id) : next.add(id);
             return next;
         });
-
-    const handleDownload = () => {
-        const qs = questions.filter((q) => selectedIds.has(q.id));
-        alert(JSON.stringify(qs, null, 2));
-    };
 
     const parentRef = useRef<HTMLDivElement>(null);
 
@@ -383,14 +379,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                     </Button>
 
                     {selectedIds.size > 0 && (
-                        <Button
-                            size="sm"
-                            className="rounded-full text-xs h-7 px-3 gap-1.5"
-                            onClick={handleDownload}
-                        >
-                            <FileText className="h-3 w-3" />
-                            Generar plantilla ({selectedIds.size})
-                        </Button>
+                        <GenerarPlantilla selectedIds={selectedIds} questions={questions} />
                     )}
                 </div>
                 </div>{/* fin wrapper filtros colapsable */}
