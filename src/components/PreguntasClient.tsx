@@ -4,10 +4,11 @@ import { useState, useRef, useMemo, useEffect } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactMarkdown from 'react-markdown';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
-import { CheckCircle2, SlidersHorizontal, X, XCircle } from 'lucide-react';
+import { CheckCircle2, Download, FileText, SlidersHorizontal, X, XCircle } from 'lucide-react';
 import { temasData } from '@/lib/temas';
 
 export interface Question {
@@ -150,6 +151,19 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
     const [selected, setSelected] = useState<Question | null>(null);
     const [isMobile, setIsMobile] = useState(false);
     const [filtersOpen, setFiltersOpen] = useState(false);
+    const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+
+    const toggleCheck = (id: string) =>
+        setSelectedIds((prev) => {
+            const next = new Set(prev);
+            next.has(id) ? next.delete(id) : next.add(id);
+            return next;
+        });
+
+    const handleDownload = () => {
+        const qs = questions.filter((q) => selectedIds.has(q.id));
+        alert(JSON.stringify(qs, null, 2));
+    };
 
     const parentRef = useRef<HTMLDivElement>(null);
 
@@ -238,7 +252,9 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                     />
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2">
-                            <h1 className="text-xl md:text-2xl font-bold">Preguntas oficiales</h1>
+                            <div className="flex items-baseline gap-2 min-w-0 flex-1">
+                                <h1 className="text-xl md:text-2xl font-bold">Preguntas oficiales</h1>
+                            </div>
                             {/* Botón filtros — solo mobile */}
                             <button
                                 onClick={() => setFiltersOpen((v) => !v)}
@@ -345,8 +361,39 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                         </button>
                     )}
                 </div>
+                </div>
+
+                {/* Fila selección */}
+                <div className="flex items-center gap-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="rounded-full text-xs h-7 px-3"
+                        onClick={() =>
+                            setSelectedIds((prev) =>
+                                prev.size === filtered.length
+                                    ? new Set()
+                                    : new Set(filtered.map((q) => q.id))
+                            )
+                        }
+                    >
+                        {selectedIds.size === filtered.length && filtered.length > 0
+                            ? 'Deseleccionar todas'
+                            : 'Seleccionar todas'}
+                    </Button>
+
+                    {selectedIds.size > 0 && (
+                        <Button
+                            size="sm"
+                            className="rounded-full text-xs h-7 px-3 gap-1.5"
+                            onClick={handleDownload}
+                        >
+                            <FileText className="h-3 w-3" />
+                            Generar plantilla ({selectedIds.size})
+                        </Button>
+                    )}
+                </div>
                 </div>{/* fin wrapper filtros colapsable */}
-            </div>
 
             {/* Lista + Sidebar */}
             <div className="flex-1 min-h-0 flex justify-center">
@@ -375,7 +422,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                             {virtualizer.getVirtualItems().map((item) => {
                                 const q = filtered[item.index];
                                 const isSelected = selected?.id === q.id;
-                                const topicLabel = getTopicLabel(q.b, q.t);
+                                const isChecked = selectedIds.has(q.id);
                                 return (
                                     <div
                                         key={item.key}
@@ -387,24 +434,41 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                                             transform: `translateY(${item.start}px)`,
                                             paddingBottom: '8px',
                                         }}
+                                        className="group/row flex items-center gap-2"
                                     >
+                                        {/* Checkbox — aparece en hover o cuando está marcado */}
+                                        <div
+                                            className={`flex-shrink-0 flex items-center justify-center transition-opacity duration-150 ${
+                                                isChecked ? 'opacity-100' : 'opacity-0 group-hover/row:opacity-100'
+                                            }`}
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={isChecked}
+                                                onChange={() => toggleCheck(q.id)}
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="h-4 w-4 rounded border-input accent-primary cursor-pointer"
+                                            />
+                                        </div>
+
                                         <button
                                             onClick={() => setSelected(isSelected ? null : q)}
-                                            className={`w-full text-left rounded-lg border transition-colors p-4 ${
+                                            className={`flex-1 min-w-0 text-left rounded-lg border transition-colors p-4 ${
                                                 isSelected
                                                     ? 'border-sky-400 bg-sky-50 dark:bg-sky-950/30 dark:border-sky-700'
+                                                    : isChecked
+                                                    ? 'border-primary/40 bg-primary/5'
                                                     : 'bg-card hover:bg-accent hover:text-accent-foreground'
                                             }`}
                                         >
                                             <p className="text-sm line-clamp-2">{q.txt}</p>
-                                            <div className="mt-1 flex gap-1 mt-4">
+                                            <div className="mt-4 flex gap-1">
                                                 <Badge
                                                     variant="outline"
                                                     className="text-xs text-muted-foreground"
                                                 >
                                                     {q.e}
                                                 </Badge>
-
                                                 <Badge variant="secondary" className="text-xs">
                                                     {getBloqueLabel(q.b)}
                                                 </Badge>
