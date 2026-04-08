@@ -92,7 +92,8 @@ interface BuildOpts {
 }
 
 function buildFullHtml(qs: Question[], opts: BuildOpts): string {
-    const { showAnswerSheet, showBloque, showExamen, showTema, showRespuestas, showExplicacion } = opts;
+    const { showAnswerSheet, showBloque, showExamen, showTema, showRespuestas, showExplicacion } =
+        opts;
 
     const badgesHtml = (q: Question) => {
         const badges = [
@@ -168,6 +169,9 @@ interface Props {
     questions: Question[];
     randomCount?: number;
     label?: string;
+    forceOpen?: boolean;
+    onDialogClose?: () => void;
+    hideButton?: boolean;
 }
 
 type Phase = 'idle' | 'loading' | 'preview';
@@ -197,7 +201,15 @@ function CheckboxOption({
     );
 }
 
-export default function GenerarPlantilla({ selectedIds, questions, randomCount, label }: Props) {
+export default function GenerarPlantilla({
+    selectedIds,
+    questions,
+    randomCount,
+    label,
+    forceOpen,
+    onDialogClose,
+    hideButton = false,
+}: Props) {
     const [phase, setPhase] = useState<Phase>('idle');
     const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -227,12 +239,23 @@ export default function GenerarPlantilla({ selectedIds, questions, randomCount, 
     };
 
     const currentHtml = () =>
-        buildFullHtml(getQs(), { showAnswerSheet, showBloque, showExamen, showTema, showRespuestas, showExplicacion });
+        buildFullHtml(getQs(), {
+            showAnswerSheet,
+            showBloque,
+            showExamen,
+            showTema,
+            showRespuestas,
+            showExplicacion,
+        });
 
     const handleGenerate = () => {
         setPhase('loading');
         setTimeout(() => setPhase('preview'), 1200);
     };
+
+    useEffect(() => {
+        if (forceOpen && phase === 'idle') handleGenerate();
+    }, [forceOpen]);
 
     // Write to iframe whenever preview is active and any option changes
     useEffect(() => {
@@ -246,20 +269,22 @@ export default function GenerarPlantilla({ selectedIds, questions, randomCount, 
 
     const handleClose = () => {
         setPhase('idle');
+        onDialogClose?.();
     };
 
     return (
         <>
-            <Button
-                size="sm"
-                className="rounded-full text-xs h-7 px-3 gap-1.5"
-                onClick={handleGenerate}
-                disabled={!randomCount && selectedIds.size === 0}
-            >
-                <FileText className="h-3 w-3" />
-                {label ?? `Generar examen personalizado (${selectedIds.size})`}
-            </Button>
-
+            {!hideButton && (
+                <Button
+                    size="sm"
+                    className="rounded-full text-xs h-7 px-3 gap-1.5"
+                    onClick={handleGenerate}
+                    disabled={!randomCount && selectedIds.size === 0}
+                >
+                    <FileText className="h-3 w-3" />
+                    {label ?? `Generar examen personalizado (${selectedIds.size})`}
+                </Button>
+            )}
             <Dialog open={open} onOpenChange={(o) => !o && handleClose()}>
                 <DialogContent
                     className={

@@ -8,7 +8,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
-import { CheckCircle2, Download, SlidersHorizontal, X, XCircle } from 'lucide-react';
+import { CheckCircle2, Shuffle, SlidersHorizontal, X, XCircle } from 'lucide-react';
 import GenerarPlantilla from './GenerarPlantilla';
 import { temasData } from '@/lib/temas';
 
@@ -153,6 +153,15 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
     const [isMobile, setIsMobile] = useState(false);
     const [filtersOpen, setFiltersOpen] = useState(false);
     const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+    const [mode, setMode] = useState<'none' | 'personalizado'>('none');
+    const [randomOpen, setRandomOpen] = useState(false);
+
+    const togglePersonalizado = () => {
+        const next = mode === 'personalizado' ? 'none' : 'personalizado';
+        setMode(next);
+        setSelectedIds(new Set());
+        if (next === 'none') resetFilters();
+    };
 
     const toggleCheck = (id: string) =>
         setSelectedIds((prev) => {
@@ -234,37 +243,20 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
     });
 
     return (
-        <div
-            className="w-full px-4 flex flex-col"
-            style={{ height: 'calc(100vh - 56px)' }}
-        >
-            {/* Filtros */}
-            <div className="max-w-3xl mx-auto w-full flex-shrink-0 py-4 space-y-3 pb-3 md:pb-6">
+        <div className="w-full px-4 flex flex-col" style={{ height: 'calc(100vh - 56px)' }}>
+            {/* ── Header + controles superiores ── */}
+            <div className="max-w-3xl mx-auto w-full flex-shrink-0 pt-4 space-y-3">
+                {/* Fila: gif + título + descripción */}
                 <div className="flex gap-4 items-center">
                     <img
                         src="/giphy.gif"
                         alt="mascota estudiando"
-                        className="h-14 w-14 md:h-24 md:w-24 rounded-xl object-cover flex-shrink-0"
+                        className="h-14 w-14 md:h-20 md:w-20 rounded-xl object-cover flex-shrink-0"
                     />
                     <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between gap-2">
-                            <div className="flex items-baseline gap-2 min-w-0 flex-1">
-                                <h1 className="text-xl md:text-2xl font-bold">Preguntas oficiales</h1>
-                            </div>
-                            {/* Botón filtros — solo mobile */}
-                            <button
-                                onClick={() => setFiltersOpen((v) => !v)}
-                                className="md:hidden flex-shrink-0 flex items-center gap-1.5 h-8 px-3 rounded-md border border-input text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                            >
-                                <SlidersHorizontal className="h-3.5 w-3.5" />
-                                {filtersOpen ? 'Ocultar' : 'Filtros'}
-                                {hasFilters && (
-                                    <span className="ml-0.5 h-1.5 w-1.5 rounded-full bg-primary" />
-                                )}
-                            </button>
-                        </div>
+                        <h1 className="text-xl md:text-2xl font-bold">Preguntas oficiales</h1>
                         <p className="text-muted-foreground mt-1 max-w-xl text-xs md:text-sm">
-                            Todas las preguntas de todos los exámenes de GACE completamente gratis en un solo lugar. Si te gusta el contenido sígueme en{' '}
+                            Todas las preguntas de exámenes GACE gratis en un solo lugar. Sígueme en{' '}
                             <a
                                 href="https://www.instagram.com/opogace_la/"
                                 target="_blank"
@@ -278,249 +270,301 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                     </div>
                 </div>
 
-                {/* Filtros — siempre visibles en desktop, toggle en mobile */}
-                <div className={`${filtersOpen || !isMobile ? 'flex flex-col gap-3' : 'hidden md:flex md:flex-col md:gap-3'}`}>
+                {/* Fila: botones de modo */}
+                <div className="flex flex-wrap gap-2 items-center pb-1">
+                    {/* Personalizado — toggle */}
+                    <button
+                        onClick={togglePersonalizado}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition-all ${
+                            mode === 'personalizado'
+                                ? 'bg-primary text-primary-foreground border-primary'
+                                : 'border-border bg-card hover:bg-accent text-foreground'
+                        }`}
+                    >
+                        <SlidersHorizontal className="h-4 w-4" />
+                        Examen personalizado
+                        {mode === 'personalizado' && <X className="h-3.5 w-3.5 ml-0.5" />}
+                    </button>
 
-                {/* Fila 1: Buscador */}
-                <div className="relative w-full">
-                    <Input
-                        type="text"
-                        placeholder="Buscar en el enunciado..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="pr-8"
+                    {/* Aleatorio — abre el dialog directamente */}
+                    <button
+                        onClick={() => setRandomOpen(true)}
+                        className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-border bg-card hover:bg-accent text-foreground transition-all"
+                    >
+                        <Shuffle className="h-4 w-4" />
+                        Examen aleatorio
+                    </button>
+
+                    {/* GenerarPlantilla para aleatorio — AHORA CON hideButton */}
+                    <GenerarPlantilla
+                        selectedIds={new Set()}
+                        questions={questions}
+                        randomCount={100}
+                        forceOpen={randomOpen}
+                        onDialogClose={() => setRandomOpen(false)}
+                        hideButton={true} // <-- Oculta el botón duplicado
                     />
-                    {search && (
-                        <button
-                            onClick={() => setSearch('')}
-                            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                        >
-                            <X className="h-4 w-4" />
-                        </button>
-                    )}
                 </div>
 
-                {/* Fila 2: Selectores (horizontal en desktop, vertical en mobile) */}
-                <div className="flex flex-col md:flex-row gap-2">
-                    {/* Bloque */}
-                    <select
-                        value={bloqueFilter}
-                        onChange={(e) => handleBloqueChange(e.target.value)}
-                        className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring w-full md:w-auto"
-                    >
-                        <option value="">Todos los bloques</option>
-                        {bloques.map((b) => (
-                            <option key={b} value={b}>
-                                {getBloqueLabel(b)}
-                            </option>
-                        ))}
-                    </select>
-
-                    {/* Tema (solo visible si hay bloque seleccionado) */}
-                    {bloqueFilter !== '' && (
-                        <select
-                            value={temaFilter}
-                            onChange={(e) => setTemaFilter(e.target.value)}
-                            className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring w-full md:w-auto md:max-w-[300px]"
-                        >
-                            <option value="">Todos los temas</option>
-                            {temasDisponibles.map(({ value, label }) => (
-                                <option key={value} value={value}>
-                                    {value + 1}. {label}
-                                </option>
-                            ))}
-                        </select>
-                    )}
-
-                    {/* Examen */}
-                    <select
-                        value={examenFilter}
-                        onChange={(e) => setExamenFilter(e.target.value)}
-                        className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring w-full md:w-auto md:min-w-[190px]"
-                    >
-                        <option value="">Todos los exámenes</option>
-                        {examenes.map((e) => (
-                            <option key={e} value={e}>
-                                {e}
-                            </option>
-                        ))}
-                    </select>
-
-                    {/* Limpiar */}
-                    {hasFilters && (
-                        <button
-                            onClick={resetFilters}
-                            className="h-9 inline-flex items-center gap-1.5 px-3 rounded-md text-sm text-muted-foreground border border-input hover:bg-accent hover:text-accent-foreground transition-colors md:flex-shrink-0"
-                        >
-                            <XCircle className="h-4 w-4" />
-                            Limpiar
-                        </button>
-                    )}
-                </div>
-                </div>
-
-                {/* Fila selección */}
-                <div className="flex items-center gap-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className="rounded-full text-xs h-7 px-3"
-                        onClick={() =>
-                            setSelectedIds((prev) =>
-                                prev.size === filtered.length
-                                    ? new Set()
-                                    : new Set(filtered.map((q) => q.id))
-                            )
-                        }
-                    >
-                        {selectedIds.size === filtered.length && filtered.length > 0 ? (
-                            <span className="flex items-center gap-1.5">
-                                <XCircle className="h-4 w-4" />
-                                Quitar selección
-                            </span>
-                        ) : (
-                            'Seleccionar preguntas'
-                        )}
-                       
-                    </Button>
-
-                    {selectedIds.size > 0 ? (
-                        <GenerarPlantilla selectedIds={selectedIds} questions={questions} />
-                    ) : (
-                        <GenerarPlantilla
-                            selectedIds={selectedIds}
-                            questions={questions}
-                            randomCount={100}
-                            label="Generar examen aleatorio (100 preguntas)"
-                        />
-                    )}
-                </div>
-                </div>{/* fin wrapper filtros colapsable */}
-
-            {/* Lista + Sidebar */}
-            <div className="flex-1 min-h-0 flex justify-center">
-            <div
-                className="flex w-full min-h-0 transition-[max-width] duration-300 ease-in-out"
-                style={{ maxWidth: selected && !isMobile ? '1280px' : '48rem' }}
-            >
-                {/* Lista con scroll virtual */}
-                <div className="relative flex-1 min-h-0 flex flex-col">
-                    {/* Fade top */}
-                    <div className="pointer-events-none absolute top-0 inset-x-0 h-8 z-10 bg-gradient-to-b from-background to-transparent" />
-                    {/* Fade bottom */}
-                    <div className="pointer-events-none absolute bottom-0 inset-x-0 h-16 z-10 bg-gradient-to-t from-background to-transparent" />
-                <div ref={parentRef} className="flex-1 overflow-auto min-h-0 py-2 pr-2">
-                    {filtered.length === 0 ? (
-                        <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
-                            No se encontraron preguntas con los filtros aplicados.
+                {/* Filtros — solo en modo personalizado */}
+                {mode === 'personalizado' && (
+                    <div className="space-y-3 pb-3 md:pb-4">
+                        {/* Mobile: toggle filtros */}
+                        <div className="flex items-center gap-2 md:hidden">
+                            <button
+                                onClick={() => setFiltersOpen((v) => !v)}
+                                className="flex items-center gap-1.5 h-8 px-3 rounded-md border border-input text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                            >
+                                <SlidersHorizontal className="h-3.5 w-3.5" />
+                                {filtersOpen ? 'Ocultar filtros' : 'Mostrar filtros'}
+                                {hasFilters && (
+                                    <span className="ml-0.5 h-1.5 w-1.5 rounded-full bg-primary" />
+                                )}
+                            </button>
                         </div>
-                    ) : (
+
+                        {/* Filtros */}
                         <div
-                            style={{
-                                height: `${virtualizer.getTotalSize()}px`,
-                                position: 'relative',
-                            }}
+                            className={
+                                filtersOpen || !isMobile
+                                    ? 'flex flex-col gap-3'
+                                    : 'hidden md:flex md:flex-col md:gap-3'
+                            }
                         >
-                            {virtualizer.getVirtualItems().map((item) => {
-                                const q = filtered[item.index];
-                                const isSelected = selected?.id === q.id;
-                                const isChecked = selectedIds.has(q.id);
-                                return (
-                                    <div
-                                        key={item.key}
-                                        style={{
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            width: '100%',
-                                            transform: `translateY(${item.start}px)`,
-                                            paddingBottom: '8px',
-                                        }}
-                                        className="group/row flex items-center gap-2"
+                            {/* Buscador */}
+                            <div className="relative w-full">
+                                <Input
+                                    type="text"
+                                    placeholder="Buscar en el enunciado..."
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    className="pr-8"
+                                />
+                                {search && (
+                                    <button
+                                        onClick={() => setSearch('')}
+                                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                                     >
-                                        {/* Checkbox — aparece en hover o cuando está marcado */}
-                                        <div
-                                            className={`flex-shrink-0 flex items-center justify-center transition-opacity duration-150 ${
-                                                isChecked ? 'opacity-100' : 'opacity-0 group-hover/row:opacity-100'
-                                            }`}
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                checked={isChecked}
-                                                onChange={() => toggleCheck(q.id)}
-                                                onClick={(e) => e.stopPropagation()}
-                                                className="h-4 w-4 rounded border-input accent-primary cursor-pointer"
-                                            />
-                                        </div>
+                                        <X className="h-4 w-4" />
+                                    </button>
+                                )}
+                            </div>
 
-                                        <button
-                                            onClick={() => setSelected(isSelected ? null : q)}
-                                            className={`flex-1 min-w-0 text-left rounded-lg border transition-colors p-4 ${
-                                                isSelected
-                                                    ? 'border-sky-400 bg-sky-50 dark:bg-sky-950/30 dark:border-sky-700'
-                                                    : isChecked
-                                                    ? 'border-primary/40 bg-primary/5'
-                                                    : 'bg-card hover:bg-accent hover:text-accent-foreground'
-                                            }`}
-                                        >
-                                            <p className="text-sm line-clamp-2">{q.txt}</p>
-                                            <div className="mt-4 flex gap-1">
-                                                <Badge
-                                                    variant="outline"
-                                                    className="text-xs text-muted-foreground"
-                                                >
-                                                    {q.e}
-                                                </Badge>
-                                                <Badge variant="secondary" className="text-xs">
-                                                    {getBloqueLabel(q.b)}
-                                                </Badge>
-                                            </div>
-                                        </button>
-                                    </div>
-                                );
-                            })}
+                            {/* Selectores */}
+                            <div className="flex flex-col md:flex-row gap-2">
+                                <select
+                                    value={bloqueFilter}
+                                    onChange={(e) => handleBloqueChange(e.target.value)}
+                                    className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring w-full md:w-auto"
+                                >
+                                    <option value="">Todos los bloques</option>
+                                    {bloques.map((b) => (
+                                        <option key={b} value={b}>
+                                            {getBloqueLabel(b)}
+                                        </option>
+                                    ))}
+                                </select>
+                                {bloqueFilter !== '' && (
+                                    <select
+                                        value={temaFilter}
+                                        onChange={(e) => setTemaFilter(e.target.value)}
+                                        className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring w-full md:w-auto md:max-w-[300px]"
+                                    >
+                                        <option value="">Todos los temas</option>
+                                        {temasDisponibles.map(({ value, label }) => (
+                                            <option key={value} value={value}>
+                                                {value + 1}. {label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                )}
+                                <select
+                                    value={examenFilter}
+                                    onChange={(e) => setExamenFilter(e.target.value)}
+                                    className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring w-full md:w-auto md:min-w-[190px]"
+                                >
+                                    <option value="">Todos los exámenes</option>
+                                    {examenes.map((e) => (
+                                        <option key={e} value={e}>
+                                            {e}
+                                        </option>
+                                    ))}
+                                </select>
+                                {hasFilters && (
+                                    <button
+                                        onClick={resetFilters}
+                                        className="h-9 inline-flex items-center gap-1.5 px-3 rounded-md text-sm text-muted-foreground border border-input hover:bg-accent hover:text-accent-foreground transition-colors md:flex-shrink-0"
+                                    >
+                                        <XCircle className="h-4 w-4" />
+                                        Limpiar
+                                    </button>
+                                )}
+                            </div>
                         </div>
-                    )}
-                </div>
-                </div>
 
-                {/* Sidebar (desktop) */}
-                <AnimatePresence>
-                    {selected && !isMobile && (
-                        <motion.div
-                            key="sidebar"
-                            initial={{ width: 0, opacity: 0 }}
-                            animate={{ width: 760, opacity: 1 }}
-                            exit={{ width: 0, opacity: 0 }}
-                            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                            className="flex-shrink-0 border-l flex flex-col min-h-0 overflow-hidden"
-                        >
-                            <QuestionDetail
-                                question={selected}
-                                onClose={() => setSelected(null)}
-                            />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        {/* Selección + generar */}
+                        <div className="flex items-center gap-2">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="rounded-full text-xs h-7 px-3"
+                                onClick={() =>
+                                    setSelectedIds((prev) =>
+                                        prev.size === filtered.length
+                                            ? new Set()
+                                            : new Set(filtered.map((q) => q.id))
+                                    )
+                                }
+                            >
+                                {selectedIds.size === filtered.length && filtered.length > 0 ? (
+                                    <span className="flex items-center gap-1.5">
+                                        <XCircle className="h-3.5 w-3.5" />
+                                        Quitar selección
+                                    </span>
+                                ) : (
+                                    'Seleccionar preguntas'
+                                )}
+                            </Button>
+                            {selectedIds.size > 0 && (
+                                <GenerarPlantilla selectedIds={selectedIds} questions={questions} />
+                            )}
+                        </div>
+                    </div>
+                )}
+            </div>
 
-                {/* Dialog (mobile) */}
-                {isMobile && (
-                    <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-                        <DialogContent className="max-h-[90vh] flex flex-col p-0">
-                            <DialogHeader className="px-4 pt-4 pb-0 flex-shrink-0">
-                                <DialogTitle className="sr-only">Detalle de pregunta</DialogTitle>
-                            </DialogHeader>
-                            {selected && (
+            {/* ── Lista + Sidebar (siempre visible) ── */}
+            <div className="flex-1 min-h-0 flex justify-center">
+                <div
+                    className="flex w-full min-h-0 transition-[max-width] duration-300 ease-in-out"
+                    style={{ maxWidth: selected && !isMobile ? '1280px' : '48rem' }}
+                >
+                    {/* Lista con scroll virtual */}
+                    <div className="relative flex-1 min-h-0 flex flex-col">
+                        <div className="pointer-events-none absolute top-0 inset-x-0 h-8 z-10 bg-gradient-to-b from-background to-transparent" />
+                        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-16 z-10 bg-gradient-to-t from-background to-transparent" />
+                        <div ref={parentRef} className="flex-1 overflow-auto min-h-0 py-2 pr-2">
+                            {filtered.length === 0 ? (
+                                <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
+                                    No se encontraron preguntas con los filtros aplicados.
+                                </div>
+                            ) : (
+                                <div
+                                    style={{
+                                        height: `${virtualizer.getTotalSize()}px`,
+                                        position: 'relative',
+                                    }}
+                                >
+                                    {virtualizer.getVirtualItems().map((item) => {
+                                        const q = filtered[item.index];
+                                        const isSelected = selected?.id === q.id;
+                                        const isChecked = selectedIds.has(q.id);
+                                        return (
+                                            <div
+                                                key={item.key}
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    left: 0,
+                                                    width: '100%',
+                                                    transform: `translateY(${item.start}px)`,
+                                                    paddingBottom: '8px',
+                                                }}
+                                                className="group/row flex items-center gap-2"
+                                            >
+                                                {/* Checkbox — solo en modo personalizado */}
+                                                {mode === 'personalizado' && (
+                                                    <div
+                                                        className={`flex-shrink-0 flex items-center justify-center transition-opacity duration-150 ${isChecked ? 'opacity-100' : 'opacity-0 group-hover/row:opacity-100'}`}
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isChecked}
+                                                            onChange={() => toggleCheck(q.id)}
+                                                            onClick={(e) => e.stopPropagation()}
+                                                            className="h-4 w-4 rounded border-input accent-primary cursor-pointer"
+                                                        />
+                                                    </div>
+                                                )}
+
+                                                <button
+                                                    onClick={() =>
+                                                        setSelected(isSelected ? null : q)
+                                                    }
+                                                    className={`flex-1 min-w-0 text-left rounded-lg border transition-colors p-4 ${
+                                                        isSelected
+                                                            ? 'border-sky-400 bg-sky-50 dark:bg-sky-950/30 dark:border-sky-700'
+                                                            : mode === 'personalizado' && isChecked
+                                                              ? 'border-primary/40 bg-primary/5'
+                                                              : 'bg-card hover:bg-accent hover:text-accent-foreground'
+                                                    }`}
+                                                >
+                                                    <p className="text-sm line-clamp-2">{q.txt}</p>
+                                                    <div className="mt-4 flex gap-1">
+                                                        <Badge
+                                                            variant="outline"
+                                                            className="text-xs text-muted-foreground"
+                                                        >
+                                                            {q.e}
+                                                        </Badge>
+                                                        <Badge
+                                                            variant="secondary"
+                                                            className="text-xs"
+                                                        >
+                                                            {getBloqueLabel(q.b)}
+                                                        </Badge>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Sidebar (desktop) */}
+                    <AnimatePresence>
+                        {selected && !isMobile && (
+                            <motion.div
+                                key="sidebar"
+                                initial={{ width: 0, opacity: 0 }}
+                                animate={{ width: 760, opacity: 1 }}
+                                exit={{ width: 0, opacity: 0 }}
+                                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                                className="flex-shrink-0 border-l flex flex-col min-h-0 overflow-hidden"
+                            >
                                 <QuestionDetail
                                     question={selected}
                                     onClose={() => setSelected(null)}
-                                    isDialog
                                 />
-                            )}
-                        </DialogContent>
-                    </Dialog>
-                )}
-            </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Dialog (mobile) */}
+                    {isMobile && (
+                        <Dialog
+                            open={!!selected}
+                            onOpenChange={(open) => !open && setSelected(null)}
+                        >
+                            <DialogContent className="max-h-[90vh] flex flex-col p-0">
+                                <DialogHeader className="px-4 pt-4 pb-0 flex-shrink-0">
+                                    <DialogTitle className="sr-only">
+                                        Detalle de pregunta
+                                    </DialogTitle>
+                                </DialogHeader>
+                                {selected && (
+                                    <QuestionDetail
+                                        question={selected}
+                                        onClose={() => setSelected(null)}
+                                        isDialog
+                                    />
+                                )}
+                            </DialogContent>
+                        </Dialog>
+                    )}
+                </div>
             </div>
         </div>
     );
