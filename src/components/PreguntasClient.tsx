@@ -373,9 +373,15 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                             )
                         }
                     >
-                        {selectedIds.size === filtered.length && filtered.length > 0
-                            ? 'Deseleccionar todas'
-                            : 'Seleccionar todas'}
+                        {selectedIds.size === filtered.length && filtered.length > 0 ? (
+                            <span className="flex items-center gap-1.5">
+                                <XCircle className="h-4 w-4" />
+                                Quitar selección
+                            </span>
+                        ) : (
+                            'Seleccionar todas'
+                        )}
+                       
                     </Button>
 
                     {selectedIds.size > 0 && (

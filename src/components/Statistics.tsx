@@ -41,7 +41,7 @@ export const Statistics = () => {
             description: 'Aprobado (Top 40) OEP 20/21/22 ',
         },
         {
-            quantity: 'Cuerpo Superior de Administradores (A1)',
+            quantity: 'Cuerpo Superior (A1)',
             description: 'En curso',
         },
     ];
