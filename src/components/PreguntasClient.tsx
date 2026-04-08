@@ -333,8 +333,9 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
             </div>
 
             {/* Lista + Sidebar */}
+            <div className="flex-1 min-h-0 flex justify-center">
             <div
-                className="flex flex-1 min-h-0 mx-auto w-full transition-[max-width] duration-300 ease-in-out"
+                className="flex w-full min-h-0 transition-[max-width] duration-300 ease-in-out"
                 style={{ maxWidth: selected && !isMobile ? '1280px' : '48rem' }}
             >
                 {/* Lista con scroll virtual */}
@@ -431,6 +432,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                         </DialogContent>
                     </Dialog>
                 )}
+            </div>
             </div>
         </div>
     );
