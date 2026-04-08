@@ -51,7 +51,7 @@ export default function Cart() {
             <AlertDialogTrigger asChild>
                 <Button
                     disabled={prices.length === 0}
-                    className={`border relative ${buttonVariants({
+                    className={`border relative disabled:opacity-100 sm:disabled:opacity-50 ${buttonVariants({
                         variant: 'secondary',
                     })}`}
                 >

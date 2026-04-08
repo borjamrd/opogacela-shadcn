@@ -12,7 +12,7 @@ export const Cta = () => {
                 <Card className="bg-white rounded-3xl border-none shadow-2xl overflow-hidden relative">
                     <CardContent className="p-0 grid lg:grid-cols-2 gap-8 items-center">
                         {/* Image Section with Animation */}
-                        <div className="relative h-[400px] overflow-hidden group">
+                        <div className="relative h-[200px] md:h-[400px] overflow-hidden group">
                             {/* Gradient Mask */}
                             <div className="absolute inset-0 z-10 bg-gradient-to-r from-white from-2% via-transparent via-10%  to-white to-98% pointer-events-none" />
 
