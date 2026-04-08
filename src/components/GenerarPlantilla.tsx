@@ -87,20 +87,31 @@ interface BuildOpts {
     showBloque: boolean;
     showExamen: boolean;
     showTema: boolean;
+    showRespuestas: boolean;
+    showExplicacion: boolean;
 }
 
 function buildFullHtml(qs: Question[], opts: BuildOpts): string {
-    const { showAnswerSheet, showBloque, showExamen, showTema } = opts;
+    const { showAnswerSheet, showBloque, showExamen, showTema, showRespuestas, showExplicacion } = opts;
 
     const badgesHtml = (q: Question) => {
         const badges = [
-            showBloque ? `<span class="badge">Bloque ${q.b}</span>` : '',
-            showTema ? `<span class="badge">Tema ${q.t}</span>` : '',
+            showBloque ? `<span class="badge">Bloque ${q.b + 1}</span>` : '',
+            showTema ? `<span class="badge">Tema ${q.t + 1}</span>` : '',
             showExamen ? `<span class="badge">${q.e}</span>` : '',
         ]
             .filter(Boolean)
             .join('');
         return badges ? `<div class="badges">${badges}</div>` : '';
+    };
+
+    const answerItemHtml = (a: string, ai: number, correctIdx: number) => {
+        const isCorrect = showRespuestas && ai === correctIdx;
+        return `<li style="${isCorrect ? 'font-weight:600;color:#166534;' : ''}">
+      <span class="bubble" style="${isCorrect ? 'background:#bbf7d0;border-color:#16a34a;' : ''}"></span>
+      <span class="letter">${'ABCDE'[ai]})</span>
+      <span>${a}</span>
+    </li>`;
     };
 
     return `<!DOCTYPE html>
@@ -122,6 +133,7 @@ function buildFullHtml(qs: Question[], opts: BuildOpts): string {
     .answers li { display: flex; gap: 6px; align-items: flex-start; }
     .letter { font-weight: bold; min-width: 16px; }
     .bubble { width: 10px; height: 10px; border: 1px solid #333; border-radius: 50%; display: inline-block; margin-top: 2px; flex-shrink: 0; }
+    .explicacion { margin-top: 6px; font-size: 10px; color: #555; background: #f5f5f4; border-left: 3px solid #a8a29e; padding: 4px 8px; border-radius: 2px; }
     @media print { body { margin: 16px; } }
   </style>
 </head>
@@ -138,13 +150,9 @@ function buildFullHtml(qs: Question[], opts: BuildOpts): string {
     ${badgesHtml(q)}
     <p class="txt">${q.txt}</p>
     <ul class="answers">
-      ${q.ans
-          .map(
-              (a, ai) =>
-                  `<li><span class="bubble"></span><span class="letter">${'ABCDE'[ai]})</span><span>${a}</span></li>`
-          )
-          .join('')}
+      ${q.ans.map((a, ai) => answerItemHtml(a, ai, q.ok)).join('')}
     </ul>
+    ${showExplicacion && q.fb ? `<div class="explicacion">${q.fb}</div>` : ''}
   </div>`
       )
       .join('')}
@@ -158,6 +166,8 @@ function buildFullHtml(qs: Question[], opts: BuildOpts): string {
 interface Props {
     selectedIds: Set<string>;
     questions: Question[];
+    randomCount?: number;
+    label?: string;
 }
 
 type Phase = 'idle' | 'loading' | 'preview';
@@ -187,7 +197,7 @@ function CheckboxOption({
     );
 }
 
-export default function GenerarPlantilla({ selectedIds, questions }: Props) {
+export default function GenerarPlantilla({ selectedIds, questions, randomCount, label }: Props) {
     const [phase, setPhase] = useState<Phase>('idle');
     const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -195,10 +205,18 @@ export default function GenerarPlantilla({ selectedIds, questions }: Props) {
     const [showBloque, setShowBloque] = useState(true);
     const [showExamen, setShowExamen] = useState(true);
     const [showTema, setShowTema] = useState(false);
+    const [showRespuestas, setShowRespuestas] = useState(false);
+    const [showExplicacion, setShowExplicacion] = useState(false);
 
     const open = phase !== 'idle';
 
-    const getQs = () => questions.filter((q) => selectedIds.has(q.id));
+    const getQs = () => {
+        if (randomCount) {
+            const shuffled = [...questions].sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, randomCount);
+        }
+        return questions.filter((q) => selectedIds.has(q.id));
+    };
 
     const writeToIframe = (html: string) => {
         const doc = iframeRef.current?.contentDocument;
@@ -209,7 +227,7 @@ export default function GenerarPlantilla({ selectedIds, questions }: Props) {
     };
 
     const currentHtml = () =>
-        buildFullHtml(getQs(), { showAnswerSheet, showBloque, showExamen, showTema });
+        buildFullHtml(getQs(), { showAnswerSheet, showBloque, showExamen, showTema, showRespuestas, showExplicacion });
 
     const handleGenerate = () => {
         setPhase('loading');
@@ -220,7 +238,7 @@ export default function GenerarPlantilla({ selectedIds, questions }: Props) {
     useEffect(() => {
         if (phase !== 'preview') return;
         writeToIframe(currentHtml());
-    }, [phase, showAnswerSheet, showBloque, showExamen, showTema]);
+    }, [phase, showAnswerSheet, showBloque, showExamen, showTema, showRespuestas, showExplicacion]);
 
     const handlePrint = () => {
         iframeRef.current?.contentWindow?.print();
@@ -236,15 +254,19 @@ export default function GenerarPlantilla({ selectedIds, questions }: Props) {
                 size="sm"
                 className="rounded-full text-xs h-7 px-3 gap-1.5"
                 onClick={handleGenerate}
-                disabled={selectedIds.size === 0}
+                disabled={!randomCount && selectedIds.size === 0}
             >
                 <FileText className="h-3 w-3" />
-                Generar plantilla ({selectedIds.size})
+                {label ?? `Generar examen personalizado (${selectedIds.size})`}
             </Button>
 
             <Dialog open={open} onOpenChange={(o) => !o && handleClose()}>
                 <DialogContent
-                    className="max-w-3xl w-full h-[85vh] flex flex-col p-0 gap-0"
+                    className={
+                        phase === 'preview'
+                            ? 'max-w-3xl w-full h-[85vh] flex flex-col p-0 gap-0'
+                            : 'max-w-3xl w-full h-[35vh] flex flex-col p-0 gap-0'
+                    }
                     onInteractOutside={(e) => phase === 'loading' && e.preventDefault()}
                 >
                     <DialogHeader className="px-5 py-4 border-b flex-shrink-0">
@@ -258,9 +280,9 @@ export default function GenerarPlantilla({ selectedIds, questions }: Props) {
                             <img
                                 src="/wait.gif"
                                 alt="Espera"
-                                className="h-20 w-20 rounded-xl object-cover flex-shrink-0"
+                                className="h-40 w-40 rounded-xl object-cover flex-shrink-0"
                             />
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <p className="text- text-muted-foreground leading-relaxed">
                                 Generando tu plantilla de examen, paciencia po favo 🐢
                             </p>
                         </div>
@@ -272,7 +294,7 @@ export default function GenerarPlantilla({ selectedIds, questions }: Props) {
                             <div className="flex items-center gap-4 px-5 py-2.5 border-b bg-muted/40 flex-shrink-0 flex-wrap">
                                 <CheckboxOption
                                     id="opt-answer-sheet"
-                                    label="Plantilla de respuestas"
+                                    label="Plantilla para responder"
                                     checked={showAnswerSheet}
                                     onChange={setShowAnswerSheet}
                                 />
@@ -293,6 +315,18 @@ export default function GenerarPlantilla({ selectedIds, questions }: Props) {
                                     label="Mostrar tema"
                                     checked={showTema}
                                     onChange={setShowTema}
+                                />
+                                <CheckboxOption
+                                    id="opt-respuestas"
+                                    label="Mostrar respuestas"
+                                    checked={showRespuestas}
+                                    onChange={setShowRespuestas}
+                                />
+                                <CheckboxOption
+                                    id="opt-explicacion"
+                                    label="Mostrar explicación"
+                                    checked={showExplicacion}
+                                    onChange={setShowExplicacion}
                                 />
                             </div>
 

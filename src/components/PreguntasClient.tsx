@@ -379,13 +379,20 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                                 Quitar selección
                             </span>
                         ) : (
-                            'Seleccionar todas'
+                            'Seleccionar preguntas'
                         )}
                        
                     </Button>
 
-                    {selectedIds.size > 0 && (
+                    {selectedIds.size > 0 ? (
                         <GenerarPlantilla selectedIds={selectedIds} questions={questions} />
+                    ) : (
+                        <GenerarPlantilla
+                            selectedIds={selectedIds}
+                            questions={questions}
+                            randomCount={100}
+                            label="Generar examen aleatorio (100 preguntas)"
+                        />
                     )}
                 </div>
                 </div>{/* fin wrapper filtros colapsable */}
