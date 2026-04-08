@@ -299,7 +299,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                     <GenerarPlantilla
                         selectedIds={new Set()}
                         questions={questions}
-                        randomCount={100}
+                        randomCount={105}
                         forceOpen={randomOpen}
                         onDialogClose={() => setRandomOpen(false)}
                         hideButton={true} // <-- Oculta el botón duplicado
