@@ -12,6 +12,11 @@ import { CheckCircle2, Shuffle, SlidersHorizontal, X, XCircle } from 'lucide-rea
 import GenerarPlantilla from './GenerarPlantilla';
 import { temasData } from '@/lib/temas';
 
+interface ReviewData {
+    reviewed: boolean;
+    comments: string;
+}
+
 export interface Question {
     id: string;
     b: number;
@@ -37,10 +42,14 @@ function QuestionDetail({
     question,
     onClose,
     isDialog = false,
+    review,
+    onReviewChange,
 }: {
     question: Question;
     onClose: () => void;
     isDialog?: boolean;
+    review: ReviewData;
+    onReviewChange: (id: string, data: Partial<ReviewData>) => void;
 }) {
     return (
         <>
@@ -139,10 +148,42 @@ function QuestionDetail({
                         </div>
                     </div>
                 )}
+
+                {/* ── Revisión manual ── */}
+                <div className="pt-4 border-t space-y-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        Revisión
+                    </p>
+                    <button
+                        onClick={() =>
+                            onReviewChange(question.id, { reviewed: !review.reviewed })
+                        }
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium border transition-all ${
+                            review.reviewed
+                                ? 'bg-green-50 border-green-300 text-green-700 dark:bg-green-950/40 dark:border-green-700 dark:text-green-400'
+                                : 'border-border bg-card hover:bg-accent text-muted-foreground'
+                        }`}
+                    >
+                        <CheckCircle2 className="h-4 w-4" />
+                        {review.reviewed ? 'Revisada' : 'Marcar como revisada'}
+                    </button>
+                    <textarea
+                        value={review.comments}
+                        onChange={(e) =>
+                            onReviewChange(question.id, { comments: e.target.value })
+                        }
+                        placeholder="Comentarios sobre esta pregunta..."
+                        rows={3}
+                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-none"
+                    />
+                </div>
             </div>
         </>
     );
 }
+
+const REVIEWS_KEY = 'question_reviews';
+const DEFAULT_REVIEW: ReviewData = { reviewed: false, comments: '' };
 
 export default function PreguntasClient({ questions }: { questions: Question[] }) {
     const [search, setSearch] = useState('');
@@ -155,6 +196,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
     const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
     const [mode, setMode] = useState<'none' | 'personalizado'>('none');
     const [randomOpen, setRandomOpen] = useState(false);
+    const [reviews, setReviews] = useState<Record<string, ReviewData>>({});
 
     const togglePersonalizado = () => {
         const next = mode === 'personalizado' ? 'none' : 'personalizado';
@@ -179,6 +221,19 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
         mq.addEventListener('change', handler);
         return () => mq.removeEventListener('change', handler);
     }, []);
+
+    useEffect(() => {
+        const stored = localStorage.getItem(REVIEWS_KEY);
+        if (stored) setReviews(JSON.parse(stored));
+    }, []);
+
+    const updateReview = (id: string, data: Partial<ReviewData>) => {
+        setReviews((prev) => {
+            const next = { ...prev, [id]: { ...DEFAULT_REVIEW, ...prev[id], ...data } };
+            localStorage.setItem(REVIEWS_KEY, JSON.stringify(next));
+            return next;
+        });
+    };
 
     const hasFilters =
         search !== '' || bloqueFilter !== '' || temaFilter !== '' || examenFilter !== '';
@@ -500,7 +555,7 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                                                     }`}
                                                 >
                                                     <p className="text-sm line-clamp-2">{q.txt}</p>
-                                                    <div className="mt-4 flex gap-1">
+                                                    <div className="mt-4 flex gap-1 flex-wrap">
                                                         <Badge
                                                             variant="outline"
                                                             className="text-xs text-muted-foreground"
@@ -513,6 +568,12 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                                                         >
                                                             {getBloqueLabel(q.b)}
                                                         </Badge>
+                                                        {reviews[q.id]?.reviewed && (
+                                                            <Badge className="text-xs bg-green-100 text-green-700 border-green-300 dark:bg-green-950/40 dark:text-green-400 dark:border-green-700">
+                                                                <CheckCircle2 className="h-3 w-3 mr-1" />
+                                                                Revisada
+                                                            </Badge>
+                                                        )}
                                                     </div>
                                                 </button>
                                             </div>
@@ -537,6 +598,8 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                                 <QuestionDetail
                                     question={selected}
                                     onClose={() => setSelected(null)}
+                                    review={reviews[selected.id] ?? DEFAULT_REVIEW}
+                                    onReviewChange={updateReview}
                                 />
                             </motion.div>
                         )}
@@ -559,6 +622,8 @@ export default function PreguntasClient({ questions }: { questions: Question[] }
                                         question={selected}
                                         onClose={() => setSelected(null)}
                                         isDialog
+                                        review={reviews[selected.id] ?? DEFAULT_REVIEW}
+                                        onReviewChange={updateReview}
                                     />
                                 )}
                             </DialogContent>
