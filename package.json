@@ -40,6 +40,7 @@
         "react-markdown": "^8.0.7",
         "resend": "^6.6.0",
         "stripe": "^14.24.0",
+        "supabase": "2.89.1",
         "tailwind-merge": "^2.2.2",
         "tailwindcss-animate": "^1.0.7",
         "vaul": "^0.9.1",
